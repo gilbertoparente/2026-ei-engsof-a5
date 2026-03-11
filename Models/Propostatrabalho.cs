@@ -1,0 +1,35 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace ProfileMAnager.Models;
+
+public partial class Propostatrabalho
+{
+    public int Idproposta { get; set; }
+
+    public int Idutilizador { get; set; }
+
+    public int Idcliente { get; set; }
+
+    public string Nome { get; set; } = null!;
+
+    public int Idcategoria { get; set; }
+
+    public int? Horastotais { get; set; }
+
+    public string? Descricao { get; set; }
+
+    public DateTime? CreatedAt { get; set; }
+
+    public DateTime? UpdatedAt { get; set; }
+
+    public virtual Categoriatalento IdcategoriaNavigation { get; set; } = null!;
+
+    public virtual Cliente IdclienteNavigation { get; set; } = null!;
+
+    public virtual Utilizador IdutilizadorNavigation { get; set; } = null!;
+    
+    public Estadoproposta Estado { get; set; }
+
+    public virtual ICollection<Propostaskill> Propostaskills { get; set; } = new List<Propostaskill>();
+}

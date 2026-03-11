@@ -1,0 +1,13 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace ProfileMAnager.Models;
+
+public partial class Areaprofissional
+{
+    public int Idarea { get; set; }
+
+    public string Nome { get; set; } = null!;
+
+    public virtual ICollection<Skill> Skills { get; set; } = new List<Skill>();
+}
