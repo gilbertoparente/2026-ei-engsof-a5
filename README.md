@@ -44,6 +44,28 @@ Objetivos do Sprint 1
 1. Base de dados criada
 2. Entidades criadas
 
+# Inicialização
+1. Correr o Script que está na pasta Database para criar a base de dados no servidor Postgre
+2. Inserir Dados de teste
+3. Efetuar a ligação à base de dados
+4. Criar a camada BLL com o comando publicado no ficheiro scratch.txt
+
+# database connections:
+1. jdbc:postgresql://localhost:5432/ProjectManager
+
+# Comandos para instalaçáo dos pacotes entity framework:
+
+1. dotnet add package Microsoft.EntityFrameworkCore --version 7.0.20
+2. dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.20
+3. dotnet add package Microsoft.EntityFrameworkCore.Tools --version 7.0.20
+4. dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL --version 7.0.11
+
+# Criar as entidades
+
+1. dotnet ef dbcontext scaffold "Host=localhost;Port=5432;Database=ProjectManager;Username=postgres;Password=123456" Npgsql.EntityFrameworkCore.PostgreSQL -o ModelsAnager\ProfileMAnager>
+
+# criação da Base de dados :
+1. pg_dump -U postgres -d ProjectManager -f database.sql
 
 
 
