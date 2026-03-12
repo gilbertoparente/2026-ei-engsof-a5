@@ -60,7 +60,7 @@ Objetivos do Sprint 1
 3. dotnet add package Microsoft.EntityFrameworkCore.Tools --version 7.0.20
 4. dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL --version 7.0.11
 
-# Criar as entidades
+# Criar as entidades no IDE
 
 1. dotnet ef dbcontext scaffold "Host=localhost;Port=5432;Database=ProjectManager;Username=postgres;Password=123456" Npgsql.EntityFrameworkCore.PostgreSQL -o ModelsAnager\ProfileMAnager>
 
