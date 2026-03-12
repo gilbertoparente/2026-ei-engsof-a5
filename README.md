@@ -50,8 +50,8 @@ Objetivos do Sprint 1
 3. Efetuar a ligação à base de dados
 4. Criar a camada BLL com o comando publicado no ficheiro scratch.txt
 
-# database connections:
-1. jdbc:postgresql://localhost:5432/ProjectManager
+# Database connections:
+1. jdbc:postgresql://localhost:5432/ProjectManager 
 
 # Comandos para instalaçáo dos pacotes entity framework:
 
