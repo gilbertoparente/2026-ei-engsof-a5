@@ -1,0 +1,43 @@
+@model IEnumerable<ProfileMAnager.Models.Talento>
+
+<h1>Talentos</h1>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        <p>Nenhum talento cadastrado.</p>
+        <a asp-action="Create" class="btn btn-primary">Adicionar Primeiro Talento</a>
+    </div>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Utilizador ID</th>
+            <th>Categoria ID</th>
+            <th>País</th>
+            <th>Preço</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Idtalento</td>
+                <td>@item.Idutilizador</td>
+                <td>@item.Idcategoria</td>
+                <td>@(item.pais ?? "N/D")</td>
+                <td>@item.precohora €</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Idtalento">Editar</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Idtalento">Apagar</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+<a asp-action="Create" class="btn btn-success">Novo Talento</a>

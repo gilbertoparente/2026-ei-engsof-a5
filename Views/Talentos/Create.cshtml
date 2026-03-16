@@ -1,0 +1,35 @@
+@model ProfileMAnager.Models.Talento
+@{
+    ViewData["Title"] = "Adicionar Talento";
+}
+
+<h2>Adicionar Talento</h2>
+<form asp-action="Create">
+    <div class="form-group">
+        <label>Utilizador</label>
+        <select asp-for="Idutilizador" class="form-control" asp-items="ViewBag.Idutilizadores">
+            <option value="">-- Selecione um Utilizador --</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Categoria</label>
+        <select asp-for="Idcategoria" class="form-control" asp-items="ViewBag.Idcategorias">
+            <option value="">-- Selecione uma Categoria --</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>País</label>
+        <input asp-for="pais" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Preço/Hora (€)</label>
+        <input asp-for="precohora" class="form-control" type="number" step="0.01" required />
+    </div>
+    <div class="form-group">
+        <label>Perfil Público</label>
+        <input asp-for="Publico" type="checkbox" />
+    </div>
+    <br />
+    <input type="submit" value="Criar" class="btn btn-success" />
+    <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+</form>
