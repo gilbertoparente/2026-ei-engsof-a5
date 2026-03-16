@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProfileMAnager.Models;
 
 public partial class Talento
 {
+    [Key]
     public int Idtalento { get; set; }
 
     public int Idutilizador { get; set; }
 
     public int Idcategoria { get; set; }
 
-    public string? Pais { get; set; }
+    public string? pais { get; set; }
 
-    public decimal Precohora { get; set; }
+    public decimal precohora { get; set; }
 
     public bool? Publico { get; set; }
 
@@ -21,7 +23,7 @@ public partial class Talento
 
     public DateTime? UpdatedAt { get; set; }
 
-    public virtual ICollection<Experiencium> Experiencia { get; set; } = new List<Experiencium>();
+    public virtual ICollection<Experiencia> Experiencia { get; set; } = new List<Experiencia>();
 
     public virtual Categoriatalento IdcategoriaNavigation { get; set; } = null!;
 

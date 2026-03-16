@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProfileMAnager.Models;
 
 public partial class Propostatrabalho
 {
+    [Key]
     public int Idproposta { get; set; }
 
     public int Idutilizador { get; set; }

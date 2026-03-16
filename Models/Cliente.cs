@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProfileMAnager.Models;
 
 public partial class Cliente
 {
+    [Key]
     public int Idcliente { get; set; }
 
     public int Idutilizador { get; set; }

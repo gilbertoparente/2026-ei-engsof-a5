@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "8TKi13LEFNw/7Xvrop+2vBtQ2XHjjM8ghuyRGNorj7QuyvfOhw2raIcU1bbpxrRDl155UyLZnFNlP3jEI3X1hw==",
+  "dgSpecHash": "hItTMfPCguM5myIOUGhCC4gf2NUOcoCIWsr/62kR63c94Wnr0wPaWi5IqNkBi8C1f9WmF8MYhex6vzDEynurQw==",
   "success": true,
   "projectFilePath": "C:\\Users\\gilbe\\RiderProjects\\ProfileMAnager\\ProfileMAnager\\ProfileMAnager.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\gilbe\\.nuget\\packages\\bcrypt.net-next\\4.1.0\\bcrypt.net-next.4.1.0.nupkg.sha512",
     "C:\\Users\\gilbe\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\gilbe\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.20\\microsoft.entityframeworkcore.7.0.20.nupkg.sha512",
     "C:\\Users\\gilbe\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.20\\microsoft.entityframeworkcore.abstractions.7.0.20.nupkg.sha512",

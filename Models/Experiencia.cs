@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProfileMAnager.Models;
 
-public partial class Experiencium
+public partial class Experiencia
 {
+    [Key]
     public int Idexperiencia { get; set; }
 
     public int Idtalento { get; set; }

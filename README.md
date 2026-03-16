@@ -11,8 +11,7 @@ Professor: Abel Dantas
 
 # Tema do Grupo : A - Plataforma de gestão de talentos IT 
 
-# Canal de comunicação
-Discord link : 
+# Canal de comunicação: Discord
 
 # Tarefas a realizar (05/03/2026)
 
@@ -27,7 +26,7 @@ Objetivos do Sprint 1
 •	Criar backlog do sprint
 •	Configuração do desenvolvimento
 •	Criação do projeto
-•	Desenvolvimento de funcionalidades
+•	Desenvolvimento do login/registo
 
 # Backlog Sprint 1
 
@@ -46,10 +45,8 @@ Objetivos do Sprint 1
 
 # Inicialização
 1. Correr o Script que está na pasta Database para criar a base de dados no servidor Postgre
-2. Inserir Dados de teste
+2. Inserir Dados de teste, script na pasta Database
 3. Efetuar a ligação à base de dados
-4. Criar a camada BLL com o comando publicado no ficheiro scratch.txt
-
 # Database connections:
 1. jdbc:postgresql://localhost:5432/ProjectManager 
 
@@ -59,13 +56,31 @@ Objetivos do Sprint 1
 2. dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.20
 3. dotnet add package Microsoft.EntityFrameworkCore.Tools --version 7.0.20
 4. dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL --version 7.0.11
+5. dotnet add package BCrypt.Net-Next
 
-# Criar as entidades no IDE
-
+# Comando para Criar as entidades no IDE se iniciar pela base de dados
 1. dotnet ef dbcontext scaffold "Host=localhost;Port=5432;Database=ProjectManager;Username=postgres;Password=123456" Npgsql.EntityFrameworkCore.PostgreSQL -o ModelsAnager\ProfileMAnager>
 
-# criação da Base de dados :
-1. pg_dump -U postgres -d ProjectManager -f database.sql
+## Instruções de Configuração
+
+
+### 2. Configurar a Base de Dados
+No ficheiro `appsettings.json`, ajuste a `DefaultConnection` com as suas credenciais locais do PostgreSQL:
+
+# json
+"ConnectionStrings": {
+  "DefaultConnection": "Host=localhost;Port=5432;Database=ProjectManager;Username=postgres;Password=SENHA"
+}
+
+3. Criar o Schema e Tabelas
+Abra o terminal na pasta raiz do projeto e execute os seguintes comandos do Entity Framework:
+
+# Aplicar as migrações para criar as tabelas no PostgreSQL
+dotnet ef database update
+
+4. Carregar Dados de Teste
+Script na pasta Database com instruções "insert" para povoar a base de dados para teste
+
 
 
 

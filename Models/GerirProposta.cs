@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ProfileMAnager.Models;
 
-public partial class ProjectManagerContext : DbContext
+public partial class GerirProposta : DbContext
 {
-    public ProjectManagerContext()
+    public GerirProposta()
     {
     }
 
-    public ProjectManagerContext(DbContextOptions<ProjectManagerContext> options)
+    public GerirProposta(DbContextOptions<GerirProposta> options)
         : base(options)
     {
     }
@@ -21,7 +21,7 @@ public partial class ProjectManagerContext : DbContext
 
     public virtual DbSet<Cliente> Clientes { get; set; }
 
-    public virtual DbSet<Experiencium> Experiencia { get; set; }
+    public virtual DbSet<Experiencia> Experiencia { get; set; }
 
     public virtual DbSet<Propostaskill> Propostaskills { get; set; }
 
@@ -101,7 +101,7 @@ public partial class ProjectManagerContext : DbContext
                 .HasConstraintName("fk_cliente_utilizador");
         });
 
-        modelBuilder.Entity<Experiencium>(entity =>
+        modelBuilder.Entity<Experiencia>(entity =>
         {
             entity.HasKey(e => e.Idexperiencia).HasName("experiencia_pkey");
 
@@ -226,7 +226,7 @@ public partial class ProjectManagerContext : DbContext
 
             entity.HasIndex(e => e.Idcategoria, "idx_talento_categoria");
 
-            entity.HasIndex(e => e.Pais, "idx_talento_pais");
+            entity.HasIndex(e => e.pais, "idx_talento_pais");
 
             entity.Property(e => e.Idtalento).HasColumnName("idtalento");
             entity.Property(e => e.CreatedAt)
@@ -235,10 +235,10 @@ public partial class ProjectManagerContext : DbContext
                 .HasColumnName("created_at");
             entity.Property(e => e.Idcategoria).HasColumnName("idcategoria");
             entity.Property(e => e.Idutilizador).HasColumnName("idutilizador");
-            entity.Property(e => e.Pais)
+            entity.Property(e => e.pais)
                 .HasMaxLength(100)
                 .HasColumnName("pais");
-            entity.Property(e => e.Precohora)
+            entity.Property(e => e.precohora)
                 .HasPrecision(10, 2)
                 .HasColumnName("precohora");
             entity.Property(e => e.Publico)

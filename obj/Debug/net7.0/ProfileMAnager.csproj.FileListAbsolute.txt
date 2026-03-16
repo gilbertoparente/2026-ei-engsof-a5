@@ -40,3 +40,4 @@ C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\bin\Debug\net7.0\Npgs
 C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\bin\Debug\net7.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\bin\Debug\net7.0\System.CodeDom.dll
 C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\obj\Debug\net7.0\ProfileMAnager.csproj.CopyComplete
+C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\bin\Debug\net7.0\BCrypt.Net-Next.dll

@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Registo";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height:70vh;">
+    <div class="card shadow p-4" style="width:400px;">
+
+        <h3 class="text-center mb-4">Criar Conta</h3>
+
+        @if(ViewBag.Erro != null)
+        {
+            <div class="alert alert-danger">@ViewBag.Erro</div>
+        }
+
+        <form method="post">
+
+            <div class="mb-3">
+                <label class="form-label">Nome</label>
+                <input type="text" name="nome" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password" name="password" class="form-control" required />
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-success">Registar</button>
+            </div>
+
+        </form>
+
+        <div class="text-center mt-3">
+            <a href="/Conta/Login">Já tens conta? Login</a>
+        </div>
+
+    </div>
+</div>
