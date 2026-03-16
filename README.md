@@ -42,13 +42,10 @@ Objetivos do Sprint 1
 # Estado da aplicação
 1. Base de dados criada
 2. Entidades criadas
-
-# Inicialização
-1. Correr o Script que está na pasta Database para criar a base de dados no servidor Postgre
-2. Inserir Dados de teste, script na pasta Database
-3. Efetuar a ligação à base de dados
-# Database connections:
-1. jdbc:postgresql://localhost:5432/ProjectManager 
+3. Tabelas mapeadas
+4. Registo criado
+5. Login criado
+6. tamaticas em desenvolvimento, mas está localmente para já
 
 # Comandos para instalaçáo dos pacotes entity framework:
 
@@ -61,25 +58,32 @@ Objetivos do Sprint 1
 # Comando para Criar as entidades no IDE se iniciar pela base de dados
 1. dotnet ef dbcontext scaffold "Host=localhost;Port=5432;Database=ProjectManager;Username=postgres;Password=123456" Npgsql.EntityFrameworkCore.PostgreSQL -o ModelsAnager\ProfileMAnager>
 
-## Instruções de Configuração
+## Instruções de Configuração e Execução
 
+### 1. Preparação da Base de Dados
+1. Certifique-se de que o **PostgreSQL** está em execução.
+2. Crie uma base de dados vazia chamada `ProjectManager`.
+3. No ficheiro `appsettings.json`, configure a sua ligação:
+   ```json
+   "ConnectionStrings": {
+     "DefaultConnection": "Host=localhost;Port=5432;Database=ProjectManager;Username=postgres;Password=SUA_SENHA"
+   }
+2. Inicialização do Projeto
+Abra o terminal na pasta raiz e execute:
 
-### 2. Configurar a Base de Dados
-No ficheiro `appsettings.json`, ajuste a `DefaultConnection` com as suas credenciais locais do PostgreSQL:
+# Instalar dependências e restaurar pacotes
+dotnet restore
 
-# json
-"ConnectionStrings": {
-  "DefaultConnection": "Host=localhost;Port=5432;Database=ProjectManager;Username=postgres;Password=SENHA"
-}
-
-3. Criar o Schema e Tabelas
-Abra o terminal na pasta raiz do projeto e execute os seguintes comandos do Entity Framework:
-
-# Aplicar as migrações para criar as tabelas no PostgreSQL
+# Aplicar as migrações (Cria as tabelas automaticamente)
 dotnet ef database update
 
-4. Carregar Dados de Teste
-Script na pasta Database com instruções "insert" para povoar a base de dados para teste
+# (Opcional) Se usar scripts de teste:
+# Correr o script de insert na pasta Database/DadosTeste.sql
+3. Execução
+dotnet run
+Aceda a http://localhost:5000 (ou o URL indicado na consola).
+
+
 
 
 
