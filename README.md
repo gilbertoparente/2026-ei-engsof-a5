@@ -66,7 +66,7 @@ Objetivos do Sprint 1
 3. No ficheiro `appsettings.json`, configure a sua ligação:
    ```json
    "ConnectionStrings": {
-     "DefaultConnection": "Host=localhost;Port=5432;Database=ProjectManager;Username=postgres;Password=SUA_SENHA"
+     "DefaultConnection": "Host=localhost;Port=5432;Database=ProjectManager;Username=postgres;Password=password"
    }
 2. Inicialização do Projeto
 Abra o terminal na pasta raiz e execute:
