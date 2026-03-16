@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProfileMAnager.Models;
 
 public partial class Skill
 {
+    [Key]
     public int Idskill { get; set; }
 
     public string Nome { get; set; } = null!;

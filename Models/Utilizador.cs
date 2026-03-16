@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProfileMAnager.Models;
 
 public partial class Utilizador
 {
+    [Key]
     public int Idutilizador { get; set; }
 
     public string Nome { get; set; } = null!;

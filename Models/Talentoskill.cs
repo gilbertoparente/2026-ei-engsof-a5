@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProfileMAnager.Models;
 
 public partial class Talentoskill
 {
+    
     public int Idtalento { get; set; }
 
     public int Idskill { get; set; }

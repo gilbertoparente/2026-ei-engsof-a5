@@ -1,8 +1,8 @@
-﻿namespace ProfileMAnager.Models;
+﻿    namespace ProfileMAnager.Models;
 
-public enum Estadoproposta
-{
-    ABERTA,
-    EM_PROGRESSO,
-    FECHADA
-}
+    public enum Estadoproposta
+    {
+        ABERTA,
+        EM_PROGRESSO,
+        FECHADA
+    }

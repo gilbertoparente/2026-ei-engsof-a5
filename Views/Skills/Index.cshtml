@@ -1,0 +1,31 @@
+﻿@model IEnumerable<ProfileMAnager.Models.Skill>
+@{ ViewData["Title"] = "Gestão de Skills"; }
+
+<h2>Gestão de Skills</h2>
+<p><a asp-action="Create" class="btn btn-primary">Adicionar Nova Skill</a></p>
+
+@if (TempData["Erro"] != null) {
+    <div class="alert alert-danger">@TempData["Erro"]</div>
+}
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Nome</th>
+        <th>Área Profissional</th>
+        <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model) {
+        <tr>
+            <td>@item.Nome</td>
+            <td>@item.IdareaNavigation?.Nome</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Idskill">Editar</a> |
+                <a asp-action="Delete" asp-route-id="@item.Idskill">Apagar</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

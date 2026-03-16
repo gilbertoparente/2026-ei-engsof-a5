@@ -1,8 +1,55 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-5">
+
+    <div class="text-center mb-5">
+        <h1>Profile Manager</h1>
+        <p class="lead">Gestão de perfis profissionais IT</p>
+        <p>Bem-vindo, <strong>@ViewBag.NomeUtilizador</strong></p>
+    </div>
+
+  <div class="row text-center">
+  
+      @* CARTÃO PERFIL *@
+      <div class="col-md-4">
+          <div class="card shadow">
+              <div class="card-body">
+                  <h5 class="card-title">Perfil</h5>
+                  <p class="card-text">Editar informação profissional.</p>
+                 
+              </div>
+          </div>
+      </div>
+  
+      @* CARTÃO SKILLS - JÁ FUNCIONAL *@
+      <div class="col-md-4">
+          <div class="card shadow">
+              <div class="card-body">
+                  <h5 class="card-title">Skills</h5>
+                  <p class="card-text">Adicionar ou editar skills.</p>
+                  <a asp-controller="Skills" asp-action="Index" class="btn btn-primary">Gerir Skills</a>
+              </div>
+          </div>
+      </div>
+  
+      @* CARTÃO PROPOSTAS *@
+      <div class="col-md-4">
+          <div class="card shadow">
+              <div class="card-body">
+                  <h5 class="card-title">Propostas</h5>
+                  <p class="card-text">Gerir propostas de trabalho.</p>
+                  
+                  
+              </div>
+          </div>
+      </div>
+  
+  </div>
+
+    <div class="text-center mt-5">
+        <a href="/Conta/Logout" class="btn btn-danger">Logout</a>
+    </div>
+
 </div>
