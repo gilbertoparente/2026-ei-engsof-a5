@@ -81,17 +81,41 @@ namespace ProfileMAnager.Data
                 entity.HasOne(d => d.IdareaNavigation).WithMany(p => p.Skills).HasForeignKey(d => d.Idarea);
             });
 
+            // CONFIGURAÇÃO DO TALENTO
             modelBuilder.Entity<Talento>(entity =>
             {
                 entity.HasKey(e => e.Idtalento).HasName("talento_pkey");
                 entity.ToTable("talento");
-            });
 
+                entity.HasOne(d => d.IdcategoriaNavigation)
+                    .WithMany(p => p.Talentos)
+                    .HasForeignKey(d => d.Idcategoria)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_talento_categoria");
+
+                entity.HasOne(d => d.IdutilizadorNavigation)
+                    .WithMany(p => p.Talentos)
+                    .HasForeignKey(d => d.Idutilizador)
+                    .HasConstraintName("fk_talento_utilizador");
+            }); // FECHA O BLOCO DO TALENTO
+
+            // CONFIGURAÇÃO DO TALENTOSKILL
             modelBuilder.Entity<Talentoskill>(entity =>
             {
+                // CHAVE COMPOSTA PARA A TABELA DE LIGAÇÃO
                 entity.HasKey(e => new { e.Idtalento, e.Idskill }).HasName("talentoskill_pkey");
                 entity.ToTable("talentoskill");
-            });
+
+                entity.HasOne(d => d.IdtalentoNavigation)
+                    .WithMany(p => p.Talentoskills)
+                    .HasForeignKey(d => d.Idtalento)
+                    .HasConstraintName("fk_talentoskill_talento");
+
+                entity.HasOne(d => d.IdskillNavigation)
+                    .WithMany(p => p.Talentoskills)
+                    .HasForeignKey(d => d.Idskill)
+                    .HasConstraintName("fk_talentoskill_skill");
+            }); // FECHA O BLOCO DO TALENTOSKILL
 
             modelBuilder.Entity<Utilizador>(entity =>
             {

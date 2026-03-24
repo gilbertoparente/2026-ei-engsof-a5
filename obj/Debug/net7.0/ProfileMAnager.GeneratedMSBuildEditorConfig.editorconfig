@@ -32,6 +32,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Pesquisa/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVzcXVpc2FcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Propostas/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcG9zdGFzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -58,6 +62,26 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Skills/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2tpbGxzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Talentos/AdicionarExperiencia.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFsZW50b3NcQWRpY2lvbmFyRXhwZXJpZW5jaWEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Talentos/AdicionarSkill.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFsZW50b3NcQWRpY2lvbmFyU2tpbGwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Talentos/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFsZW50b3NcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Talentos/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFsZW50b3NcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Talentos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFsZW50b3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Talentos/MeusPerfis.cshtml]

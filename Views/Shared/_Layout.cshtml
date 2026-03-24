@@ -19,17 +19,24 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarMain">
-            <ul class="navbar-nav me-auto">
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Skills" asp-action="Index">Skills</a>
-                    </li>
-                }
-            </ul>
+          <ul class="navbar-nav me-auto">
+              @if (User.Identity.IsAuthenticated)
+              {
+                  <li class="nav-item">
+                      <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" asp-controller="Skills" asp-action="Index">Skills</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" asp-controller="Talentos" asp-action="Index">Os Meus Perfis</a>
+                  </li>
+                  @* ADICIONADO AQUI: *@
+                  <li class="nav-item">
+                      <a class="nav-link fw-bold text-primary" asp-controller="Pesquisa" asp-action="Index">🔍 Pesquisar Talentos</a>
+                  </li>
+              }
+          </ul>
 
             <div class="d-flex gap-2">
                 @if (User.Identity.IsAuthenticated)

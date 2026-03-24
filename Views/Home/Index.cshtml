@@ -12,39 +12,39 @@
 
   <div class="row text-center">
   
-      @* CARTÃO PERFIL *@
-      <div class="col-md-4">
-          <div class="card shadow">
-              <div class="card-body">
-                  <h5 class="card-title">Perfil</h5>
-                  <p class="card-text">Editar informação profissional.</p>
-                 
-              </div>
-          </div>
-      </div>
+       @* CARTÃO PERFIL / TALENTOS *@
+         <div class="col-md-4 mb-3">
+             <div class="card shadow">
+                 <div class="card-body">
+                     <h5 class="card-title">Perfil</h5>
+                     <p class="card-text">Gerir os meus perfis de talento IT.</p>
+                     <a asp-controller="Talentos" asp-action="Index" class="btn btn-primary w-100">Gerir Perfil</a>
+                 </div>
+             </div>
+         </div>
   
-      @* CARTÃO SKILLS - JÁ FUNCIONAL *@
-      <div class="col-md-4">
-          <div class="card shadow">
-              <div class="card-body">
-                  <h5 class="card-title">Skills</h5>
-                  <p class="card-text">Adicionar ou editar skills.</p>
-                  <a asp-controller="Skills" asp-action="Index" class="btn btn-primary">Gerir Skills</a>
-              </div>
-          </div>
-      </div>
+         @* CARTÃO SKILLS *@
+         <div class="col-md-4 mb-3">
+             <div class="card shadow">
+                 <div class="card-body">
+                     <h5 class="card-title">Skills</h5>
+                     <p class="card-text">Biblioteca global de competências.</p>
+                     <a asp-controller="Skills" asp-action="Index" class="btn btn-primary w-100">Gerir Skills</a>
+                 </div>
+             </div>
+         </div>
   
-      @* CARTÃO PROPOSTAS *@
-      <div class="col-md-4">
-          <div class="card shadow">
-              <div class="card-body">
-                  <h5 class="card-title">Propostas</h5>
-                  <p class="card-text">Gerir propostas de trabalho.</p>
-                  
-                  
-              </div>
-          </div>
-      </div>
+      @* CARTÃO PROPOSTAS - (Próxima etapa!) *@
+         <div class="col-md-4 mb-3">
+             <div class="card shadow">
+                 <div class="card-body">
+                     <h5 class="card-title">Propostas</h5>
+                     <p class="card-text">Gerir propostas de trabalho.</p>
+                     <a href="#" class="btn btn-secondary w-100 disabled">Ver Propostas</a>
+                 </div>
+             </div>
+         </div>
+
   
   </div>
 

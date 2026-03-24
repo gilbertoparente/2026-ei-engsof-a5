@@ -1,0 +1,49 @@
+﻿@model ProfileMAnager.Models.Experiencia
+
+@{ ViewData["Title"] = "Nova Experiência"; }
+
+<div class="container mt-4">
+    <div class="card shadow p-4" style="max-width: 600px; margin: 0 auto;">
+        <h3 class="text-center mb-4">Adicionar Experiência Profissional</h3>
+
+        @if (ViewBag.Erro != null) {
+            <div class="alert alert-danger">@ViewBag.Erro</div>
+        }
+
+        <form asp-action="AdicionarExperiencia" method="post">
+            <input type="hidden" asp-for="Idtalento" />
+
+            <div class="mb-3">
+                <label class="form-label">Nome da Empresa</label>
+                <input asp-for="Empresa" class="form-control" required placeholder="Ex: Google, Microsoft" />
+                <span asp-validation-for="Empresa" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Ano de Início</label>
+                    <input asp-for="Anoinicio" type="number" class="form-control" required min="1950" max="@DateTime.Now.Year" />
+                    <span asp-validation-for="Anoinicio" class="text-danger"></span>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label class="form-label">Ano de Término</label>
+                    <input asp-for="Anofim" type="number" class="form-control" placeholder="Deixe vazio se for atual" min="1950" max="@DateTime.Now.Year" />
+                    <small class="text-muted">Opcional, se ainda trabalhar na empresa.</small>
+                    <span asp-validation-for="Anofim" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Descrição do Trabalho</label>
+                <textarea asp-for="Descricao" class="form-control" rows="3" placeholder="O que fizeste nesta empresa?"></textarea>
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Salvar Experiência</button>
+                <a asp-action="Details" asp-route-id="@Model.Idtalento" class="btn btn-outline-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>

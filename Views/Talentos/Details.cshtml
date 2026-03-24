@@ -1,0 +1,60 @@
+﻿@model ProfileMAnager.Models.Talento
+@{ ViewData["Title"] = "Perfil do Talento"; }
+
+<div class="container mt-4">
+    <div class="card shadow-lg mb-4">
+        <div class="card-header bg-primary text-white d-flex justify-content-between">
+            <h3 class="mb-0">Perfil de @Model.Nome</h3>
+            <span class="badge @(Model.Publico == true ? "bg-info" : "bg-secondary") text-white">
+                @(Model.Publico == true ? "Público" : "Privado")
+            </span>
+        </div>
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-md-6">
+                    <p><strong>Email:</strong> @Model.Email</p>
+                    <p><strong>País:</strong> @Model.Pais</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Preço por Hora:</strong> @Model.Precohora.ToString("C")</p>
+                    <p><strong>Categoria:</strong> @Model.IdcategoriaNavigation?.Nome</p>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="row">
+                <div class="col-md-6 border-right">
+                    <h4>Competências (Skills)</h4>
+                    @if (Model.Talentoskills.Any()) {
+                        <ul class="list-group">
+                            @foreach (var ts in Model.Talentoskills) {
+                                <li class="list-group-item d-flex justify-content-between">
+                                    <span>@ts.IdskillNavigation?.Nome (@ts.Anosexperiencia anos)</span>
+                                </li>
+                            }
+                        </ul>
+                    } else {
+                        <p class="text-muted">Sem competências adicionadas.</p>
+                    }
+                    @* O Botão de adicionar Skills deve redirecionar para uma nova página de gestão *@
+                    <a asp-action="AdicionarSkill" asp-route-id="@Model.Idtalento" class="btn btn-sm btn-outline-success mt-2">Adicionar Skill</a>
+                </div>
+
+                <div class="col-md-6">
+                    <h4>Experiência Profissional</h4>
+                    @if (Model.Experiencia.Any()) {
+                        @foreach (var exp in Model.Experiencia.OrderByDescending(e => e.Anoinicio)) {
+                            <div class="mb-2 p-2 border-left" style="border-left: 3px solid #007bff;">
+                                <small class="text-muted">@exp.Anoinicio - @(exp.Anofim?.ToString() ?? "Presente")</small>
+                            </div>
+                        }
+                    } else {
+                        <p class="text-muted">Sem experiência registada.</p>
+                    }
+                    <a asp-action="AdicionarExperiencia" asp-route-id="@Model.Idtalento" class="btn btn-sm btn-outline-success mt-2">Adicionar Experiência</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
