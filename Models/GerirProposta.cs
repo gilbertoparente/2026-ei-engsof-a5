@@ -226,19 +226,19 @@ public partial class GerirProposta : DbContext
 
             entity.HasIndex(e => e.Idcategoria, "idx_talento_categoria");
 
-            entity.HasIndex(e => e.pais, "idx_talento_pais");
+            entity.HasIndex(e => e.Pais, "idx_talento_pais");
 
             entity.Property(e => e.Idtalento).HasColumnName("idtalento");
-            entity.Property(e => e.CreatedAt)
+            entity.Property(e => e.Nome)
                 .HasDefaultValueSql("now()")
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("created_at");
             entity.Property(e => e.Idcategoria).HasColumnName("idcategoria");
             entity.Property(e => e.Idutilizador).HasColumnName("idutilizador");
-            entity.Property(e => e.pais)
+            entity.Property(e => e.Pais)
                 .HasMaxLength(100)
                 .HasColumnName("pais");
-            entity.Property(e => e.precohora)
+            entity.Property(e => e.Precohora)
                 .HasPrecision(10, 2)
                 .HasColumnName("precohora");
             entity.Property(e => e.Publico)
@@ -255,7 +255,7 @@ public partial class GerirProposta : DbContext
                 .HasConstraintName("fk_talento_categoria");
 
             entity.HasOne(d => d.IdutilizadorNavigation).WithMany(p => p.Talentos)
-                .HasForeignKey(d => d.Idutilizador)
+                .HasForeignKey(d => d.Idtalento)
                 .HasConstraintName("fk_talento_utilizador");
         });
 

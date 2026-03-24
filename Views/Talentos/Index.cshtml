@@ -1,0 +1,36 @@
+﻿@model IEnumerable<ProfileMAnager.Models.Talento>
+@{ ViewData["Title"] = "Meus Talentos"; }
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Os Meus Perfis de Talento</h2>
+        <a asp-action="Create" class="btn btn-success">Criar Novo Perfil</a>
+    </div>
+
+    <div class="row">
+        @foreach (var item in Model) {
+            <div class="col-md-4 mb-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Nome</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@item.IdcategoriaNavigation?.Nome</h6>
+                        <p class="card-text">
+                            <strong>País:</strong> @item.Pais<br />
+                            <strong>Preço/Hora:</strong> @item.Precohora.ToString("C")
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="badge @(item.Publico == true ? "bg-info" : "bg-secondary")">
+                                @(item.Publico == true ? "Público" : "Privado")
+                            </span>
+                            <a asp-action="Details" asp-route-id="@item.Idtalento" class="btn btn-outline-primary btn-sm">Ver Perfil</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (!Model.Any()) {
+        <div class="alert alert-info text-center mt-3">Ainda não criou nenhum perfil de talento.</div>
+    }
+</div>

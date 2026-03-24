@@ -13,11 +13,15 @@ public partial class Talento
 
     public int Idcategoria { get; set; }
 
-    public string? pais { get; set; }
+    // ADICIONADO:
+    public string Nome { get; set; } = null!;
+    public string Email { get; set; } = null!;
 
-    public decimal precohora { get; set; }
+    public string? Pais { get; set; }
 
-    public bool? Publico { get; set; }
+    public decimal Precohora { get; set; }
+
+    public bool Publico { get; set; } = true;
 
     public DateTime? CreatedAt { get; set; }
 
