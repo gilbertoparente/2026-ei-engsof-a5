@@ -23,7 +23,7 @@ Professor: Abel Dantas
 
 
 ## Instruções de Configuração e Execução pela base de dados
-1. Script de criação com um backup com dados neste projeto na pasta Database chamado backup_com_dados
+1. Script de criação com um backup com dados neste projeto na pasta Database chamado backup_com_dados.sql
 2. No postgres abrir a consola de queries e correr o script
 
 
