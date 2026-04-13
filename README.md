@@ -73,7 +73,7 @@ Criação das tabelas:
 
 # Estado da aplicação
 Propostas funcionais, faltam filtros e melhorias na visualização das propostas. Utilizador associa talentos às propostas no "Editar propostas"
-
+Necessário melhorar logica das propostas
 
 
 
