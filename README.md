@@ -13,6 +13,49 @@ Professor: Abel Dantas
 
 # Canal de comunicação: Discord
 
+# Comandos para instalaçáo dos pacotes entity framework:
+
+1. dotnet add package Microsoft.EntityFrameworkCore --version 7.0.20
+2. dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.20
+3. dotnet add package Microsoft.EntityFrameworkCore.Tools --version 7.0.20
+4. dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL --version 7.0.11
+5. dotnet add package BCrypt.Net-Next
+
+
+## Instruções de Configuração e Execução pela base de dados
+1. Script de criação com um backup com dados neste projeto na pasta Database chamado backup_com_dados
+2. No postgres abrir a consola de queries e correr o script
+
+
+## Instruções de Configuração e Execução pelas entidades
+
+### 1. Preparação da Base de Dados
+1. Certifique-se de que o **PostgreSQL** está em execução.
+2. Crie uma base de dados vazia chamada `ProjectManager`.
+3. No ficheiro `appsettings.json`, configure a sua ligação:
+   ```json
+   "ConnectionStrings": {
+     "DefaultConnection": "Host=localhost;Port=5432;Database=ProjectManager;Username=postgres;Password=password"
+   }
+2. Inicialização do Projeto
+   Abra o terminal na pasta raiz e execute:
+
+# Instalar dependências e restaurar pacotes
+dotnet restore
+
+# Aplicar as migrações (Cria as tabelas automaticamente)
+dotnet ef database update
+
+# (Opcional) Se usar scripts para povoar a base de dados de teste:
+# Correr o script de insert na pasta Database/DadosTeste.sql
+3. Execução
+   dotnet run
+ 
+
+
+
+
+
 # Tarefas a realizar (05/03/2026)
 
 1. Repositorio
@@ -47,41 +90,7 @@ Objetivos do Sprint 1
 5. Login criado
 6. tamaticas em desenvolvimento, mas está localmente para já
 
-# Comandos para instalaçáo dos pacotes entity framework:
 
-1. dotnet add package Microsoft.EntityFrameworkCore --version 7.0.20
-2. dotnet add package Microsoft.EntityFrameworkCore.Design --version 7.0.20
-3. dotnet add package Microsoft.EntityFrameworkCore.Tools --version 7.0.20
-4. dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL --version 7.0.11
-5. dotnet add package BCrypt.Net-Next
-
-# Comando para Criar as entidades no IDE se iniciar pela base de dados
-1. dotnet ef dbcontext scaffold "Host=localhost;Port=5432;Database=ProjectManager;Username=postgres;Password=123456" Npgsql.EntityFrameworkCore.PostgreSQL -o ModelsAnager\ProfileMAnager>
-
-## Instruções de Configuração e Execução
-
-### 1. Preparação da Base de Dados
-1. Certifique-se de que o **PostgreSQL** está em execução.
-2. Crie uma base de dados vazia chamada `ProjectManager`.
-3. No ficheiro `appsettings.json`, configure a sua ligação:
-   ```json
-   "ConnectionStrings": {
-     "DefaultConnection": "Host=localhost;Port=5432;Database=ProjectManager;Username=postgres;Password=password"
-   }
-2. Inicialização do Projeto
-Abra o terminal na pasta raiz e execute:
-
-# Instalar dependências e restaurar pacotes
-dotnet restore
-
-# Aplicar as migrações (Cria as tabelas automaticamente)
-dotnet ef database update
-
-# (Opcional) Se usar scripts de teste:
-# Correr o script de insert na pasta Database/DadosTeste.sql
-3. Execução
-dotnet run
-Aceda a http://localhost:5000 (ou o URL indicado na consola).
 
 
 
