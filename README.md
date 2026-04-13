@@ -56,7 +56,7 @@ dotnet ef database update
 Alterações na base de dados:
 
 Criação das tabelas:
-1. Areaprofissional
+1. areaprofissional
 2. propostatalento
 3. uniformazação dos campos
 
