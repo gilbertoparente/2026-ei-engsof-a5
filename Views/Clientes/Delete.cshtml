@@ -1,0 +1,11 @@
+﻿@model ProfileMAnager.Models.Cliente
+
+<h2>Eliminar Cliente</h2>
+
+<p>Tem a certeza que deseja eliminar o cliente <strong>@Model.Nome</strong>?</p>
+
+<form method="post">
+    <input type="hidden" asp-for="Idcliente" />
+    <button class="btn btn-danger">Eliminar</button>
+    <a href="/Clientes" class="btn btn-secondary">Cancelar</a>
+</form>

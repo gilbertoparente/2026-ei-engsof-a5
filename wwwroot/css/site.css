@@ -1,22 +1,32 @@
-html {
-  font-size: 14px;
+/* Estilo Global */
+:root {
+  --primary-blue: #0056b3;
+  --hover-blue: #004494;
+  --radius: 8px;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; }
+
+/* Botões Uniformes - Todos Azuis com Texto Branco */
+.btn-primary, .btn-success, .btn-warning {
+  background-color: var(--primary-blue) !important;
+  border-color: var(--primary-blue) !important;
+  color: white !important;
+  border-radius: var(--radius);
+  padding: 0.5rem 1.2rem;
+  transition: all 0.3s;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+.btn-primary:hover, .btn-success:hover, .btn-warning:hover {
+  background-color: var(--hover-blue) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
+/* Tabelas */
+.table { background: white; border-radius: var(--radius); overflow: hidden; shadow: 0 2px 4px rgba(0,0,0,0.05); }
+.table thead { background-color: #343a40; color: white; }
 
-body {
-  margin-bottom: 60px;
-}
+/* Cards do Dashboard */
+.card { border: none; border-radius: var(--radius); transition: transform 0.2s; }
+.card:hover { transform: scale(1.02); }

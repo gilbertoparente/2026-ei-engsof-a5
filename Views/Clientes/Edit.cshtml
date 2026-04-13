@@ -1,0 +1,53 @@
+﻿@model ProfileMAnager.Models.Cliente
+
+@{
+    ViewData["Title"] = "Editar Cliente";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow border-0">
+                <div class="card-header bg-dark text-white p-3">
+                    <h4 class="mb-0"><i class="bi bi-pencil-square"></i> Editar Dados do Cliente</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Edit" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        <input type="hidden" asp-for="Idcliente" />
+
+                        <div class="mb-4">
+                            <label asp-for="Nome" class="form-label fw-bold">Nome da Empresa / Cliente</label>
+                            <input asp-for="Nome" class="form-control" placeholder="Ex: Microsoft Portugal" />
+                            <span asp-validation-for="Nome" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="Pais" class="form-label fw-bold">País</label>
+                            <input asp-for="Pais" class="form-control" placeholder="Ex: Portugal" />
+                            <span asp-validation-for="Pais" class="text-danger small"></span>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary flex-grow-1">
+                                <i class="bi bi-save"></i> Guardar Alterações
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="text-center mt-3 text-muted">
+                <small>As alterações serão aplicadas a todas as propostas associadas a este cliente.</small>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

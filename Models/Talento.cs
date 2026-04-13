@@ -13,7 +13,7 @@ public partial class Talento
 
     public int Idcategoria { get; set; }
 
-    // ADICIONADO:
+   
     public string Nome { get; set; } = null!;
     public string Email { get; set; } = null!;
 
@@ -32,6 +32,8 @@ public partial class Talento
     public virtual Categoriatalento IdcategoriaNavigation { get; set; } = null!;
 
     public virtual Utilizador IdutilizadorNavigation { get; set; } = null!;
-
+  
     public virtual ICollection<Talentoskill> Talentoskills { get; set; } = new List<Talentoskill>();
+
+    public virtual ICollection<PropostaTalento> PropostaTalentos { get; set; } = new List<PropostaTalento>();
 }

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ProfileMAnager.Controllers
 {
-    [Authorize] // Apenas utilizadores logados podem gerir skills
+    [Authorize] 
     public class SkillsController : Controller
     {
         private readonly AppDbContext _context;
@@ -17,7 +17,6 @@ namespace ProfileMAnager.Controllers
             _context = context;
         }
 
-        // Listar todas as skills
         public async Task<IActionResult> Index()
         {
             var skills = await _context.Skills
@@ -26,15 +25,14 @@ namespace ProfileMAnager.Controllers
             return View(skills);
         }
 
-        // GET: Criar Skill
+        //criar
         public IActionResult Create()
         {
-            // Carrega as áreas profissionais para a dropdown
             ViewBag.Idarea = new SelectList(_context.Areaprofissionals, "Idarea", "Nome");
             return View();
         }
 
-        // POST: Criar Skill
+        // criar
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Skill skill)
@@ -49,7 +47,7 @@ namespace ProfileMAnager.Controllers
             return View(skill);
         }
 
-        // GET: Editar Skill
+        //  Editar
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -61,7 +59,7 @@ namespace ProfileMAnager.Controllers
             return View(skill);
         }
 
-        // POST: Editar Skill
+        // Editar 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Skill skill)
@@ -78,7 +76,7 @@ namespace ProfileMAnager.Controllers
             return View(skill);
         }
 
-        // GET: Apagar Skill (Página de confirmação)
+        // delete
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -89,21 +87,19 @@ namespace ProfileMAnager.Controllers
 
             if (skill == null) return NotFound();
 
-            // REGRA: Verificar se a skill está associada a algum talento
             bool temTalentos = await _context.Talentoskills.AnyAsync(ts => ts.Idskill == id);
             ViewBag.PodeApagar = !temTalentos;
 
             return View(skill);
         }
 
-        // POST: Confirmar Apagar
+        // delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var skill = await _context.Skills.FindAsync(id);
             
-            // Verificação extra de segurança no servidor
             bool temTalentos = await _context.Talentoskills.AnyAsync(ts => ts.Idskill == id);
             
             if (temTalentos)

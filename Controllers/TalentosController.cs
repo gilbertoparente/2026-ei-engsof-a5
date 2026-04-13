@@ -18,7 +18,7 @@ namespace ProfileMAnager.Controllers
             _context = context;
         }
 
-        // Listar apenas os talentos criados pelo utilizador logado
+        // Listar
         public async Task<IActionResult> Index()
         {
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -30,26 +30,24 @@ namespace ProfileMAnager.Controllers
                 
             return View(talentos);
         }
-
-        // GET: Criar Perfil de Talento
+        //  Criar
         public IActionResult Create()
         {
             ViewBag.Idcategoria = new SelectList(_context.Categoriatalentos, "Idcategoria", "Nome");
             return View();
         }
 
-        // POST: Criar Perfil de Talento
+        //  criar
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Talento talento)
         {
-            // Atribuir automaticamente o ID do utilizador logado
+            
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             talento.Idutilizador = userId;
             talento.CreatedAt = DateTime.UtcNow;
             talento.UpdatedAt = DateTime.UtcNow;
-
-            // Remover validação do Idutilizador e Navegações para que o ModelState seja válido
+           
             ModelState.Remove("IdutilizadorNavigation");
             ModelState.Remove("IdcategoriaNavigation");
 
@@ -64,53 +62,47 @@ namespace ProfileMAnager.Controllers
             return View(talento);
         }
 
-        // Ver Detalhes do Perfil (e onde vamos gerir Skills e Experiência mais tarde)
-        public async Task<IActionResult> Details(int? id)
+        
+        public async Task<IActionResult> Details(int? id) 
         {
             if (id == null) return NotFound();
 
             var talento = await _context.Talentos
                 .Include(t => t.IdcategoriaNavigation)
                 .Include(t => t.Talentoskills).ThenInclude(ts => ts.IdskillNavigation)
-                .Include(t => t.Experiencia)
                 .FirstOrDefaultAsync(m => m.Idtalento == id);
 
             if (talento == null) return NotFound();
 
-            // Segurança: Verificar se o talento pertence ao utilizador logado
-            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            if (talento.Idutilizador != userId) return Forbid();
-
             return View(talento);
         }
         
-        // GET: Adicionar Skill ao Talento
         public async Task<IActionResult> AdicionarSkill(int id)
         {
             var talento = await _context.Talentos.FindAsync(id);
             if (talento == null) return NotFound();
 
-            // Carregar a lista de todas as skills disponíveis
+         
             ViewBag.Idskill = new SelectList(_context.Skills, "Idskill", "Nome");
     
-            // Criamos um objeto Talentoskill para passar para a View
+           
             var model = new Talentoskill { Idtalento = id };
     
             return View(model);
         }
 
-// POST: Adicionar Skill ao Talento
+        //Adicionar  skill
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AdicionarSkill(Talentoskill ts)
         {
-            // Remover navegações do ModelState para não dar erro
+            
             ModelState.Remove("IdskillNavigation");
             ModelState.Remove("IdtalentoNavigation");
 
             if (ModelState.IsValid)
             {
-                // Verificar se o talento já tem esta skill
+                
                 var existe = await _context.Talentoskills
                     .AnyAsync(x => x.Idtalento == ts.Idtalento && x.Idskill == ts.Idskill);
 
@@ -130,7 +122,7 @@ namespace ProfileMAnager.Controllers
             return View(ts);
         }
         
-        // GET: Adicionar Experiência
+        //  Adicionar experiencia 
         public async Task<IActionResult> AdicionarExperiencia(int id)
         {
             var talento = await _context.Talentos.FindAsync(id);
@@ -140,7 +132,7 @@ namespace ProfileMAnager.Controllers
             return View(model);
         }
 
-// POST: Adicionar Experiência
+        // Adicionar  experiencia 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AdicionarExperiencia(Experiencia exp)
@@ -149,8 +141,6 @@ namespace ProfileMAnager.Controllers
 
             if (ModelState.IsValid)
             {
-                // --- VALIDAÇÃO DE SOBREPOSIÇÃO (Requisito 6) ---
-                // Verificar se existe alguma experiência que se sobreponha ao ano de início ou fim da nova experiência
                 var sobreposicao = await _context.Experiencia
                     .Where(e => e.Idtalento == exp.Idtalento)
                     .AnyAsync(e => 
