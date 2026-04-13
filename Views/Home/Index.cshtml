@@ -1,55 +1,103 @@
-﻿@{
-    ViewData["Title"] = "Home";
-}
+﻿@{ ViewData["Title"] = "Dashboard"; }
 
-<div class="container mt-5">
-
-    <div class="text-center mb-5">
-        <h1>Profile Manager</h1>
-        <p class="lead">Gestão de perfis profissionais IT</p>
-        <p>Bem-vindo, <strong>@ViewBag.NomeUtilizador</strong></p>
+<div class="container mt-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2>Bem-vindo, @ViewBag.NomeUtilizador! 👋</h2>
+            <p class="text-muted">Aqui está o resumo do ProfileManager hoje.</p>
+        </div>
     </div>
 
-  <div class="row text-center">
-  
-       @* CARTÃO PERFIL / TALENTOS *@
-         <div class="col-md-4 mb-3">
-             <div class="card shadow">
-                 <div class="card-body">
-                     <h5 class="card-title">Perfil</h5>
-                     <p class="card-text">Gerir os meus perfis de talento IT.</p>
-                     <a asp-controller="Talentos" asp-action="Index" class="btn btn-primary w-100">Gerir Perfil</a>
-                 </div>
-             </div>
-         </div>
-  
-         @* CARTÃO SKILLS *@
-         <div class="col-md-4 mb-3">
-             <div class="card shadow">
-                 <div class="card-body">
-                     <h5 class="card-title">Skills</h5>
-                     <p class="card-text">Biblioteca global de competências.</p>
-                     <a asp-controller="Skills" asp-action="Index" class="btn btn-primary w-100">Gerir Skills</a>
-                 </div>
-             </div>
-         </div>
-  
-      @* CARTÃO PROPOSTAS - (Próxima etapa!) *@
-         <div class="col-md-4 mb-3">
-             <div class="card shadow">
-                 <div class="card-body">
-                     <h5 class="card-title">Propostas</h5>
-                     <p class="card-text">Gerir propostas de trabalho.</p>
-                     <a href="#" class="btn btn-secondary w-100 disabled">Ver Propostas</a>
-                 </div>
-             </div>
-         </div>
-
-  
-  </div>
-
-    <div class="text-center mt-5">
-        <a href="/Conta/Logout" class="btn btn-danger">Logout</a>
+    @* ESTATÍSTICAS  *@
+    <div class="row mb-5 text-center">
+        <div class="col-md-4 mb-3">
+            <div class="card bg-primary text-white shadow-sm border-0">
+                <div class="card-body">
+                    <h6><i class="bi bi-person-badge"></i> Total de Talentos</h6>
+                    <h2 class="fw-bold">@ViewBag.TotalTalentos</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card bg-dark text-white shadow-sm border-0">
+                <div class="card-body">
+                    <h6><i class="bi bi-file-earmark-text"></i> Propostas Ativas</h6>
+                    <h2 class="fw-bold">@ViewBag.TotalPropostas</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card bg-info text-white shadow-sm border-0">
+                <div class="card-body">
+                    <h6><i class="bi bi-building"></i> Clientes</h6>
+                    <h2 class="fw-bold">@ViewBag.TotalClientes</h2>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <div class="row">
+        @* LISTA TALENTOS *@
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white py-3"><strong><i class="bi bi-people text-primary"></i> Novos Talentos</strong></div>
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush">
+                        @if (ViewBag.NovosTalentos != null)
+                        {
+                            foreach (var t in (IEnumerable<ProfileMAnager.Models.Talento>)ViewBag.NovosTalentos)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span class="text-truncate" style="max-width: 150px;">@(t.Nome ?? "Sem Nome")</span>
+                                    <a href="/Talentos/Details/@t.Idtalento" class="btn btn-sm btn-primary">Ver</a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        @* LISTA PROPOSTAS *@
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white py-3"><strong><i class="bi bi-file-text text-primary"></i> Últimas Propostas</strong></div>
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush">
+                        @if (ViewBag.NovasPropostas != null)
+                        {
+                            foreach (var p in (IEnumerable<ProfileMAnager.Models.Propostatrabalho>)ViewBag.NovasPropostas)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span class="text-truncate" style="max-width: 150px;">@(p.Nome ?? "Sem Título")</span>
+                                    <a href="/Propostas/Edit/@p.Idproposta" class="btn btn-sm btn-primary">Ver</a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        @* LISTA CLIENTES *@
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white py-3"><strong><i class="bi bi-building text-primary"></i> Novos Clientes</strong></div>
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush">
+                        @if (ViewBag.NovosClientes != null)
+                        {
+                            foreach (var c in (IEnumerable<ProfileMAnager.Models.Cliente>)ViewBag.NovosClientes)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span class="text-truncate" style="max-width: 150px;">@(c.Nome ?? "Sem Nome")</span>
+                                    <a href="/Clientes/Edit/@c.Idcliente" class="btn btn-sm btn-primary">Ver</a>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

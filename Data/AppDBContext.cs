@@ -20,6 +20,8 @@ namespace ProfileMAnager.Data
         public virtual DbSet<Talento> Talentos { get; set; }
         public virtual DbSet<Talentoskill> Talentoskills { get; set; }
         public virtual DbSet<Utilizador> Utilizadors { get; set; }
+        
+        public DbSet<PropostaTalento> PropostaTalentos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -71,7 +73,29 @@ namespace ProfileMAnager.Data
             {
                 entity.HasKey(e => e.Idproposta).HasName("propostatrabalho_pkey");
                 entity.ToTable("propostatrabalho");
-                entity.Property(e => e.Estado).HasColumnType("estadoproposta");
+
+                entity.Property(e => e.Estado).HasConversion<string>();
+
+               
+                entity.HasOne(d => d.IdclienteNavigation)
+                    .WithMany(p => p.Propostatrabalhos)
+                    .HasForeignKey(d => d.Idcliente)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_proposta_cliente");
+
+                
+                entity.HasOne(d => d.IdutilizadorNavigation)
+                    .WithMany(p => p.Propostatrabalhos)
+                    .HasForeignKey(d => d.Idutilizador)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_proposta_utilizador");
+
+                
+                entity.HasOne(d => d.IdcategoriaNavigation)
+                    .WithMany(p => p.Propostatrabalhos)
+                    .HasForeignKey(d => d.Idcategoria)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_proposta_categoria");
             });
 
             modelBuilder.Entity<Skill>(entity =>
@@ -81,7 +105,7 @@ namespace ProfileMAnager.Data
                 entity.HasOne(d => d.IdareaNavigation).WithMany(p => p.Skills).HasForeignKey(d => d.Idarea);
             });
 
-            // CONFIGURAÇÃO DO TALENTO
+           
             modelBuilder.Entity<Talento>(entity =>
             {
                 entity.HasKey(e => e.Idtalento).HasName("talento_pkey");
@@ -97,12 +121,12 @@ namespace ProfileMAnager.Data
                     .WithMany(p => p.Talentos)
                     .HasForeignKey(d => d.Idutilizador)
                     .HasConstraintName("fk_talento_utilizador");
-            }); // FECHA O BLOCO DO TALENTO
+            }); 
 
-            // CONFIGURAÇÃO DO TALENTOSKILL
+            
             modelBuilder.Entity<Talentoskill>(entity =>
             {
-                // CHAVE COMPOSTA PARA A TABELA DE LIGAÇÃO
+                
                 entity.HasKey(e => new { e.Idtalento, e.Idskill }).HasName("talentoskill_pkey");
                 entity.ToTable("talentoskill");
 
@@ -115,7 +139,7 @@ namespace ProfileMAnager.Data
                     .WithMany(p => p.Talentoskills)
                     .HasForeignKey(d => d.Idskill)
                     .HasConstraintName("fk_talentoskill_skill");
-            }); // FECHA O BLOCO DO TALENTOSKILL
+            });
 
             modelBuilder.Entity<Utilizador>(entity =>
             {
@@ -123,27 +147,48 @@ namespace ProfileMAnager.Data
                 entity.ToTable("utilizador");
                 entity.HasIndex(e => e.Email, "utilizador_email_key").IsUnique();
             });
+            
+            
+            modelBuilder.Entity<PropostaTalento>(entity =>
+            {
+                entity.ToTable("propostatalento"); // ✔ CORRETO
 
-            // --- SOLUÇÃO GLOBAL PARA SNAKE_CASE (PostgreSQL padrão) ---
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Datainicio).HasColumnName("datainicio");
+                entity.Property(e => e.Datafim).HasColumnName("datafim");
+                entity.Property(e => e.Estado).HasColumnName("estado");
+
+                entity.Property(e => e.Idproposta).HasColumnName("idproposta");
+                entity.Property(e => e.Idtalento).HasColumnName("idtalento");
+
+                entity.HasOne(d => d.Proposta)
+                    .WithMany(p => p.PropostaTalentos)
+                    .HasForeignKey(d => d.Idproposta)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(d => d.Talento)
+                    .WithMany(t => t.PropostaTalentos)
+                    .HasForeignKey(d => d.Idtalento)
+                    .OnDelete(DeleteBehavior.Cascade);
+            });
+           
             foreach (var entity in modelBuilder.Model.GetEntityTypes())
             {
-                // Converter Nome da Tabela: Exemplo "Areaprofissional" -> "areaprofissional"
+               
                 entity.SetTableName(entity.GetTableName().ToLower());
 
                 foreach (var property in entity.GetProperties())
                 {
-                    // Converter Propriedades: Exemplo "CreatedAt" -> "created_at"
+                    
                     var columnName = property.GetColumnName();
-        
-                    // Esta lógica insere um '_' antes de cada letra maiúscula (exceto a primeira)
-                    // e transforma tudo em minúsculas.
                     var snakeCaseName = System.Text.RegularExpressions.Regex
                         .Replace(property.Name, "([a-z0-9])([A-Z])", "$1_$2").ToLower();
             
                     property.SetColumnName(snakeCaseName);
                 }
 
-                // Fazer o mesmo para chaves e índices se necessário
+                
                 foreach (var key in entity.GetKeys())
                     key.SetName(key.GetName().ToLower());
 

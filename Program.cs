@@ -7,8 +7,18 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddControllersWithViews();
+
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+builder.Services.AddDbContext<ProfileMAnager.Models.GerirProposta>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+
 
 builder.Services.AddScoped<ServicoAutenticacao>();
 
@@ -27,7 +37,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Conta}/{action=Login}/{id?}");

@@ -1,0 +1,116 @@
+﻿@model ProfileMAnager.Models.Propostatrabalho
+
+@{
+    ViewData["Title"] = "Editar Proposta";
+}
+
+<h2>Editar Proposta</h2>
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Edit">
+            
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Idproposta"/>
+            <input type="hidden" asp-for="Idutilizador" />
+
+            <div class="form-group mb-3">
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" class="form-control"/>
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label>Cliente</label>
+                <select asp-for="Idcliente" class="form-control" asp-items="@(new SelectList(ViewBag.Clientes, "Idcliente", "Nome"))"></select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label>Categoria</label>
+                <select asp-for="Idcategoria" class="form-control" asp-items="@(new SelectList(ViewBag.Categorias, "Idcategoria", "Nome"))"></select>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Estado" class="control-label">Estado da Proposta</label>
+                <select asp-for="Estado" class="form-control">
+                    <option value="ABERTA">Aberta</option>
+                    <option value="EM CURSO">Em Curso</option>
+                    <option value="FECHADA">Fechada</option>
+                    <option value="CANCELADA">Cancelada</option>
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Horastotais" class="control-label">Horas Totais</label>
+                <input asp-for="Horastotais" class="form-control"/>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Descricao" class="control-label">Descrição</label>
+                <textarea asp-for="Descricao" class="form-control" rows="3"></textarea>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Guardar Alterações</button>
+                <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr />
+
+<h4>Talentos associados</h4>
+<table class="table align-middle">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Data Início</th>
+            <th>Estado Atual</th>
+            <th style="width: 250px;">Ações de Estado</th>
+        </tr>
+    </thead>
+    <tbody>
+    @if (Model.PropostaTalentos != null && Model.PropostaTalentos.Any())
+    {
+        @foreach (var pt in Model.PropostaTalentos)
+        {
+            <tr>
+                <td><strong>@(pt.Talento?.Nome ?? "N/A")</strong></td> 
+               <td>@pt.Datainicio?.ToString("dd/MM/yyyy")</td>
+                <td>
+                    <span class="badge @(pt.Estado == "Aprovado" ? "bg-success" : (pt.Estado == "Rejeitado" ? "bg-danger" : "bg-warning text-dark"))">
+                        @pt.Estado
+                    </span>
+                </td>
+                <td>
+                    <div class="d-flex gap-2">
+                        @* 1. Formulário  Altera *@
+                        <form asp-action="AlterarEstado" method="post">
+                            <input type="hidden" name="id" value="@pt.Id" />
+                            <select name="estado" class="form-select form-select-sm" onchange="this.form.submit()">
+                                <option value="">Mudar para...</option>
+                                <option value="Pendente">Pendente</option>
+                                <option value="Entrevistado">Entrevistado</option>
+                                <option value="Aprovado">Aprovado</option>
+                                <option value="Rejeitado">Rejeitado</option>
+                            </select>
+                        </form>
+                
+                        @* 2. Formulário Remov *@
+                        <form asp-action="RemoverTalento" method="post" onsubmit="return confirm('Remover este talento da proposta?');">
+                            <input type="hidden" name="id" value="@pt.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                Remover
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr><td colspan="4" class="text-center text-muted italic">Nenhum talento associado a esta proposta.</td></tr>
+    }
+    </tbody>
+</table>

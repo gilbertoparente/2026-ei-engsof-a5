@@ -9,7 +9,6 @@ namespace ProfileMAnager.Controllers
     public class ContaController : Controller
     {
         private readonly ServicoAutenticacao _servico;
-
         public ContaController(ServicoAutenticacao servico)
         {
             _servico = servico;
@@ -17,6 +16,7 @@ namespace ProfileMAnager.Controllers
 
         public IActionResult Login() => View();
 
+        //envia login
         [HttpPost]
         public async Task<IActionResult> Login(string email, string password)
         {
@@ -36,14 +36,13 @@ namespace ProfileMAnager.Controllers
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);
-
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
-
             return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Registo() => View();
 
+        //cria registo
         [HttpPost]
         public IActionResult Registo(string nome, string email, string password)
         {
@@ -53,10 +52,8 @@ namespace ProfileMAnager.Controllers
                 ViewBag.Erro = "Email já registado";
                 return View();
             }
-
-            // MENSAGEM DE SUCESSO AQUI:
+          
             TempData["Sucesso"] = "Conta criada com sucesso! Já pode fazer login.";
-
             return RedirectToAction("Login");
         }
 
