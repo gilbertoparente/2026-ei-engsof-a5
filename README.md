@@ -23,7 +23,7 @@ Professor: Abel Dantas
 
 
 ## Instruções de Configuração e Execução pela base de dados
-1. Script de criação com um backup com dados neste projeto na pasta Database chamado backup_com_dados
+1. Script de criação com um backup com dados neste projeto na pasta Database chamado backup_com_dados.sql
 2. No postgres abrir a consola de queries e correr o script
 
 
@@ -52,8 +52,40 @@ dotnet ef database update
    dotnet run
  
 
+### Sprint 3
+Alterações na base de dados:
+
+Criação das tabelas:
+1. areaprofissional
+2. propostatalento
+3. uniformazação dos campos
 
 
+# Backlog sprint 3 
+17 - Criar cliente
+18 - Editar cliente
+19 - Criar proposta de trabalho
+20 - Editar proposta de trabalho
+21 - Remover proposta de trabalho
+22 - Associar skills a proposta
+23 - Definir experiência mínima na proposta
+
+
+# Estado da aplicação
+Propostas funcionais, faltam filtros e melhorias na visualização das propostas. Utilizador associa talentos às propostas no "Editar propostas"
+Necessário melhorar logica das propostas
+
+
+
+# Backlog Sprint 2:
+9 - Eliminar skills
+10 - Criar perfil de talento H
+11 - Editar perfil de talento
+12 - Definir visibilidade do talento
+13 - Associar skills a talentos
+14 - Definir anos de experiência na skill
+15 -Adicionar experiência profissional
+16 - Validar sobreposição de experiências
 
 
 # Tarefas a realizar (05/03/2026)
