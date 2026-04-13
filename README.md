@@ -61,7 +61,7 @@ Criação das tabelas:
 3. uniformazação dos campos
 
 
-# Backlog sprint 3
+# Backlog sprint 3 
 17 - Criar cliente
 18 - Editar cliente
 19 - Criar proposta de trabalho
@@ -69,13 +69,10 @@ Criação das tabelas:
 21 - Remover proposta de trabalho
 22 - Associar skills a proposta
 23 - Definir experiência mínima na proposta
-24 - Pesquisa de talentos por skills
+
 
 # Estado da aplicação
 Propostas funcionais, faltam filtros e melhorias na visualização das propostas. Utilizador associa talentos às propostas no "Editar propostas"
-
-
-
 
 
 
