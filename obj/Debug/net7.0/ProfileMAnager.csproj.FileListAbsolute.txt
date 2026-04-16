@@ -1,3 +1,11 @@
+C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\obj\Debug\net7.0\ProfileMAnager.csproj.AssemblyReference.cache
+C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\obj\Debug\net7.0\ProfileMAnager.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\obj\Debug\net7.0\ProfileMAnager.AssemblyInfoInputs.cache
+C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\obj\Debug\net7.0\ProfileMAnager.AssemblyInfo.cs
+C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\obj\Debug\net7.0\ProfileMAnager.csproj.CoreCompileInputs.cache
+C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\obj\Debug\net7.0\ProfileMAnager.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\obj\Debug\net7.0\ProfileMAnager.RazorAssemblyInfo.cache
+C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\obj\Debug\net7.0\ProfileMAnager.RazorAssemblyInfo.cs
 C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\bin\Debug\net7.0\appsettings.Development.json
 C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\bin\Debug\net7.0\appsettings.json
 C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\bin\Debug\net7.0\ProfileMAnager.staticwebassets.runtime.json
@@ -17,14 +25,6 @@ C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\bin\Debug\net7.0\Mono
 C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\bin\Debug\net7.0\Npgsql.dll
 C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\bin\Debug\net7.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\bin\Debug\net7.0\System.CodeDom.dll
-C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\obj\Debug\net7.0\ProfileMAnager.csproj.AssemblyReference.cache
-C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\obj\Debug\net7.0\ProfileMAnager.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\obj\Debug\net7.0\ProfileMAnager.AssemblyInfoInputs.cache
-C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\obj\Debug\net7.0\ProfileMAnager.AssemblyInfo.cs
-C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\obj\Debug\net7.0\ProfileMAnager.csproj.CoreCompileInputs.cache
-C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\obj\Debug\net7.0\ProfileMAnager.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\obj\Debug\net7.0\ProfileMAnager.RazorAssemblyInfo.cache
-C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\obj\Debug\net7.0\ProfileMAnager.RazorAssemblyInfo.cs
 C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\obj\Debug\net7.0\staticwebassets\msbuild.ProfileMAnager.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\obj\Debug\net7.0\staticwebassets\msbuild.build.ProfileMAnager.props
 C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.ProfileMAnager.props
