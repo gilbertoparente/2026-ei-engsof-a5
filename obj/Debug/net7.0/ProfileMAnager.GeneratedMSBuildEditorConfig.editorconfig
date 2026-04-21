@@ -16,6 +16,18 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/CategoriaTalento/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhVGFsZW50b1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/CategoriaTalento/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhVGFsZW50b1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/CategoriaTalento/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhVGFsZW50b1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Clientes/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
