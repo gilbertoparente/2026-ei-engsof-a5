@@ -63,12 +63,12 @@ Neste Sprint vamos ter como principais prioridades:
 3. Iniciar testes unitários ao projeto. 
 
 # Backlog Sprint 4:
-1. Bug 1 - Apresentar as skills da proposta na edição da proposta
-2. Bug 2 - Colocar Data Picker em vez de input manual do ano ao adicionar experiência
-3. Bug 3 - Correção de Salvar experiência
-4. Bug 4 - Ao adicionar experiência, corrigir o gravar a data atual
-5. Bug 5 - Falta ordenar as propostas elegíveis por valor total
-6. 24 - Definir experiência mínima na proposta
+1. Bug 1 - Apresentar as skills da proposta na edição da proposta - Gilberto Parente
+2. Bug 2 - Colocar Data Picker em vez de input manual do ano ao adicionar experiência  - Gilberto Parente
+3. Bug 3 - Correção de Salvar experiência  - Gilberto Parente
+4. Bug 4 - Ao adicionar experiência, corrigir o gravar a data atual  - Gilberto Parente
+5. Bug 5 - Falta ordenar as propostas elegíveis por valor total  - Gilberto Parente
+6. 24 - Definir experiência mínima na proposta -  - Gilberto Parente
 7. 25 - Ordenar resultados da pesquisa
 8. 26 - Gestão de categorias de trabalho
 9. 27 - Calcular valor total do talento
