@@ -126,19 +126,27 @@ namespace ProfileMAnager.Controllers
         }
 
         // POST: Propostas/Edit/5
-        [HttpPost]
+               [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Propostatrabalho proposta)
+        public async Task<IActionResult> Edit(int id, Propostatrabalho proposta, int[] selectedSkills, int[] anosMinimos)
         {
             if (id != proposta.Idproposta) return NotFound();
+
+            ModelState.Remove("IdclienteNavigation");
+            ModelState.Remove("IdcategoriaNavigation");
+            ModelState.Remove("IdutilizadorNavigation");
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var propostaDb = await _context.Propostatrabalhos.FindAsync(id);
+                    var propostaDb = await _context.Propostatrabalhos
+                        .Include(p => p.Propostaskills) // Incluir skills atuais
+                        .FirstOrDefaultAsync(p => p.Idproposta == id);
+
                     if (propostaDb == null) return NotFound();
 
+                    // 1. Atualizar dados básicos
                     propostaDb.Nome = proposta.Nome;
                     propostaDb.Descricao = proposta.Descricao;
                     propostaDb.Idcliente = proposta.Idcliente;
@@ -147,21 +155,40 @@ namespace ProfileMAnager.Controllers
                     propostaDb.Estado = proposta.Estado;
                     propostaDb.UpdatedAt = DateTime.UtcNow;
 
-                    _context.Update(propostaDb);
+                    // 2. Sincronizar Skills
+                    // Remover as antigas
+                    _context.Propostaskills.RemoveRange(propostaDb.Propostaskills);
+                    
+                    // Adicionar as novas selecionadas
+                    if (selectedSkills != null)
+                    {
+                        for (int i = 0; i < selectedSkills.Length; i++)
+                        {
+                            _context.Propostaskills.Add(new Propostaskill
+                            {
+                                Idproposta = id,
+                                Idskill = selectedSkills[i],
+                                Anosminimosexperiencia = (anosMinimos != null && i < anosMinimos.Length) ? anosMinimos[i] : 0
+                            });
+                        }
+                    }
+
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)
                 {
-                    ModelState.AddModelError("", "Erro ao atualizar a proposta: " + ex.Message);
+                    ModelState.AddModelError("", "Erro ao atualizar: " + ex.Message);
                 }
             }
+            
             await CarregarDadosFormulario();
             return View(proposta);
         }
 
+       
         // GET: Propostas/Matching
-       public async Task<IActionResult> Matching(int id)
+        public async Task<IActionResult> Matching(int id)
         {
             var proposta = await _context.Propostatrabalhos
                 .Include("Propostaskills.IdskillNavigation")
@@ -174,22 +201,27 @@ namespace ProfileMAnager.Controllers
                 .Where(t => t.Publico == true)
                 .ToListAsync();
 
-           
+            // 1. Filtrar elegíveis (quem tem todas as skills necessárias com os anos mínimos)
             var talentosElegiveis = talentos.Where(t =>
-                 proposta.Propostaskills.All(req =>
-                     t.Talentoskills.Any(ts =>
-                         ts.Idskill == req.Idskill &&
-                         (ts.Anosexperiencia ?? 0) >= (req.Anosminimosexperiencia ?? 0)
-                     )
-                 )
-             ).ToList();
+                proposta.Propostaskills.All(req =>
+                    t.Talentoskills.Any(ts =>
+                        ts.Idskill == req.Idskill &&
+                        (ts.Anosexperiencia ?? 0) >= (req.Anosminimosexperiencia ?? 0)
+                    )
+                )
+            );
+
+            // 2. Ordenar por Valor Total (Preço Hora * Horas da Proposta)
+            // Usamos .ToList() aqui para efetivar a ordenação antes de enviar para a View
+            var listaOrdenada = talentosElegiveis
+                .OrderBy(t => t.Precohora * (proposta.Horastotais ?? 0))
+                .ToList();
 
             ViewBag.Proposta = proposta;
-            
-            
-            return View("Matching", (object)talentosElegiveis);
+    
+            return View("Matching", listaOrdenada);
         }
-
+        
         // POST: Associar um Talento a uma Proposta
         [HttpPost]
         [ValidateAntiForgeryToken]

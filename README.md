@@ -50,7 +50,32 @@ dotnet ef database update
 # Correr o script de insert na pasta Database/DadosTeste.sql
 3. Execução
    dotnet run
+
+
+# Sprint 4 
+1. SM - Gilberto Parente
+2. PO - João Cruzeiro
+
+# Sprint Planing
+Neste Sprint vamos ter como principais prioridades:
+1. Resolução dos Bugs encontrados no Sprint 3:
+2. Desenvolvimento de funcionalidades do sprint 4
+3. Iniciar testes unitários ao projeto. 
+
+# Backlog Sprint 4:
+1. Bug 1 - Apresentar as skills da proposta na edição da proposta
+2. Bug 2 - Colocar Data Picker em vez de input manual do ano ao adicionar experiência
+3. Bug 3 - Correção de Salvar experiência
+4. Bug 4 - Ao adicionar experiência, corrigir o gravar a data atual
+5. Bug 5 - Falta ordenar as propostas elegíveis por valor total
+6. 24 - Definir experiência mínima na proposta
+7. 25 - Ordenar resultados da pesquisa
+8. 26 - Gestão de categorias de trabalho
+9. 27 - Calcular valor total do talento
+10. Testes unitário
  
+___________________________________________________________
+
 
 ### Sprint 3
 Alterações na base de dados:

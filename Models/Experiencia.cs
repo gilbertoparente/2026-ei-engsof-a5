@@ -23,5 +23,5 @@ public partial class Experiencia
 
     public DateTime? UpdatedAt { get; set; }
 
-    public virtual Talento IdtalentoNavigation { get; set; } = null!;
+    public virtual Talento? IdtalentoNavigation { get; set; }
 }
