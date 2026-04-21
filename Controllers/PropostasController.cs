@@ -18,7 +18,7 @@ namespace ProfileMAnager.Controllers
             _context = context;
         }
 
-        // Método auxiliar para preencher dados de Clientes, Categorias e Skills nas Views
+        // carrega dados
         private async Task CarregarDadosFormulario()
         {
             var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -80,8 +80,7 @@ namespace ProfileMAnager.Controllers
 
                     _context.Add(proposta);
                     await _context.SaveChangesAsync();
-
-                    // Adicionar as competências (skills)
+                    
                     if (selectedSkills != null)
                     {
                         for (int i = 0; i < selectedSkills.Length; i++)
@@ -107,7 +106,7 @@ namespace ProfileMAnager.Controllers
             return View(proposta);
         }
 
-        // GET: Propostas/Edit/5
+        // GET: Propostas/Edit
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -125,7 +124,7 @@ namespace ProfileMAnager.Controllers
             return View(proposta);
         }
 
-        // POST: Propostas/Edit/5
+        // POST: Propostas/Edi
                [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Propostatrabalho proposta, int[] selectedSkills, int[] anosMinimos)
@@ -141,12 +140,11 @@ namespace ProfileMAnager.Controllers
                 try
                 {
                     var propostaDb = await _context.Propostatrabalhos
-                        .Include(p => p.Propostaskills) // Incluir skills atuais
+                        .Include(p => p.Propostaskills) 
                         .FirstOrDefaultAsync(p => p.Idproposta == id);
 
                     if (propostaDb == null) return NotFound();
-
-                    // 1. Atualizar dados básicos
+                    
                     propostaDb.Nome = proposta.Nome;
                     propostaDb.Descricao = proposta.Descricao;
                     propostaDb.Idcliente = proposta.Idcliente;
@@ -154,12 +152,10 @@ namespace ProfileMAnager.Controllers
                     propostaDb.Horastotais = proposta.Horastotais;
                     propostaDb.Estado = proposta.Estado;
                     propostaDb.UpdatedAt = DateTime.UtcNow;
-
-                    // 2. Sincronizar Skills
-                    // Remover as antigas
+                    
+               
                     _context.Propostaskills.RemoveRange(propostaDb.Propostaskills);
                     
-                    // Adicionar as novas selecionadas
                     if (selectedSkills != null)
                     {
                         for (int i = 0; i < selectedSkills.Length; i++)
@@ -212,7 +208,6 @@ namespace ProfileMAnager.Controllers
             );
 
             // 2. Ordenar por Valor Total (Preço Hora * Horas da Proposta)
-            // Usamos .ToList() aqui para efetivar a ordenação antes de enviar para a View
             var listaOrdenada = talentosElegiveis
                 .OrderBy(t => t.Precohora * (proposta.Horastotais ?? 0))
                 .ToList();
@@ -222,7 +217,7 @@ namespace ProfileMAnager.Controllers
             return View("Matching", listaOrdenada);
         }
         
-        // POST: Associar um Talento a uma Proposta
+        // POST: Associar um Talento
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AtribuirTalento(int idProposta, int idTalento)
@@ -247,7 +242,7 @@ namespace ProfileMAnager.Controllers
             return RedirectToAction("Edit", new { id = idProposta });
         }
 
-        // POST: Atualizar o estado (Candidato, Aceite, Rejeitado, etc)
+        // POST: Atualizar
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AlterarEstado(int id, string estado)
@@ -261,7 +256,7 @@ namespace ProfileMAnager.Controllers
             return RedirectToAction("Edit", new { id = pt.Idproposta });
         }
 
-        // POST: Remover a associação entre Talento e Proposta
+        // POST: Remover talentop
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoverTalento(int id)
@@ -277,7 +272,7 @@ namespace ProfileMAnager.Controllers
             return RedirectToAction("Index");
         }
 
-        // POST: Eliminar a proposta e todas as suas dependências
+        // POST: Eliminar a proposta 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)

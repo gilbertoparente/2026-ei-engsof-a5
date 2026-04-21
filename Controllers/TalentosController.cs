@@ -143,15 +143,13 @@ namespace ProfileMAnager.Controllers
 
             if (ModelState.IsValid)
             {
-                // 1. Validar anos básicos
+               
                 if (exp.Anofim.HasValue && exp.Anofim < exp.Anoinicio)
                 {
                     ViewBag.Erro = "O ano de término não pode ser anterior ao início.";
                     return View(exp);
                 }
-
-                // 2. Validação de Sobreposição Melhorada
-                // Só validamos se já existirem outras experiências
+                
                 var experienciasExistentes = await _context.Experiencia
                     .Where(e => e.Idtalento == exp.Idtalento)
                     .ToListAsync();
@@ -161,8 +159,7 @@ namespace ProfileMAnager.Controllers
                 foreach (var e in experienciasExistentes)
                 {
                     int fimExistente = e.Anofim ?? DateTime.Now.Year;
-
-                    // Lógica: Se o Início de uma está entre o Início/Fim da outra, há sobreposição
+                    
                     bool sobrepoe = (exp.Anoinicio >= e.Anoinicio && exp.Anoinicio <= fimExistente) ||
                                     (fimNovo >= e.Anoinicio && fimNovo <= fimExistente) ||
                                     (e.Anoinicio >= exp.Anoinicio && e.Anoinicio <= fimNovo);
