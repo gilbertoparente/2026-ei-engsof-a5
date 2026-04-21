@@ -22,4 +22,6 @@ public partial class Cliente
     public virtual Utilizador IdutilizadorNavigation { get; set; } = null!;
 
     public virtual ICollection<Propostatrabalho> Propostatrabalhos { get; set; } = new List<Propostatrabalho>();
+    
+    
 }

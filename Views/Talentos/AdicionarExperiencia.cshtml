@@ -21,16 +21,17 @@
 
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label class="form-label">Ano de Início</label>
-                    <input asp-for="Anoinicio" type="number" class="form-control" required min="1950" max="@DateTime.Now.Year" />
-                    <span asp-validation-for="Anoinicio" class="text-danger"></span>
+                    <label class="form-label fw-bold">Data de Início</label>
+                    <input type="date" name="DataInicio" class="form-control" required />
                 </div>
-
+            
                 <div class="col-md-6 mb-3">
-                    <label class="form-label">Ano de Término</label>
-                    <input asp-for="Anofim" type="number" class="form-control" placeholder="Deixe vazio se for atual" min="1950" max="@DateTime.Now.Year" />
-                    <small class="text-muted">Opcional, se ainda trabalhar na empresa.</small>
-                    <span asp-validation-for="Anofim" class="text-danger"></span>
+                    <label class="form-label fw-bold">Data de Fim</label>
+                    <input type="date" name="DataFim" id="DataFimInput" class="form-control" />
+                    <div class="form-check mt-1">
+                        <input class="form-check-input" type="checkbox" id="checkPresente" onchange="toggleDataFim(this)">
+                        <label class="form-check-label" for="checkPresente">Trabalho atualmente aqui</label>
+                    </div>
                 </div>
             </div>
 
@@ -47,3 +48,20 @@
         </form>
     </div>
 </div>
+@section Scripts {
+    <script>
+        function toggleDataFim(checkbox) {
+            // Procura o input da data de fim pelo ID que demos acima
+            var input = document.getElementById('DataFimInput');
+            
+            if (checkbox.checked) {
+                input.value = "";       // Limpa qualquer data escrita
+                input.disabled = true;  // Bloqueia o campo
+                input.style.backgroundColor = "#e9ecef"; // Dá um aspeto cinzento de desativado
+            } else {
+                input.disabled = false; // Reativa o campo
+                input.style.backgroundColor = "#fff";
+            }
+        }
+    </script>
+}

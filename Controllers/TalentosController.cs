@@ -22,14 +22,15 @@ namespace ProfileMAnager.Controllers
         public async Task<IActionResult> Index()
         {
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            
+
             var talentos = await _context.Talentos
                 .Include(t => t.IdcategoriaNavigation)
                 .Where(t => t.Idutilizador == userId)
                 .ToListAsync();
-                
+
             return View(talentos);
         }
+
         //  Criar
         public IActionResult Create()
         {
@@ -42,12 +43,12 @@ namespace ProfileMAnager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Talento talento)
         {
-            
+
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             talento.Idutilizador = userId;
             talento.CreatedAt = DateTime.UtcNow;
             talento.UpdatedAt = DateTime.UtcNow;
-           
+
             ModelState.Remove("IdutilizadorNavigation");
             ModelState.Remove("IdcategoriaNavigation");
 
@@ -58,36 +59,38 @@ namespace ProfileMAnager.Controllers
                 return RedirectToAction(nameof(Details), new { id = talento.Idtalento });
             }
 
-            ViewBag.Idcategoria = new SelectList(_context.Categoriatalentos, "Idcategoria", "Nome", talento.Idcategoria);
+            ViewBag.Idcategoria =
+                new SelectList(_context.Categoriatalentos, "Idcategoria", "Nome", talento.Idcategoria);
             return View(talento);
         }
 
-        
-        public async Task<IActionResult> Details(int? id) 
+
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null) return NotFound();
 
             var talento = await _context.Talentos
                 .Include(t => t.IdcategoriaNavigation)
                 .Include(t => t.Talentoskills).ThenInclude(ts => ts.IdskillNavigation)
+                .Include(t => t.Experiencia)
                 .FirstOrDefaultAsync(m => m.Idtalento == id);
 
             if (talento == null) return NotFound();
 
             return View(talento);
         }
-        
+
         public async Task<IActionResult> AdicionarSkill(int id)
         {
             var talento = await _context.Talentos.FindAsync(id);
             if (talento == null) return NotFound();
 
-         
+
             ViewBag.Idskill = new SelectList(_context.Skills, "Idskill", "Nome");
-    
-           
+
+
             var model = new Talentoskill { Idtalento = id };
-    
+
             return View(model);
         }
 
@@ -96,13 +99,13 @@ namespace ProfileMAnager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AdicionarSkill(Talentoskill ts)
         {
-            
+
             ModelState.Remove("IdskillNavigation");
             ModelState.Remove("IdtalentoNavigation");
 
             if (ModelState.IsValid)
             {
-                
+
                 var existe = await _context.Talentoskills
                     .AnyAsync(x => x.Idtalento == ts.Idtalento && x.Idskill == ts.Idskill);
 
@@ -121,7 +124,7 @@ namespace ProfileMAnager.Controllers
             ViewBag.Idskill = new SelectList(_context.Skills, "Idskill", "Nome", ts.Idskill);
             return View(ts);
         }
-        
+
         //  Adicionar experiencia 
         public async Task<IActionResult> AdicionarExperiencia(int id)
         {
@@ -132,7 +135,6 @@ namespace ProfileMAnager.Controllers
             return View(model);
         }
 
-        // Adicionar  experiencia 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AdicionarExperiencia(Experiencia exp)
@@ -141,24 +143,45 @@ namespace ProfileMAnager.Controllers
 
             if (ModelState.IsValid)
             {
-                var sobreposicao = await _context.Experiencia
-                    .Where(e => e.Idtalento == exp.Idtalento)
-                    .AnyAsync(e => 
-                        (exp.Anoinicio >= e.Anoinicio && exp.Anoinicio <= (e.Anofim ?? DateTime.Now.Year)) ||
-                        (exp.Anofim != null && exp.Anofim >= e.Anoinicio && exp.Anofim <= (e.Anofim ?? DateTime.Now.Year))
-                    );
-
-                if (sobreposicao)
+                // 1. Validar anos básicos
+                if (exp.Anofim.HasValue && exp.Anofim < exp.Anoinicio)
                 {
-                    ViewBag.Erro = "Não pode haver sobreposição de experiências no mesmo ano. Verifique as datas.";
+                    ViewBag.Erro = "O ano de término não pode ser anterior ao início.";
                     return View(exp);
                 }
 
+                // 2. Validação de Sobreposição Melhorada
+                // Só validamos se já existirem outras experiências
+                var experienciasExistentes = await _context.Experiencia
+                    .Where(e => e.Idtalento == exp.Idtalento)
+                    .ToListAsync();
+
+                int fimNovo = exp.Anofim ?? DateTime.Now.Year;
+
+                foreach (var e in experienciasExistentes)
+                {
+                    int fimExistente = e.Anofim ?? DateTime.Now.Year;
+
+                    // Lógica: Se o Início de uma está entre o Início/Fim da outra, há sobreposição
+                    bool sobrepoe = (exp.Anoinicio >= e.Anoinicio && exp.Anoinicio <= fimExistente) ||
+                                    (fimNovo >= e.Anoinicio && fimNovo <= fimExistente) ||
+                                    (e.Anoinicio >= exp.Anoinicio && e.Anoinicio <= fimNovo);
+
+                    if (sobrepoe)
+                    {
+                        ViewBag.Erro =
+                            $"Sobreposição detetada com a experiência em '{e.Empresa}' ({e.Anoinicio} - {(e.Anofim.HasValue ? e.Anofim.ToString() : "Presente")}).";
+                        return View(exp);
+                    }
+                }
+
+                // 3. Salvar
                 exp.CreatedAt = DateTime.UtcNow;
                 exp.UpdatedAt = DateTime.UtcNow;
+
                 _context.Experiencia.Add(exp);
                 await _context.SaveChangesAsync();
-        
+
                 return RedirectToAction(nameof(Details), new { id = exp.Idtalento });
             }
 
