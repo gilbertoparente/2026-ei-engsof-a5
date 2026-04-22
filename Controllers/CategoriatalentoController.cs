@@ -68,8 +68,8 @@ namespace ProfileMAnager.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var categoria = await _context.Categoriatalentos
-                .Include(c => c.Talentos) // Inclui os talentos para verificar se existem
-                .Include(c => c.Propostatrabalhos) // Se as propostas também usarem esta categoria
+                .Include(c => c.Talentos) 
+                .Include(c => c.Propostatrabalhos) 
                 .FirstOrDefaultAsync(c => c.Idcategoria == id);
 
             if (categoria == null) return NotFound();
@@ -77,7 +77,6 @@ namespace ProfileMAnager.Controllers
             // Verifica se existem dependências
             if (categoria.Talentos.Any() || categoria.Propostatrabalhos.Any())
             {
-                // Aqui podes usar o TempData para enviar uma mensagem de erro para a Index
                 TempData["Error"] = "Não pode eliminar esta categoria porque existem talentos ou propostas associados a ela.";
                 return RedirectToAction(nameof(Index));
             }

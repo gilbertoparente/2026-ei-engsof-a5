@@ -197,7 +197,7 @@ namespace ProfileMAnager.Controllers
                 .Where(t => t.Publico == true)
                 .ToListAsync();
 
-            // 1. Filtrar elegíveis (quem tem todas as skills necessárias com os anos mínimos)
+            // 1. Filtrar elegíveis
             var talentosElegiveis = talentos.Where(t =>
                 proposta.Propostaskills.All(req =>
                     t.Talentoskills.Any(ts =>
@@ -207,7 +207,7 @@ namespace ProfileMAnager.Controllers
                 )
             );
 
-            // 2. Ordenar por Valor Total (Preço Hora * Horas da Proposta)
+            // 2. Ordenar por Valor Total 
             var listaOrdenada = talentosElegiveis
                 .OrderBy(t => t.Precohora * (proposta.Horastotais ?? 0))
                 .ToList();

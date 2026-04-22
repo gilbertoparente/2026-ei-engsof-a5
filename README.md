@@ -7,7 +7,7 @@ Professor: Abel Dantas
 1. Gilberto Parente - gilbertoparente@ipvc.pt
 2. Ruben LIma - limaruben@ipvc.pt
 3. João Pereira - o.pereira@ipvc.pt
-4. João Cruzeiro - jcruzeiro@ipvc.pt
+4. João Cruzeiro - jcruzeiro@ipvc.pt (congelou a matrícula)
 
 # Tema do Grupo : A - Plataforma de gestão de talentos IT 
 
@@ -51,16 +51,18 @@ dotnet ef database update
 3. Execução
    dotnet run
 
+---------------------------------------------------------------------------
 
 # Sprint 4 
 1. SM - Gilberto Parente
-2. PO - João Cruzeiro
+
 
 # Sprint Planing
 Neste Sprint vamos ter como principais prioridades:
 1. Resolução dos Bugs encontrados no Sprint 3:
 2. Desenvolvimento de funcionalidades do sprint 4
 3. Iniciar testes unitários ao projeto. 
+4. Decidir quem será o próximo SM 
 
 # Backlog Sprint 4:
 1. Bug 1 - Apresentar as skills da proposta na edição da proposta - Gilberto Parente
@@ -69,11 +71,30 @@ Neste Sprint vamos ter como principais prioridades:
 4. Bug 4 - Ao adicionar experiência, corrigir o gravar a data atual  - Gilberto Parente
 5. Bug 5 - Falta ordenar as propostas elegíveis por valor total  - Gilberto Parente
 6. 24 - Definir experiência mínima na proposta -  - Gilberto Parente
-7. 25 - Ordenar resultados da pesquisa
-8. 26 - Gestão de categorias de trabalho
-9. 27 - Calcular valor total do talento
-10. Testes unitário
+7. 25 - Ordenar resultados da pesquisa - Gilberto Parente
+8. 26 - Gestão de categorias de trabalho - Gilberto Parente
+9. 27 - Criar relatório por categoria e país - 
+10. Testes unitários - 
  
+
+# Tarefas a desenvolver no próximo sprint 5
+1. Criar relatório por skill
+2. Atualizar a documentação - relatório e project
+3. Fazer testes funcionais à aplicação
+4. Terminar os  testes unitários
+5. No decorrer do sprint 5 cada elemento do grupo tem que implementar um design parttern e fazer um video com a explicação e execução.
+6. Fazer um video completo mostrando todas as funcionalidades
+
+# Proximo SM
+Foi decidido que para o Sprint 5 o SM seria o João Pereira
+
+# Retrospetiva
+1. Melhor organização do grupo e das divisões das tarefas a desenvolver
+2. Dificuldade no desenvolviemnto dos testes unitários
+3. dificuldades na atribuição dos design partterns.
+4. Foram feitos os testes funcionais por toda a aplicação de modo a validar os inputs e a detetar erros na aplicação
+
+
 ___________________________________________________________
 
 
