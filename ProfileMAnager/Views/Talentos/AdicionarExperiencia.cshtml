@@ -1,0 +1,67 @@
+﻿@model ProfileMAnager.Models.Experiencia
+
+@{ ViewData["Title"] = "Nova Experiência"; }
+
+<div class="container mt-4">
+    <div class="card shadow p-4" style="max-width: 600px; margin: 0 auto;">
+        <h3 class="text-center mb-4">Adicionar Experiência Profissional</h3>
+
+        @if (ViewBag.Erro != null) {
+            <div class="alert alert-danger">@ViewBag.Erro</div>
+        }
+
+        <form asp-action="AdicionarExperiencia" method="post">
+            <input type="hidden" asp-for="Idtalento" />
+
+            <div class="mb-3">
+                <label class="form-label">Nome da Empresa</label>
+                <input asp-for="Empresa" class="form-control" required placeholder="Ex: Google, Microsoft" />
+                <span asp-validation-for="Empresa" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Data de Início</label>
+                    <input type="date" name="DataInicio" class="form-control" required />
+                </div>
+            
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Data de Fim</label>
+                    <input type="date" name="DataFim" id="DataFimInput" class="form-control" />
+                    <div class="form-check mt-1">
+                        <input class="form-check-input" type="checkbox" id="checkPresente" onchange="toggleDataFim(this)">
+                        <label class="form-check-label" for="checkPresente">Trabalho atualmente aqui</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Descrição do Trabalho</label>
+                <textarea asp-for="Descricao" class="form-control" rows="3" placeholder="O que fizeste nesta empresa?"></textarea>
+                <span asp-validation-for="Descricao" class="text-danger"></span>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Salvar Experiência</button>
+                <a asp-action="Details" asp-route-id="@Model.Idtalento" class="btn btn-outline-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        function toggleDataFim(checkbox) {
+            // Procura o input da data de fim pelo ID que demos acima
+            var input = document.getElementById('DataFimInput');
+            
+            if (checkbox.checked) {
+                input.value = "";       // Limpa qualquer data escrita
+                input.disabled = true;  // Bloqueia o campo
+                input.style.backgroundColor = "#e9ecef"; // Dá um aspeto cinzento de desativado
+            } else {
+                input.disabled = false; // Reativa o campo
+                input.style.backgroundColor = "#fff";
+            }
+        }
+    </script>
+}

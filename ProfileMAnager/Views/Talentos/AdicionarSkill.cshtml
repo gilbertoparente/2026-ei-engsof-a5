@@ -1,0 +1,36 @@
+﻿@model ProfileMAnager.Models.Talentoskill
+
+@{ ViewData["Title"] = "Associar Competência"; }
+
+<div class="container mt-4">
+    <div class="card shadow p-4" style="max-width: 500px; margin: 0 auto;">
+        <h3 class="text-center mb-4">Adicionar Skill ao Talento</h3>
+
+        @if (ViewBag.Erro != null) {
+            <div class="alert alert-danger">@ViewBag.Erro</div>
+        }
+
+        <form asp-action="AdicionarSkill" method="post">
+            <input type="hidden" asp-for="Idtalento" />
+
+            <div class="mb-3">
+                <label class="form-label">Competência (Skill)</label>
+                <select asp-for="Idskill" class="form-control" asp-items="ViewBag.Idskill">
+                    <option value="">-- Selecione uma Skill --</option>
+                </select>
+                <span asp-validation-for="Idskill" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Anos de Experiência</label>
+                <input asp-for="Anosexperiencia" type="number" class="form-control" min="0" required />
+                <span asp-validation-for="Anosexperiencia" class="text-danger"></span>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-success">Salvar Competência</button>
+                <a asp-action="Details" asp-route-id="@Model.Idtalento" class="btn btn-outline-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</div>

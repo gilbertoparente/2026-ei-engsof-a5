@@ -1,0 +1,72 @@
+﻿@model ProfileMAnager.Models.Propostatrabalho
+
+@{
+    ViewData["Title"] = "Registar Proposta";
+}
+
+<h2>Registar Proposta</h2>
+<hr />
+<div asp-validation-summary="All" class="text-danger"></div>
+
+<form asp-action="Create">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label asp-for="Nome" class="form-label">Nome da Proposta</label>
+                <input asp-for="Nome" class="form-control" placeholder="Ex: Developer Fullstack Senior" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Cliente</label>
+                <select asp-for="Idcliente" class="form-select" asp-items="@(new SelectList(ViewBag.Clientes, "Idcliente", "Nome"))">
+                    <option value="">-- Selecione um Cliente --</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Categoria de Talento</label>
+                <select asp-for="Idcategoria" class="form-select" asp-items="@(new SelectList(ViewBag.Categorias, "Idcategoria", "Nome"))">
+                    <option value="">-- Selecione uma Categoria --</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Horastotais" class="form-label">Número de Horas</label>
+                <input asp-for="Horastotais" type="number" class="form-control" />
+            </div>
+            
+            <div class="mb-3">
+                <label asp-for="Descricao" class="form-label">Descrição do Trabalho</label>
+                <textarea asp-for="Descricao" class="form-control" rows="3"></textarea>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <h4>Skills Necessárias</h4>
+            <div style="max-height: 400px; overflow-y: auto;" class="border p-3 bg-light">
+                @if (ViewBag.Skills != null)
+                {
+                    foreach (var skill in ViewBag.Skills)
+                    {
+                        <div class="row align-items-center mb-2">
+                            <div class="col-1">
+                                <input type="checkbox" name="selectedSkills" value="@skill.Idskill" class="form-check-input" />
+                            </div>
+                            <div class="col-6">
+                                <span>@skill.Nome</span>
+                            </div>
+                            <div class="col-5">
+                                <input type="number" name="anosMinimos" class="form-control form-control-sm" placeholder="Anos Min." />
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-primary">Gravar Proposta</button>
+        <a asp-action="Index" class="btn btn-secondary">Voltar</a>
+    </div>
+</form>

@@ -1,0 +1,83 @@
+@model IEnumerable<ProfileMAnager.Models.Propostatrabalho>
+
+@{
+    ViewData["Title"] = "Gestão de Propostas";
+}
+
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2><i class="bi bi-file-earmark-text"></i> Propostas de Trabalho</h2>
+    <a asp-controller="Propostas" asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Nova Proposta
+    </a>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead class="table-dark">
+                <tr>
+                    <th class="ps-4">Projeto / Nome</th>
+                    <th>Cliente</th>
+                    <th>Categoria</th>
+                    <th>Estado</th>
+                    <th class="text-end pe-4">Gestão</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model) {
+                <tr>
+                    <td class="ps-4">
+                        <span class="fw-bold text-primary">@item.Nome</span>
+                        <br />
+                        <small class="text-muted">Horas totais: @item.Horastotais</small>
+                    </td>
+                    <td>
+                        <span class="badge bg-light text-dark border">
+                            <i class="bi bi-building me-1"></i> @(item.IdclienteNavigation?.Nome ?? "N/A")
+                        </span>
+                    </td>
+                    <td>@(item.IdcategoriaNavigation?.Nome ?? "N/A")</td>
+                    <td>
+                        @{
+                            var badgeClass = item.Estado switch {
+                                "ABERTA" => "bg-success",
+                                "EM CURSO" => "bg-warning text-dark",
+                                "FECHADA" => "bg-secondary",
+                                "CANCELADA" => "bg-danger",
+                                _ => "bg-info"
+                            };
+                        }
+                        <span class="badge @badgeClass">@item.Estado</span>
+                    </td>
+                    <td class="text-end pe-4">
+                        <div class="d-flex justify-content-end align-items-center gap-2">
+                            <a asp-action="Matching" asp-route-id="@item.Idproposta" class="btn btn-success btn-sm d-flex align-items-center">
+                                <i class="bi bi-lightning-charge me-1"></i> Elegíveis
+                            </a>
+                            <a asp-action="Edit" asp-route-id="@item.Idproposta" class="btn btn-primary btn-sm d-flex align-items-center">
+                                <i class="bi bi-pencil me-1"></i> Editar
+                            </a>
+                            <form asp-action="Delete" asp-route-id="@item.Idproposta" method="post" 
+                                  onsubmit="return confirm('ATENÇÃO: Deseja eliminar permanentemente esta proposta?');" 
+                                  class="m-0 d-inline-flex">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="btn btn-danger btn-sm d-flex align-items-center">
+                                    <i class="bi bi-trash me-1"></i> Eliminar
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="text-center mt-5">
+        <p class="text-muted">Nenhuma proposta de trabalho registada até ao momento.</p>
+    </div>
+}

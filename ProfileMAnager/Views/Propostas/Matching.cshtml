@@ -1,0 +1,73 @@
+﻿@model List<ProfileMAnager.Models.Talento>
+@{
+    var proposta = ViewBag.Proposta as ProfileMAnager.Models.Propostatrabalho;
+    ViewData["Title"] = "Talentos Elegíveis";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h2>Talentos Elegíveis</h2>
+            <p class="text-muted">Proposta: <strong>@proposta.Nome</strong> (@(proposta.Horastotais ?? 0) horas estimadas)</p>
+        </div>
+        <a asp-action="Index" class="btn btn-outline-secondary">Voltar</a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info shadow-sm">
+            <i class="bi bi-info-circle me-2"></i> Nenhum talento cumpre todos os requisitos de skills desta proposta.
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-light border shadow-sm mb-4">
+            <i class="bi bi-sort-numeric-down me-2"></i> Listagem ordenada por <strong>menor custo total</strong>.
+        </div>
+
+        <div class="row">
+            @foreach (var t in Model)
+            {
+                var valorTotal = t.Precohora * (proposta.Horastotais ?? 0);
+                
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm h-100 border-0">
+                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0">@t.Nome</h5>
+                            <span class="badge bg-light text-primary">@t.Precohora.ToString("C")/h</span>
+                        </div>
+                        
+                        <div class="card-body d-flex flex-column">
+                            <p class="mb-1 text-muted"><i class="bi bi-geo-alt"></i> @t.Pais</p>
+                            
+                            <div class="my-3 p-2 bg-light rounded text-center border">
+                                <small class="text-uppercase text-muted d-block" style="font-size: 0.7rem;">Custo Total Estimado</small>
+                                <strong class="fs-4 text-dark">@valorTotal.ToString("C")</strong>
+                            </div>
+
+                            <h6 class="border-bottom pb-1">Competências Chave:</h6>
+                            <div class="flex-grow-1">
+                                @foreach (var ts in t.Talentoskills)
+                                {
+                                    <span class="badge border text-dark fw-normal mb-1">
+                                        @ts.IdskillNavigation?.Nome (@ts.Anosexperiencia anos)
+                                    </span>
+                                }
+                            </div>
+
+                            <div class="mt-3">
+                                <form asp-action="AtribuirTalento" method="post">
+                                    <input type="hidden" name="idProposta" value="@proposta.Idproposta" />
+                                    <input type="hidden" name="idTalento" value="@t.Idtalento" />
+                                    <button type="submit" class="btn btn-success w-100 shadow-sm">
+                                        <i class="bi bi-check-circle me-2"></i> Selecionar Talento
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
