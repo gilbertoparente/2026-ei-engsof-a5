@@ -182,7 +182,7 @@ namespace ProfileMAnager.Controllers
         }
 
 
-        // Relatório por Categoria e País
+        // Relatório por Categoria e Paíss
 
         public async Task<IActionResult> RelatorioCategoriaPais()
         {
