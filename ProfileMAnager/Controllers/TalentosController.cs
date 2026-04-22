@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProfileMAnager.Data;
 using ProfileMAnager.Models;
+using ProfileMAnager.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 
@@ -31,19 +32,18 @@ namespace ProfileMAnager.Controllers
             return View(talentos);
         }
 
-        //  Criar
+        // Criar
         public IActionResult Create()
         {
             ViewBag.Idcategoria = new SelectList(_context.Categoriatalentos, "Idcategoria", "Nome");
             return View();
         }
 
-        //  criar
+        // criar
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Talento talento)
         {
-
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             talento.Idutilizador = userId;
             talento.CreatedAt = DateTime.UtcNow;
@@ -61,9 +61,9 @@ namespace ProfileMAnager.Controllers
 
             ViewBag.Idcategoria =
                 new SelectList(_context.Categoriatalentos, "Idcategoria", "Nome", talento.Idcategoria);
+
             return View(talento);
         }
-
 
         public async Task<IActionResult> Details(int? id)
         {
@@ -85,27 +85,23 @@ namespace ProfileMAnager.Controllers
             var talento = await _context.Talentos.FindAsync(id);
             if (talento == null) return NotFound();
 
-
             ViewBag.Idskill = new SelectList(_context.Skills, "Idskill", "Nome");
-
 
             var model = new Talentoskill { Idtalento = id };
 
             return View(model);
         }
 
-        //Adicionar  skill
+        // Adicionar skill
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AdicionarSkill(Talentoskill ts)
         {
-
             ModelState.Remove("IdskillNavigation");
             ModelState.Remove("IdtalentoNavigation");
 
             if (ModelState.IsValid)
             {
-
                 var existe = await _context.Talentoskills
                     .AnyAsync(x => x.Idtalento == ts.Idtalento && x.Idskill == ts.Idskill);
 
@@ -118,6 +114,7 @@ namespace ProfileMAnager.Controllers
 
                 _context.Talentoskills.Add(ts);
                 await _context.SaveChangesAsync();
+
                 return RedirectToAction(nameof(Details), new { id = ts.Idtalento });
             }
 
@@ -125,7 +122,7 @@ namespace ProfileMAnager.Controllers
             return View(ts);
         }
 
-        //  Adicionar experiencia 
+        // Adicionar experiencia 
         public async Task<IActionResult> AdicionarExperiencia(int id)
         {
             var talento = await _context.Talentos.FindAsync(id);
@@ -143,13 +140,12 @@ namespace ProfileMAnager.Controllers
 
             if (ModelState.IsValid)
             {
-               
                 if (exp.Anofim.HasValue && exp.Anofim < exp.Anoinicio)
                 {
                     ViewBag.Erro = "O ano de término não pode ser anterior ao início.";
                     return View(exp);
                 }
-                
+
                 var experienciasExistentes = await _context.Experiencia
                     .Where(e => e.Idtalento == exp.Idtalento)
                     .ToListAsync();
@@ -159,10 +155,11 @@ namespace ProfileMAnager.Controllers
                 foreach (var e in experienciasExistentes)
                 {
                     int fimExistente = e.Anofim ?? DateTime.Now.Year;
-                    
-                    bool sobrepoe = (exp.Anoinicio >= e.Anoinicio && exp.Anoinicio <= fimExistente) ||
-                                    (fimNovo >= e.Anoinicio && fimNovo <= fimExistente) ||
-                                    (e.Anoinicio >= exp.Anoinicio && e.Anoinicio <= fimNovo);
+
+                    bool sobrepoe =
+                        (exp.Anoinicio >= e.Anoinicio && exp.Anoinicio <= fimExistente) ||
+                        (fimNovo >= e.Anoinicio && fimNovo <= fimExistente) ||
+                        (e.Anoinicio >= exp.Anoinicio && e.Anoinicio <= fimNovo);
 
                     if (sobrepoe)
                     {
@@ -172,7 +169,6 @@ namespace ProfileMAnager.Controllers
                     }
                 }
 
-                // 3. Salvar
                 exp.CreatedAt = DateTime.UtcNow;
                 exp.UpdatedAt = DateTime.UtcNow;
 
@@ -183,6 +179,31 @@ namespace ProfileMAnager.Controllers
             }
 
             return View(exp);
+        }
+
+
+        // Relatório por Categoria e País
+
+        public async Task<IActionResult> RelatorioCategoriaPais()
+        {
+            var relatorio = await _context.Talentos
+                .Include(t => t.IdcategoriaNavigation)
+                .GroupBy(t => new
+                {
+                    Categoria = t.IdcategoriaNavigation.Nome,
+                    Pais = t.Pais
+                })
+                .Select(g => new RelatorioCategoriaPaisVM
+                {
+                    Categoria = g.Key.Categoria,
+                    Pais = g.Key.Pais,
+                    Total = g.Count()
+                })
+                .OrderBy(r => r.Categoria)
+                .ThenBy(r => r.Pais)
+                .ToListAsync();
+
+            return View(relatorio);
         }
     }
 }

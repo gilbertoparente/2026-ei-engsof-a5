@@ -1,33 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\gilbe\\RiderProjects\\ProfileMAnager\\ProfileMAnager\\ProfileMAnager.csproj": {}
+    "C:\\Users\\Admin\\Desktop\\Software II\\ProfileMAnager\\ProfileMAnager.csproj": {}
   },
   "projects": {
-    "C:\\Users\\gilbe\\RiderProjects\\ProfileMAnager\\ProfileMAnager\\ProfileMAnager.csproj": {
+    "C:\\Users\\Admin\\Desktop\\Software II\\ProfileMAnager\\ProfileMAnager.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gilbe\\RiderProjects\\ProfileMAnager\\ProfileMAnager\\ProfileMAnager.csproj",
+        "projectUniqueName": "C:\\Users\\Admin\\Desktop\\Software II\\ProfileMAnager\\ProfileMAnager.csproj",
         "projectName": "ProfileMAnager",
-        "projectPath": "C:\\Users\\gilbe\\RiderProjects\\ProfileMAnager\\ProfileMAnager\\ProfileMAnager.csproj",
-        "packagesPath": "C:\\Users\\gilbe\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gilbe\\RiderProjects\\ProfileMAnager\\ProfileMAnager\\obj\\",
+        "projectPath": "C:\\Users\\Admin\\Desktop\\Software II\\ProfileMAnager\\ProfileMAnager.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Admin\\Desktop\\Software II\\ProfileMAnager\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\gilbe\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
-          "C:\\Program Files\\dotnet\\sdk\\7.0.317\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -90,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.317\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.410\\RuntimeIdentifierGraph.json"
         }
       }
     }
