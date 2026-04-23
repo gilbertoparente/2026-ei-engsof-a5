@@ -84,6 +84,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcG9zdGFzXE1hdGNoaW5nLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Relatorios/RelatorioCategoriaPais.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVsYXRvcmlvc1xSZWxhdG9yaW9DYXRlZ29yaWFQYWlzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -130,10 +134,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Talentos/MeusPerfis.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFsZW50b3NcTWV1c1BlcmZpcy5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Talentos/RelatorioCategoriaPais.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFsZW50b3NcUmVsYXRvcmlvQ2F0ZWdvcmlhUGFpcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/_ViewImports.cshtml]
