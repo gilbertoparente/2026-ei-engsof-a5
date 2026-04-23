@@ -1,4 +1,4 @@
-namespace ProfileMAnager.Models.ViewModels
+namespace ProfileMAnager.Models
 {
     public class RelatorioCategoriaPaisVM
     {
