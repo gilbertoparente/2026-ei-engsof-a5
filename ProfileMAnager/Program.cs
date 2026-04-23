@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<RelatorioService>();
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>

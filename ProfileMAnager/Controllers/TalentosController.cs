@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ProfileMAnager.Data;
 using ProfileMAnager.Models;
-using ProfileMAnager.Models.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 
@@ -179,31 +178,6 @@ namespace ProfileMAnager.Controllers
             }
 
             return View(exp);
-        }
-
-
-        // Relatório por Categoria e Paíss
-
-        public async Task<IActionResult> RelatorioCategoriaPais()
-        {
-            var relatorio = await _context.Talentos
-                .Include(t => t.IdcategoriaNavigation)
-                .GroupBy(t => new
-                {
-                    Categoria = t.IdcategoriaNavigation.Nome,
-                    Pais = t.Pais
-                })
-                .Select(g => new RelatorioCategoriaPaisVM
-                {
-                    Categoria = g.Key.Categoria,
-                    Pais = g.Key.Pais,
-                    Total = g.Count()
-                })
-                .OrderBy(r => r.Categoria)
-                .ThenBy(r => r.Pais)
-                .ToListAsync();
-
-            return View(relatorio);
         }
     }
 }
