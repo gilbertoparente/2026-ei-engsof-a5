@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ProfileMAnager.Data;
-using ProfileMAnager.Models;
 using Microsoft.AspNetCore.Authorization;
+using ProfileMAnager.Models;
+using ProfileMAnager.Services;
 using System.Security.Claims;
 
 namespace ProfileMAnager.Controllers
@@ -10,37 +9,38 @@ namespace ProfileMAnager.Controllers
     [Authorize]
     public class ClientesController : Controller
     {
-        private readonly AppDbContext _context;
-
-        public ClientesController(AppDbContext context)
+        private readonly IClienteService _service;
+        
+        public ClientesController(IClienteService service)
         {
-            _context = context;
+            _service = service;
         }
 
-        // listar 
+        // LISTAR
         public async Task<IActionResult> Index()
         {
-            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var clientes = await _context.Clientes
-                .Where(c => c.Idutilizador == userId)
-                .ToListAsync();
+            var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            int userId = int.TryParse(userIdStr, out int id) ? id : 0;
+            
+            var clientes = (await _service.GetAllByUserIdAsync(userId)).ToList();
+    
             return View(clientes);
         }
 
-        // criar view
+        // GET: CREATE
         public IActionResult Create()
         {
             return View();
         }
 
-        // criar
+        // POST: CREATE
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Cliente cliente)
         {
-            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
-            cliente.Idutilizador = userId;
+            var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            cliente.Idutilizador = int.TryParse(userIdStr, out int id) ? id : 0;
+            
             cliente.CreatedAt = DateTime.UtcNow;
             cliente.UpdatedAt = DateTime.UtcNow;
 
@@ -48,70 +48,81 @@ namespace ProfileMAnager.Controllers
 
             if (ModelState.IsValid)
             {
-                _context.Clientes.Add(cliente);
-                await _context.SaveChangesAsync();
+                await _service.AddAsync(cliente);
                 return RedirectToAction(nameof(Index));
             }
-
             return View(cliente);
         }
 
-        // editar
+        // GET: EDIT
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
-            var cliente = await _context.Clientes.FindAsync(id);
+            
+            var cliente = await _service.GetByIdAsync(id.Value);
+            
             if (cliente == null) return NotFound();
-            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            
+            var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            int userId = int.TryParse(userIdStr, out int idUser) ? idUser : 0;
+
             if (cliente.Idutilizador != userId) return Forbid();
 
             return View(cliente);
         }
 
-        // editar
+        // POST: EDIT
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Cliente cliente)
         {
             if (id != cliente.Idcliente) return NotFound();
 
-            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            cliente.Idutilizador = userId;
+            var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            cliente.Idutilizador = int.TryParse(userIdStr, out int idUser) ? idUser : 0;
             cliente.UpdatedAt = DateTime.UtcNow;
+
             ModelState.Remove("IdutilizadorNavigation");
+
             if (ModelState.IsValid)
             {
-                _context.Update(cliente);
-                await _context.SaveChangesAsync();
+                await _service.UpdateAsync(cliente);
                 return RedirectToAction(nameof(Index));
             }
             return View(cliente);
         }
 
-        // delete
+        // GET: delete
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
-            var cliente = await _context.Clientes
-                .FirstOrDefaultAsync(c => c.Idcliente == id);
+            
+            var cliente = await _service.GetByIdAsync(id.Value);
+
             if (cliente == null) return NotFound();
-            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             if (cliente.Idutilizador != userId) return Forbid();
 
             return View(cliente);
         }
 
-        // delete
+        // POST: Clientes/Delete/5
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var cliente = await _context.Clientes.FindAsync(id);
-            if (cliente != null)
-            {
-                _context.Clientes.Remove(cliente);
-                await _context.SaveChangesAsync();
-            }
+            var cliente = await _service.GetByIdAsync(id);
+    
+            if (cliente == null) return NotFound();
+            
+            int userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            if (cliente.Idutilizador != userId) return Forbid();
+
+            await _service.DeleteAsync(id);
+    
+            TempData["Sucesso"] = "Cliente eliminado com sucesso!";
             return RedirectToAction(nameof(Index));
         }
     }

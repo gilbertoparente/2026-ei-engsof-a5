@@ -7,6 +7,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
+// declaração dos Serviços criados
+builder.Services.AddScoped<IPropostaService, PropostaService>();
+builder.Services.AddScoped<IDashboardService, DashboardService>();
+builder.Services.AddScoped<IClienteService, ClienteService>();
+builder.Services.AddScoped(typeof(IService<>), typeof(Repository<>));
+builder.Services.AddScoped<IAutenticacaoService, ServicoAutenticacao>();
+builder.Services.AddScoped<IPesquisaService, PesquisaService>();
+builder.Services.AddScoped<ITalentoService, TalentoService>();
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<RelatorioService>();
 

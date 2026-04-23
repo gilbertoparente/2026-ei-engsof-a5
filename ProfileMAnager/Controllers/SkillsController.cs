@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ProfileMAnager.Data;
 using ProfileMAnager.Models;
+using ProfileMAnager.Services;
 using Microsoft.AspNetCore.Authorization;
 
 namespace ProfileMAnager.Controllers
@@ -10,56 +10,63 @@ namespace ProfileMAnager.Controllers
     [Authorize] 
     public class SkillsController : Controller
     {
-        private readonly AppDbContext _context;
+        
+        private readonly IService<Skill> _skillRepo;
+        private readonly IService<Areaprofissional> _areaRepo;
 
-        public SkillsController(AppDbContext context)
+        public SkillsController(IService<Skill> skillRepo, IService<Areaprofissional> areaRepo)
         {
-            _context = context;
+            _skillRepo = skillRepo;
+            _areaRepo = areaRepo;
         }
 
+        // LISTAR
         public async Task<IActionResult> Index()
         {
-            var skills = await _context.Skills
+            
+            var skills = await _skillRepo.Query()
                 .Include(s => s.IdareaNavigation)
                 .ToListAsync();
             return View(skills);
         }
 
-        //criar
-        public IActionResult Create()
+        // CREATE (GET)
+        public async Task<IActionResult> Create()
         {
-            ViewBag.Idarea = new SelectList(_context.Areaprofissionals, "Idarea", "Nome");
+            var areas = await _areaRepo.GetAllAsync();
+            ViewBag.Idarea = new SelectList(areas, "Idarea", "Nome");
             return View();
         }
 
-        // criar
+        // CREATE (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Skill skill)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(skill);
-                await _context.SaveChangesAsync();
+                await _skillRepo.AddAsync(skill);
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.Idarea = new SelectList(_context.Areaprofissionals, "Idarea", "Nome", skill.Idarea);
+            var areas = await _areaRepo.GetAllAsync();
+            ViewBag.Idarea = new SelectList(areas, "Idarea", "Nome", skill.Idarea);
             return View(skill);
         }
 
-        //  Editar
+        // EDIT (GET)
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
 
-            var skill = await _context.Skills.FindAsync(id);
+            var skill = await _skillRepo.GetByIdAsync(id.Value);
             if (skill == null) return NotFound();
 
-            ViewBag.Idarea = new SelectList(_context.Areaprofissionals, "Idarea", "Nome", skill.Idarea);
+            var areas = await _areaRepo.GetAllAsync();
+            ViewBag.Idarea = new SelectList(areas, "Idarea", "Nome", skill.Idarea);
             return View(skill);
         }
 
-        // Editar 
+        // EDIT (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Skill skill)
@@ -68,51 +75,52 @@ namespace ProfileMAnager.Controllers
 
             if (ModelState.IsValid)
             {
-                _context.Update(skill);
-                await _context.SaveChangesAsync();
+                await _skillRepo.UpdateAsync(skill);
                 return RedirectToAction(nameof(Index));
             }
-            ViewBag.Idarea = new SelectList(_context.Areaprofissionals, "Idarea", "Nome", skill.Idarea);
+            var areas = await _areaRepo.GetAllAsync();
+            ViewBag.Idarea = new SelectList(areas, "Idarea", "Nome", skill.Idarea);
             return View(skill);
         }
 
-        // delete
+        
+        // GET: Skills/Delete
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
-
-            var skill = await _context.Skills
+            
+            var skill = await _skillRepo.Query()
                 .Include(s => s.IdareaNavigation)
+                .Include(s => s.Talentoskills) 
                 .FirstOrDefaultAsync(m => m.Idskill == id);
 
             if (skill == null) return NotFound();
-
-            bool temTalentos = await _context.Talentoskills.AnyAsync(ts => ts.Idskill == id);
-            ViewBag.PodeApagar = !temTalentos;
+            
+            ViewBag.PodeApagar = !skill.Talentoskills.Any();
 
             return View(skill);
         }
 
-        // delete
+        //  POST: Skills/Delete
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var skill = await _context.Skills.FindAsync(id);
-            
-            bool temTalentos = await _context.Talentoskills.AnyAsync(ts => ts.Idskill == id);
-            
-            if (temTalentos)
+            var skill = await _skillRepo.Query()
+                .Include(s => s.Talentoskills)
+                .FirstOrDefaultAsync(m => m.Idskill == id);
+
+            if (skill == null) return NotFound();
+
+            if (skill.Talentoskills.Any())
             {
                 TempData["Erro"] = "Não pode apagar esta skill pois ela está associada a talentos.";
                 return RedirectToAction(nameof(Index));
             }
 
-            if (skill != null)
-            {
-                _context.Skills.Remove(skill);
-                await _context.SaveChangesAsync();
-            }
+            await _skillRepo.DeleteAsync(skill);
+            TempData["Sucesso"] = "Skill eliminada com sucesso!";
             return RedirectToAction(nameof(Index));
         }
     }

@@ -1,0 +1,74 @@
+﻿@model ProfileMAnager.Models.Talento
+
+@{
+    ViewData["Title"] = "Editar Perfil";
+}
+
+<div class="container mt-4">
+    <h2>Editar Perfil de Talento</h2>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-8">
+            @* ADICIONADO: method="post" *@
+            <form asp-action="Edit" method="post">
+                @Html.AntiForgeryToken()
+                
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                
+                <input type="hidden" asp-for="Idtalento" />
+                <input type="hidden" asp-for="Idutilizador" />
+
+                <div class="mb-3">
+                    <label asp-for="Nome" class="form-label font-weight-bold">Nome do Perfil</label>
+                    <input asp-for="Nome" class="form-control" />
+                    <span asp-validation-for="Nome" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Idcategoria" class="form-label">Categoria</label>
+                        <select asp-for="Idcategoria" class="form-select" asp-items="ViewBag.Idcategoria"></select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Pais" class="form-label">País</label>
+                        <input asp-for="Pais" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Precohora" class="form-label font-weight-bold">Preço por Hora (€)</label>
+                        @* Usamos type="text" para evitar conflitos de ponto/vírgula no browser *@
+                        <input asp-for="Precohora" asp-format="{0:G29}" class="form-control" type="text" />
+                        <span asp-validation-for="Precohora" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3 d-flex align-items-end">
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" asp-for="Publico" />
+                            <label class="form-check-label" asp-for="Publico">Perfil Público</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 d-flex gap-2">
+                    <button type="submit" class="btn btn-outline-primary">
+                        <i class="bi bi-save"></i> Guardar Alterações
+                    </button>
+                    <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    @* Script para aceitar vírgulas na validação do lado do cliente *@
+    <script>
+        $.validator.methods.number = function (value, element) {
+            return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:[\s\.,]\d{3})+)(?:[\.,]\d+)?$/.test(value);
+        }
+    </script>
+}

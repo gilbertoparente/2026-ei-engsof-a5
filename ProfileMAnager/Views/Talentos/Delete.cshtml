@@ -1,0 +1,25 @@
+﻿@model ProfileMAnager.Models.Talento
+
+@{ ViewData["Title"] = "Eliminar Perfil"; }
+
+<h2>Eliminar Perfil de Talento</h2>
+<div class="alert alert-danger">
+    <p>Tem a certeza que deseja eliminar o perfil <strong>@Model.Nome</strong>?</p>
+    <small>Todas as skills e experiências associadas serão removidas.</small>
+</div>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">Nome</dt>
+        <dd class="col-sm-9">@Model.Nome</dd>
+        <dt class="col-sm-3">Categoria</dt>
+        <dd class="col-sm-9">@Model.IdcategoriaNavigation?.Nome</dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Idtalento" />
+        <button type="submit" class="btn btn-outline-danger">Confirmar Eliminação</button>
+        <a asp-action="Index" class="btn btn-outline-secondary">Cancelar</a>
+    </form>
+</div>

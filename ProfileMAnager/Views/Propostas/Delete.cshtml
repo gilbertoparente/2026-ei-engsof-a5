@@ -1,0 +1,30 @@
+﻿@model ProfileMAnager.Models.Propostatrabalho
+
+@{ ViewData["Title"] = "Eliminar Proposta"; }
+
+<h2>Eliminar Proposta</h2>
+<div class="alert alert-danger">
+    <h4>Atenção!</h4>
+    <p>Tem a certeza que deseja eliminar esta proposta de trabalho? Esta ação não pode ser revertida.</p>
+</div>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">Título/Descrição</dt>
+        <dd class="col-sm-9">@Model.Descricao</dd>
+
+        <dt class="col-sm-3">Cliente</dt>
+        <dd class="col-sm-9">@Model.IdclienteNavigation?.Nome</dd>
+
+        <dt class="col-sm-3">Data de Publicação</dt>
+        <dd class="col-sm-9">@Model.CreatedAt.Value</dd>
+    </dl>
+
+    <form asp-action="Delete" asp-route-id="@Model.Idproposta" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Idproposta" />
+        <button type="submit" class="btn btn-danger">Confirmar Eliminação Permanente</button> |
+        <a asp-action="Index" class="btn btn-secondary">Cancelar e Voltar</a>
+    </form>
+</div>

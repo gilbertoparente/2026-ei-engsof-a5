@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using ProfileMAnager.Data;
-using ProfileMAnager.Models;
 using Microsoft.AspNetCore.Authorization;
+using ProfileMAnager.Models;
+using ProfileMAnager.Services;
 using System.Security.Claims;
 
 namespace ProfileMAnager.Controllers
@@ -11,87 +10,77 @@ namespace ProfileMAnager.Controllers
     [Authorize]
     public class TalentosController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly ITalentoService _talentoService;
+        private readonly IService<Categoriatalento> _categoriaRepo;
+        private readonly IService<Skill> _skillRepo;
 
-        public TalentosController(AppDbContext context)
+        public TalentosController(
+            ITalentoService talentoService, 
+            IService<Categoriatalento> categoriaRepo,
+            IService<Skill> skillRepo)
         {
-            _context = context;
+            _talentoService = talentoService;
+            _categoriaRepo = categoriaRepo;
+            _skillRepo = skillRepo;
         }
 
-        // Listar
+        // LISTAR
         public async Task<IActionResult> Index()
         {
-            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
-            var talentos = await _context.Talentos
-                .Include(t => t.IdcategoriaNavigation)
-                .Where(t => t.Idutilizador == userId)
-                .ToListAsync();
-
+            int userId = GetCurrentUserId();
+            var talentos = await _talentoService.GetTalentosPorUtilizadorAsync(userId);
             return View(talentos);
         }
 
-        // Criar
-        public IActionResult Create()
+        // DETALHES
+        public async Task<IActionResult> Details(int? id)
         {
-            ViewBag.Idcategoria = new SelectList(_context.Categoriatalentos, "Idcategoria", "Nome");
+            if (id == null) return NotFound();
+
+            var talento = await _talentoService.GetDetalhesCompletosAsync(id.Value);
+            if (talento == null) return NotFound();
+
+            return View(talento);
+        }
+
+        // CRIAR (GET)
+        public async Task<IActionResult> Create()
+        {
+            ViewBag.Idcategoria = new SelectList(await _categoriaRepo.GetAllAsync(), "Idcategoria", "Nome");
             return View();
         }
 
-        // criar
+        // CRIAR (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Talento talento)
         {
-            var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            talento.Idutilizador = userId;
-            talento.CreatedAt = DateTime.UtcNow;
-            talento.UpdatedAt = DateTime.UtcNow;
-
+            int userId = GetCurrentUserId();
+            
             ModelState.Remove("IdutilizadorNavigation");
             ModelState.Remove("IdcategoriaNavigation");
 
             if (ModelState.IsValid)
             {
-                _context.Add(talento);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Details), new { id = talento.Idtalento });
+                int novoId = await _talentoService.CriarTalentoAsync(talento, userId);
+                return RedirectToAction(nameof(Details), new { id = novoId });
             }
 
-            ViewBag.Idcategoria =
-                new SelectList(_context.Categoriatalentos, "Idcategoria", "Nome", talento.Idcategoria);
-
+            ViewBag.Idcategoria = new SelectList(await _categoriaRepo.GetAllAsync(), "Idcategoria", "Nome", talento.Idcategoria);
             return View(talento);
         }
 
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null) return NotFound();
-
-            var talento = await _context.Talentos
-                .Include(t => t.IdcategoriaNavigation)
-                .Include(t => t.Talentoskills).ThenInclude(ts => ts.IdskillNavigation)
-                .Include(t => t.Experiencia)
-                .FirstOrDefaultAsync(m => m.Idtalento == id);
-
-            if (talento == null) return NotFound();
-
-            return View(talento);
-        }
-
+        // ADICIONAR SKILL (GET)
         public async Task<IActionResult> AdicionarSkill(int id)
         {
-            var talento = await _context.Talentos.FindAsync(id);
+            var talento = await _talentoService.GetDetalhesCompletosAsync(id);
             if (talento == null) return NotFound();
 
-            ViewBag.Idskill = new SelectList(_context.Skills, "Idskill", "Nome");
-
-            var model = new Talentoskill { Idtalento = id };
-
-            return View(model);
+            ViewBag.Idskill = new SelectList(await _skillRepo.GetAllAsync(), "Idskill", "Nome");
+            return View(new Talentoskill { Idtalento = id });
         }
 
-        // Adicionar skill
+        // ADICIONAR SKILL (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AdicionarSkill(Talentoskill ts)
@@ -101,36 +90,24 @@ namespace ProfileMAnager.Controllers
 
             if (ModelState.IsValid)
             {
-                var existe = await _context.Talentoskills
-                    .AnyAsync(x => x.Idtalento == ts.Idtalento && x.Idskill == ts.Idskill);
+                var erro = await _talentoService.AdicionarSkillAsync(ts);
+                if (erro == null)
+                    return RedirectToAction(nameof(Details), new { id = ts.Idtalento });
 
-                if (existe)
-                {
-                    ViewBag.Erro = "Este talento já possui esta skill associada.";
-                    ViewBag.Idskill = new SelectList(_context.Skills, "Idskill", "Nome", ts.Idskill);
-                    return View(ts);
-                }
-
-                _context.Talentoskills.Add(ts);
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction(nameof(Details), new { id = ts.Idtalento });
+                ViewBag.Erro = erro;
             }
 
-            ViewBag.Idskill = new SelectList(_context.Skills, "Idskill", "Nome", ts.Idskill);
+            ViewBag.Idskill = new SelectList(await _skillRepo.GetAllAsync(), "Idskill", "Nome", ts.Idskill);
             return View(ts);
         }
 
-        // Adicionar experiencia 
-        public async Task<IActionResult> AdicionarExperiencia(int id)
+        // ADICIONAR EXPERIÊNCIA (GET)
+        public IActionResult AdicionarExperiencia(int id)
         {
-            var talento = await _context.Talentos.FindAsync(id);
-            if (talento == null) return NotFound();
-
-            var model = new Experiencia { Idtalento = id };
-            return View(model);
+            return View(new Experiencia { Idtalento = id });
         }
 
+        // ADICIONAR EXPERIÊNCIA (POST)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AdicionarExperiencia(Experiencia exp)
@@ -139,45 +116,83 @@ namespace ProfileMAnager.Controllers
 
             if (ModelState.IsValid)
             {
-                if (exp.Anofim.HasValue && exp.Anofim < exp.Anoinicio)
-                {
-                    ViewBag.Erro = "O ano de término não pode ser anterior ao início.";
-                    return View(exp);
-                }
+                var erro = await _talentoService.AdicionarExperienciaAsync(exp);
+                if (erro == null)
+                    return RedirectToAction(nameof(Details), new { id = exp.Idtalento });
 
-                var experienciasExistentes = await _context.Experiencia
-                    .Where(e => e.Idtalento == exp.Idtalento)
-                    .ToListAsync();
-
-                int fimNovo = exp.Anofim ?? DateTime.Now.Year;
-
-                foreach (var e in experienciasExistentes)
-                {
-                    int fimExistente = e.Anofim ?? DateTime.Now.Year;
-
-                    bool sobrepoe =
-                        (exp.Anoinicio >= e.Anoinicio && exp.Anoinicio <= fimExistente) ||
-                        (fimNovo >= e.Anoinicio && fimNovo <= fimExistente) ||
-                        (e.Anoinicio >= exp.Anoinicio && e.Anoinicio <= fimNovo);
-
-                    if (sobrepoe)
-                    {
-                        ViewBag.Erro =
-                            $"Sobreposição detetada com a experiência em '{e.Empresa}' ({e.Anoinicio} - {(e.Anofim.HasValue ? e.Anofim.ToString() : "Presente")}).";
-                        return View(exp);
-                    }
-                }
-
-                exp.CreatedAt = DateTime.UtcNow;
-                exp.UpdatedAt = DateTime.UtcNow;
-
-                _context.Experiencia.Add(exp);
-                await _context.SaveChangesAsync();
-
-                return RedirectToAction(nameof(Details), new { id = exp.Idtalento });
+                ViewBag.Erro = erro;
             }
-
             return View(exp);
+        }
+
+        
+        private int GetCurrentUserId()
+        {
+            var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return int.TryParse(userIdStr, out int id) ? id : 0;
+        }
+        
+        // EDITAR (GET)
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var talento = await _talentoService.GetDetalhesCompletosAsync(id.Value);
+            if (talento == null || talento.Idutilizador != GetCurrentUserId()) return NotFound();
+
+            ViewBag.Idcategoria = new SelectList(await _categoriaRepo.GetAllAsync(), "Idcategoria", "Nome", talento.Idcategoria);
+            return View(talento);
+        }
+
+        // EDITAR (POST)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, Talento talento)
+        {
+            
+            if (id != talento.Idtalento) return NotFound();
+            ModelState.Remove("Email");
+            ModelState.Remove("IdutilizadorNavigation");
+            ModelState.Remove("IdcategoriaNavigation");
+            ModelState.Remove("Talentoskills");
+            ModelState.Remove("Experiencias");
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await _talentoService.AtualizarTalentoAsync(talento);
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", "Erro ao guardar: " + ex.Message);
+                }
+            }
+            ViewBag.Idcategoria = new SelectList(await _categoriaRepo.GetAllAsync(), "Idcategoria", "Nome", talento.Idcategoria);
+    
+            
+            return View(talento);
+        }
+
+        // ELIMINAR GET 
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null) return NotFound();
+
+            var talento = await _talentoService.GetDetalhesCompletosAsync(id.Value);
+            if (talento == null || talento.Idutilizador != GetCurrentUserId()) return NotFound();
+
+            return View(model: talento);
+        }
+
+        // ELIMINAR (POST)
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            await _talentoService.EliminarTalentoAsync(id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

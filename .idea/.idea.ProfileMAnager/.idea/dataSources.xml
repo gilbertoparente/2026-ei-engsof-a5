@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="plataformaTalento@localhost" uuid="d0c85c39-fca3-46fc-84f0-bf979d208181">
+    <data-source source="LOCAL" name="ProjectManager@localhost" uuid="c798378f-f0c2-4d01-b865-e8128c8c02b2">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <configured-by-url>true</configured-by-url>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/plataformaTalento?password=teeno&amp;user=postgres</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/ProjectManager?password=123456&amp;user=postgres</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

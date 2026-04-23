@@ -1,10 +1,11 @@
 ﻿using ProfileMAnager.Data;
 using ProfileMAnager.Models;
-using System.Linq;
+using BCrypt.Net;
 
 namespace ProfileMAnager.Services
 {
-    public class ServicoAutenticacao
+    // Adicionamos a herança da Interface que criámos no passo anterior
+    public class ServicoAutenticacao : IAutenticacaoService
     {
         private readonly AppDbContext _context;
 
@@ -15,6 +16,7 @@ namespace ProfileMAnager.Services
 
         public bool Registar(string nome, string email, string password)
         {
+            // Verifica se o email já existe (boa prática)
             if (_context.Utilizadors.Any(u => u.Email == email))
                 return false;
 
@@ -32,12 +34,14 @@ namespace ProfileMAnager.Services
             return true;
         }
 
-        public Utilizador? Login(string email, string password)
+        // Alterado de 'Login' para 'Autenticar' para bater certo com a Interface
+        public Utilizador? Autenticar(string email, string password)
         {
             var utilizador = _context.Utilizadors.FirstOrDefault(u => u.Email == email);
             if (utilizador == null)
                 return null;
 
+            // Verifica se a password em texto limpo corresponde ao Hash na BD
             bool valido = BCrypt.Net.BCrypt.Verify(password, utilizador.Passwordhash);
             return valido ? utilizador : null;
         }

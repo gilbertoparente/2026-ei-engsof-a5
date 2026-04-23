@@ -43,12 +43,13 @@
                             </span>
                         </td>
                         <td class="text-end pe-4">
-                            <div class="btn-group">
-                                <a asp-action="Edit" asp-route-id="@item.Idskill" class="btn btn-primary btn-sm">
-                                    Editar
+                            @* d-inline-flex e gap-2 garantem que fiquem na mesma linha mas separados *@
+                            <div class="d-inline-flex gap-2">
+                                <a asp-action="Edit" asp-route-id="@item.Idskill" class="btn btn-outline-primary btn-sm">
+                                    <i class="bi bi-pencil"></i> Editar
                                 </a>
-                                <a asp-action="Delete" asp-route-id="@item.Idskill" class="btn btn-danger btn-sm">
-                                    Apagar
+                                <a asp-action="Delete" asp-route-id="@item.Idskill" class="btn btn-outline-danger btn-sm">
+                                    <i class="bi bi-trash"></i> Apagar
                                 </a>
                             </div>
                         </td>

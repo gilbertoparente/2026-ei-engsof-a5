@@ -1,0 +1,31 @@
+﻿@model ProfileMAnager.Models.Categoriatalento
+
+@{ ViewData["Title"] = "Eliminar Categoria"; }
+
+<h2>Eliminar Categoria</h2>
+<h3>Tem a certeza que deseja eliminar esta categoria?</h3>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">Nome da Categoria</dt>
+        <dd class="col-sm-10">@Model.Nome</dd>
+    </dl>
+
+    @if (ViewBag.PodeApagar == false)
+    {
+        <div class="alert alert-danger">
+            <strong>Atenção:</strong> Esta categoria não pode ser eliminada porque existem talentos ou propostas que a utilizam.
+        </div>
+        <a asp-action="Index" class="btn btn-secondary">Voltar à Lista</a>
+    }
+    else
+    {
+        <form asp-action="Delete" asp-route-id="@Model.Idcategoria" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="Idcategoria" />
+            <button type="submit" class="btn btn-danger">Confirmar Eliminação</button> |
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        </form>
+    }
+</div>

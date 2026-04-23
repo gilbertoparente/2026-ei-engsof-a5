@@ -7,26 +7,60 @@
 
 body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; }
 
-/* Botões Uniformes - Todos Azuis com Texto Branco */
-.btn-primary, .btn-success, .btn-warning {
-  background-color: var(--primary-blue) !important;
-  border-color: var(--primary-blue) !important;
+/* --- BOTÕES UNIFORMES (Fundo Branco, Texto Colorido) --- */
+
+/* Base para todos os botões */
+.btn {
+  background-color: white !important;
+  border-radius: 8px;
+  padding: 0.4rem 1rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  margin: 2px;
+}
+
+/* EDITAR / CRIAR / DETALHES / ELEGÍVEIS (Azul) */
+/* Adicionei .btn-info aqui que é o que costuma ser usado para "Elegíveis" */
+.btn-primary, .btn-outline-primary, .btn-info {
+  color: #0056b3 !important;
+  border: 1px solid #0056b3 !important;
+}
+
+.btn-primary:hover, .btn-outline-primary:hover, .btn-info:hover {
+  background-color: #0056b3 !important;
   color: white !important;
-  border-radius: var(--radius);
-  padding: 0.5rem 1.2rem;
-  transition: all 0.3s;
 }
 
-.btn-primary:hover, .btn-success:hover, .btn-warning:hover {
-  background-color: var(--hover-blue) !important;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+/* APAGAR (Vermelho) */
+.btn-danger, .btn-outline-danger {
+  color: #dc3545 !important;
+  border: 1px solid #dc3545 !important;
 }
 
+.btn-danger:hover, .btn-outline-danger:hover {
+  background-color: #dc3545 !important;
+  color: white !important;
+}
+
+/* VOLTAR / CANCELAR (Cinza) */
+.btn-secondary, .btn-outline-secondary {
+  color: #6c757d !important;
+  border: 1px solid #6c757d !important;
+}
+
+.btn-secondary:hover, .btn-outline-secondary:hover {
+  background-color: #6c757d !important;
+  color: white !important;
+}
 /* Tabelas */
-.table { background: white; border-radius: var(--radius); overflow: hidden; shadow: 0 2px 4px rgba(0,0,0,0.05); }
+.table { background: white; border-radius: var(--radius); overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
 .table thead { background-color: #343a40; color: white; }
 
-/* Cards do Dashboard */
-.card { border: none; border-radius: var(--radius); transition: transform 0.2s; }
-.card:hover { transform: scale(1.02); }
+/* Cards do Dashboard - Removido o efeito de escala */
+.card {
+  border: none;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Adicionada sombra leve fixa */
+}
+
+/* Removido o .card:hover { transform: scale(1.02); } */
