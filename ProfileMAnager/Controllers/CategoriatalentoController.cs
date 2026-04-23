@@ -1,52 +1,54 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ProfileMAnager.Data;
 using ProfileMAnager.Models;
+using ProfileMAnager.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ProfileMAnager.Controllers
 {
+    [Authorize]
     public class CategoriatalentoController : Controller
     {
-        private readonly AppDbContext _context;
+        private readonly IService<Categoriatalento> _repo;
 
-        public CategoriatalentoController(AppDbContext context)
+        public CategoriatalentoController(IService<Categoriatalento> repo)
         {
-            _context = context;
+            _repo = repo;
         }
 
-        // LISTAR
+        // LISTA
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categoriatalentos.ToListAsync());
+            var lista = await _repo.GetAllAsync();
+            return View(lista);
         }
-
-        // INSERIR (GET)
         public IActionResult Create() => View();
 
-        // INSERIR (POST)
+        // INSERIR  grava
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Categoriatalento categoria)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(categoria);
-                await _context.SaveChangesAsync();
+                await _repo.AddAsync(categoria);
                 return RedirectToAction(nameof(Index));
             }
             return View(categoria);
         }
 
-        // ALTERAR (GET)
+        // ALTERAR (GET): Procura a categoria pelo ID
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
-            var categoria = await _context.Categoriatalentos.FindAsync(id);
+
+            var categoria = await _repo.GetByIdAsync(id.Value);
             if (categoria == null) return NotFound();
+
             return View(categoria);
         }
 
-        // ALTERAR (POST)
+        // ALTERAR (POST): Atualiza os dados
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Categoriatalento categoria)
@@ -55,36 +57,57 @@ namespace ProfileMAnager.Controllers
 
             if (ModelState.IsValid)
             {
-                _context.Update(categoria);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                try
+                {
+                    await _repo.UpdateAsync(categoria);
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    ModelState.AddModelError("", "Erro de concorrência ao atualizar a categoria.");
+                }
             }
             return View(categoria);
         }
 
-        //delete categoria
+        // GET: Categoriatalento 
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null) return NotFound();
+            
+            var categoria = await _repo.Query()
+                .Include(c => c.Talentos)
+                .Include(c => c.Propostatrabalhos)
+                .FirstOrDefaultAsync(m => m.Idcategoria == id);
+
+            if (categoria == null) return NotFound();
+            
+            ViewBag.PodeApagar = !categoria.Talentos.Any() && !categoria.Propostatrabalhos.Any();
+
+            return View(categoria);
+        }
+
+        // POST: Categoriatalento/Delete
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var categoria = await _context.Categoriatalentos
-                .Include(c => c.Talentos) 
-                .Include(c => c.Propostatrabalhos) 
+            var categoria = await _repo.Query()
+                .Include(c => c.Talentos)
+                .Include(c => c.Propostatrabalhos)
                 .FirstOrDefaultAsync(c => c.Idcategoria == id);
 
             if (categoria == null) return NotFound();
 
-            // Verifica se existem dependências
             if (categoria.Talentos.Any() || categoria.Propostatrabalhos.Any())
             {
-                TempData["Error"] = "Não pode eliminar esta categoria porque existem talentos ou propostas associados a ela.";
+                TempData["Error"] = "Impossível eliminar: Existem registos associados.";
                 return RedirectToAction(nameof(Index));
             }
 
-            _context.Categoriatalentos.Remove(categoria);
-            await _context.SaveChangesAsync();
+            await _repo.DeleteAsync(categoria);
             TempData["Success"] = "Categoria eliminada com sucesso!";
-    
             return RedirectToAction(nameof(Index));
         }
     }

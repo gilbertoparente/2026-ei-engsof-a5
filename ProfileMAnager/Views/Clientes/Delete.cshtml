@@ -4,8 +4,11 @@
 
 <p>Tem a certeza que deseja eliminar o cliente <strong>@Model.Nome</strong>?</p>
 
-<form method="post">
+<form asp-action="Delete" asp-route-id="@Model.Idcliente" method="post">
+    @Html.AntiForgeryToken()
+    
     <input type="hidden" asp-for="Idcliente" />
-    <button class="btn btn-danger">Eliminar</button>
-    <a href="/Clientes" class="btn btn-secondary">Cancelar</a>
+    
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
 </form>

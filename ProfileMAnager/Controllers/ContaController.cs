@@ -8,59 +8,69 @@ namespace ProfileMAnager.Controllers
 {
     public class ContaController : Controller
     {
-        private readonly ServicoAutenticacao _servico;
-        public ContaController(ServicoAutenticacao servico)
+        private readonly IAutenticacaoService _authService;
+
+        public ContaController(IAutenticacaoService authService)
         {
-            _servico = servico;
+            _authService = authService;
         }
 
         public IActionResult Login() => View();
 
-        //envia login
         [HttpPost]
+        [ValidateAntiForgeryToken] 
         public async Task<IActionResult> Login(string email, string password)
         {
-            var utilizador = _servico.Login(email, password);
+            var utilizador = _authService.Autenticar(email, password);
+            
             if (utilizador == null)
             {
-                ViewBag.Erro = "Email ou password inválidos";
+                ModelState.AddModelError("", "Email ou password inválidos.");
                 return View();
             }
-
+            
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, utilizador.Idutilizador.ToString()),
-                new Claim(ClaimTypes.Name, utilizador.Nome),
+                new Claim(ClaimTypes.Name, utilizador.Nome ?? "Utilizador"),
                 new Claim(ClaimTypes.Email, utilizador.Email)
             };
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);
+            
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+
             return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Registo() => View();
 
-        //cria registo
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Registo(string nome, string email, string password)
         {
-            bool sucesso = _servico.Registar(nome, email, password);
+            if (string.IsNullOrEmpty(nome) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            {
+                ViewBag.Erro = "Todos os campos são obrigatórios.";
+                return View();
+            }
+
+            bool sucesso = _authService.Registar(nome, email, password);
             if (!sucesso)
             {
-                ViewBag.Erro = "Email já registado";
+                ViewBag.Erro = "Este email já se encontra registado.";
                 return View();
             }
           
-            TempData["Sucesso"] = "Conta criada com sucesso! Já pode fazer login.";
+            TempData["Sucesso"] = "Registo efetuado! Já pode entrar na sua conta.";
             return RedirectToAction("Login");
         }
 
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login");
+            return RedirectToAction("Login", "Conta");
         }
     }
 }

@@ -51,21 +51,19 @@
                         <span class="badge @badgeClass">@item.Estado</span>
                     </td>
                     <td class="text-end pe-4">
-                        <div class="d-flex justify-content-end align-items-center gap-2">
-                            <a asp-action="Matching" asp-route-id="@item.Idproposta" class="btn btn-success btn-sm d-flex align-items-center">
+                       
+                        <div class="d-inline-flex justify-content-end gap-2">
+                            <a asp-action="Matching" asp-route-id="@item.Idproposta" class="btn btn-outline-primary btn-sm">
                                 <i class="bi bi-lightning-charge me-1"></i> Elegíveis
                             </a>
-                            <a asp-action="Edit" asp-route-id="@item.Idproposta" class="btn btn-primary btn-sm d-flex align-items-center">
+                            
+                            <a asp-action="Edit" asp-route-id="@item.Idproposta" class="btn btn-outline-primary btn-sm">
                                 <i class="bi bi-pencil me-1"></i> Editar
                             </a>
-                            <form asp-action="Delete" asp-route-id="@item.Idproposta" method="post" 
-                                  onsubmit="return confirm('ATENÇÃO: Deseja eliminar permanentemente esta proposta?');" 
-                                  class="m-0 d-inline-flex">
-                                @Html.AntiForgeryToken()
-                                <button type="submit" class="btn btn-danger btn-sm d-flex align-items-center">
-                                    <i class="bi bi-trash me-1"></i> Eliminar
-                                </button>
-                            </form>
+                    
+                            <a asp-action="Delete" asp-route-id="@item.Idproposta" class="btn btn-outline-danger btn-sm">
+                                <i class="bi bi-trash me-1"></i> Eliminar
+                            </a>
                         </div>
                     </td>
                 </tr>
