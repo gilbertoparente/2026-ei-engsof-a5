@@ -1,0 +1,13 @@
+﻿## Pastas de compilação (O que está a causar os erros)
+[Bb]in/
+[Ob]j/
+
+## Configurações do Rider/Visual Studio
+.idea/
+*.user
+*.suo
+*.sln.iml
+
+## Publicação e ficheiros temporários
+publish/
+.DS_Store
