@@ -13,10 +13,19 @@ namespace ProfileMAnager.Services
             _context = context;
         }
 
-        public async Task<List<RelatorioCategoriaPaisVM>> GetRelatorioCategoriaPais()
+        public async Task<List<RelatorioCategoriaPaisVM>> GetRelatorioCategoriaPais(string categoria, string pais)
         {
-            return await _context.Talentos
+            var query = _context.Talentos
                 .Include(t => t.IdcategoriaNavigation)
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(categoria))
+                query = query.Where(t => t.IdcategoriaNavigation.Nome == categoria);
+
+            if (!string.IsNullOrEmpty(pais))
+                query = query.Where(t => t.Pais == pais);
+
+            return await query
                 .GroupBy(t => new
                 {
                     Categoria = t.IdcategoriaNavigation.Nome,
@@ -26,10 +35,11 @@ namespace ProfileMAnager.Services
                 {
                     Categoria = g.Key.Categoria,
                     Pais = g.Key.Pais,
-                    Total = g.Count()
+                    Total = g.Count(),
+                    PrecoMedioMensal = g.Average(t => t.Precohora) * 176
                 })
-                .OrderBy(r => r.Categoria)
-                .ThenBy(r => r.Pais)
+                .OrderBy(x => x.Categoria)
+                .ThenBy(x => x.Pais)
                 .ToListAsync();
         }
     }

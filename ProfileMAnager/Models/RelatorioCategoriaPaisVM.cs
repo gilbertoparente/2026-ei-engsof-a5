@@ -7,5 +7,7 @@ namespace ProfileMAnager.Models
         public string Pais { get; set; }
 
         public int Total { get; set; }
+        
+        public decimal PrecoMedioMensal { get; set; }
     }
 }
