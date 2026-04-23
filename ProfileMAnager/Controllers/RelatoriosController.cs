@@ -1,36 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ProfileMAnager.Data;
-using ProfileMAnager.Services;
-
-namespace ProfileMAnager.Controllers
+﻿public async Task<IActionResult> RelatorioCategoriaPais(string categoria, string pais, string skill)
 {
-    public class RelatoriosController : Controller
-    {
-        private readonly RelatorioService _relatorioService;
-        private readonly AppDbContext _context;
+    ViewBag.Categorias = await _context.Categoriatalentos
+        .Select(c => c.Nome)
+        .Distinct()
+        .ToListAsync();
 
-        public RelatoriosController(RelatorioService relatorioService, AppDbContext context)
-        {
-            _relatorioService = relatorioService;
-            _context = context;
-        }
+    ViewBag.Paises = await _context.Talentos
+        .Select(t => t.Pais)
+        .Distinct()
+        .ToListAsync();
 
-        public async Task<IActionResult> RelatorioCategoriaPais(string categoria, string pais)
-        {
-            ViewBag.Categorias = await _context.Categoriatalentos
-                .Select(c => c.Nome)
-                .Distinct()
-                .ToListAsync();
+    ViewBag.Skills = await _context.Skills
+        .Select(s => s.Nome)
+        .Distinct()
+        .ToListAsync();
 
-            ViewBag.Paises = await _context.Talentos
-                .Select(t => t.Pais)
-                .Distinct()
-                .ToListAsync();
+    var resultado = await _relatorioService.GetRelatorioCategoriaPais(categoria, pais, skill);
 
-            var resultado = await _relatorioService.GetRelatorioCategoriaPais(categoria, pais);
-
-            return View(resultado);
-        }
-    }
+    return View(resultado);
 }

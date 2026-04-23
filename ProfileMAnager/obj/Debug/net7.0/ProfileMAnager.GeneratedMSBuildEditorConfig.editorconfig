@@ -9,157 +9,157 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = ProfileMAnager
 build_property.RootNamespace = ProfileMAnager
-build_property.ProjectDir = C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager\
+build_property.ProjectDir = C:\Users\Admin\Desktop\Software II\ProfileMAnager\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\gilbe\RiderProjects\ProfileMAnager\ProfileMAnager
+build_property.MSBuildProjectDirectory = C:\Users\Admin\Desktop\Software II\ProfileMAnager
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/CategoriaTalento/Create.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/CategoriaTalento/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhVGFsZW50b1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/CategoriaTalento/Delete.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/CategoriaTalento/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhVGFsZW50b1xEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/CategoriaTalento/Edit.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/CategoriaTalento/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhVGFsZW50b1xFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/CategoriaTalento/Index.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/CategoriaTalento/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcmlhVGFsZW50b1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Clientes/Create.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Clientes/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZXNcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Clientes/Delete.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Clientes/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZXNcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Clientes/Edit.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Clientes/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZXNcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Clientes/index.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Clientes/index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2xpZW50ZXNcaW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Conta/Login.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Conta/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFcTG9naW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Conta/Registo.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Conta/Registo.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFcUmVnaXN0by5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Home/Index.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Home/Privacy.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Pesquisa/Index.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Pesquisa/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGVzcXVpc2FcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Propostas/AddTalento.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Propostas/AddTalento.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcG9zdGFzXEFkZFRhbGVudG8uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Propostas/Create.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Propostas/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcG9zdGFzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Propostas/Delete.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Propostas/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcG9zdGFzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Propostas/Edit.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Propostas/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcG9zdGFzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Propostas/Index.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Propostas/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcG9zdGFzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Propostas/Matching.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Propostas/Matching.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvcG9zdGFzXE1hdGNoaW5nLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Relatorios/RelatorioCategoriaPais.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Relatorios/RelatorioCategoriaPais.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVsYXRvcmlvc1xSZWxhdG9yaW9DYXRlZ29yaWFQYWlzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Shared/Error.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Skills/Create.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Skills/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2tpbGxzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Skills/Delete.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Skills/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2tpbGxzXERlbGV0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Skills/Edit.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Skills/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2tpbGxzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Skills/Index.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Skills/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2tpbGxzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Talentos/AdicionarExperiencia.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Talentos/AdicionarExperiencia.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFsZW50b3NcQWRpY2lvbmFyRXhwZXJpZW5jaWEuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Talentos/AdicionarSkill.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Talentos/AdicionarSkill.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFsZW50b3NcQWRpY2lvbmFyU2tpbGwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Talentos/Create.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Talentos/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFsZW50b3NcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Talentos/Delete.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Talentos/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFsZW50b3NcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Talentos/Details.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Talentos/Details.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFsZW50b3NcRGV0YWlscy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Talentos/Edit.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Talentos/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFsZW50b3NcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Talentos/Index.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Talentos/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFsZW50b3NcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Talentos/MeusPerfis.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Talentos/MeusPerfis.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGFsZW50b3NcTWV1c1BlcmZpcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/_ViewImports.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/_ViewStart.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/gilbe/RiderProjects/ProfileMAnager/ProfileMAnager/Views/Shared/_Layout.cshtml]
+[C:/Users/Admin/Desktop/Software II/ProfileMAnager/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-7oyi477l29

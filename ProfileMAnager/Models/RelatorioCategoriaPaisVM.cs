@@ -5,6 +5,8 @@ namespace ProfileMAnager.Models
         public string Categoria { get; set; }
 
         public string Pais { get; set; }
+        
+        public string Skill { get; set; }
 
         public int Total { get; set; }
         
