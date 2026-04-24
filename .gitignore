@@ -6,7 +6,7 @@
 .idea/
 *.user
 *.suo
-*.sln.iml
+.sln.iml
 
 ## Publicação e ficheiros temporários
 publish/
