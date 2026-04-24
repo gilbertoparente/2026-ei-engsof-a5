@@ -26,48 +26,48 @@
         </div>
 
         <div class="row">
-            @foreach (var t in Model)
-            {
-                var valorTotal = t.Precohora * (proposta.Horastotais ?? 0);
-                
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow-sm h-100 border-0">
-                        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0">@t.Nome</h5>
-                            <span class="badge bg-light text-primary">@t.Precohora.ToString("C")/h</span>
-                        </div>
-                        
-                        <div class="card-body d-flex flex-column">
-                            <p class="mb-1 text-muted"><i class="bi bi-geo-alt"></i> @t.Pais</p>
-                            
-                            <div class="my-3 p-2 bg-light rounded text-center border">
-                                <small class="text-uppercase text-muted d-block" style="font-size: 0.7rem;">Custo Total Estimado</small>
-                                <strong class="fs-4 text-dark">@valorTotal.ToString("C")</strong>
-                            </div>
-
-                            <h6 class="border-bottom pb-1">Competências Chave:</h6>
-                            <div class="flex-grow-1">
-                                @foreach (var ts in t.Talentoskills)
-                                {
-                                    <span class="badge border text-dark fw-normal mb-1">
-                                        @ts.IdskillNavigation?.Nome (@ts.Anosexperiencia anos)
-                                    </span>
-                                }
-                            </div>
-
-                            <div class="mt-3">
-                                <form asp-action="AtribuirTalento" method="post">
-                                    <input type="hidden" name="idProposta" value="@proposta.Idproposta" />
-                                    <input type="hidden" name="idTalento" value="@t.Idtalento" />
-                                    <button type="submit" class="btn btn-success w-100 shadow-sm">
-                                        <i class="bi bi-check-circle me-2"></i> Selecionar Talento
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            }
+           @foreach (var t in Model)
+           {
+               var valorTotal = t.Precohora * (proposta.Horastotais ?? 0);
+               
+               <div class="col-md-4 mb-4">
+                   <div class="card shadow-sm h-100 border-0">
+                       <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center py-3">
+                           <h5 class="mb-0">@t.Nome</h5>
+                           <span class="badge bg-primary">@t.Precohora.ToString("C")/h</span>
+                       </div>
+                       
+                       <div class="card-body d-flex flex-column p-4">
+                           <p class="mb-3 text-muted"><i class="bi bi-geo-alt"></i> @t.Pais</p>
+                           
+                           <div class="mb-4 p-3 bg-light rounded text-center border shadow-sm">
+                               <small class="text-uppercase text-muted d-block fw-bold" style="font-size: 0.65rem; letter-spacing: 1px;">Custo Total Estimado</small>
+                               <strong class="fs-3 text-dark">@valorTotal.ToString("C")</strong>
+                           </div>
+           
+                           <h6 class="border-bottom pb-2 mb-3 fw-bold"><i class="bi bi-star text-warning"></i> Competências:</h6>
+                           <div class="flex-grow-1">
+                               @foreach (var ts in t.Talentoskills)
+                               {
+                                   <span class="badge border text-dark fw-normal mb-2 bg-white px-2 py-1">
+                                       @ts.IdskillNavigation?.Nome (@ts.Anosexperiencia anos)
+                                   </span>
+                               }
+                           </div>
+           
+                           <div class="mt-4">
+                               <form asp-action="AtribuirTalento" method="post">
+                                   <input type="hidden" name="idProposta" value="@proposta.Idproposta" />
+                                   <input type="hidden" name="idTalento" value="@t.Idtalento" />
+                                   <button type="submit" class="btn btn-success w-100 fw-bold py-2">
+                                       <i class="bi bi-check-lg me-2"></i> Selecionar Talento
+                                   </button>
+                               </form>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           }
         </div>
     }
 </div>

@@ -18,6 +18,16 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-
   transition: all 0.2s ease;
   margin: 2px;
 }
+/* SELECIONAR / ATRIBUIR (Verde) */
+.btn-success, .btn-outline-success {
+  color: #198754 !important; /* Verde do Bootstrap */
+  border: 1px solid #198754 !important;
+}
+
+.btn-success:hover, .btn-outline-success:hover {
+  background-color: #198754 !important;
+  color: white !important;
+}
 
 /* EDITAR / CRIAR / DETALHES / ELEGÍVEIS (Azul) */
 /* Adicionei .btn-info aqui que é o que costuma ser usado para "Elegíveis" */
@@ -52,9 +62,24 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-
   background-color: #6c757d !important;
   color: white !important;
 }
-/* Tabelas */
-.table { background: white; border-radius: var(--radius); overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-.table thead { background-color: #343a40; color: white; }
+/* Tabelas - Removido o 'background: white' global que causava o erro */
+.table {
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Garante que o corpo da tabela é branco, mas deixa o thead ser livre */
+.table tbody {
+  background-color: white;
+}
+
+/* Forçar o cabeçalho escuro caso o bootstrap falhe */
+.table-dark th {
+  background-color: #212529 !important;
+  color: white !important;
+  border-color: #373b3e !important;
+}
 
 /* Cards do Dashboard - Removido o efeito de escala */
 .card {
