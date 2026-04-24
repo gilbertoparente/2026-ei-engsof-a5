@@ -50,6 +50,6 @@ app.UseAuthorization();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Conta}/{action=Login}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
