@@ -53,8 +53,10 @@ dotnet ef database update
    dotnet run
 
 ---------------------------------------------------------------------------
+# Este projeto foi desenvolvido utilizando uma metodologia SCRUM
 
 # Sprint 4 
+De 13 a 26 de Abril
 1. SM - Gilberto Parente
 
 
@@ -66,18 +68,18 @@ Neste Sprint vamos ter como principais prioridades:
 4. Decidir quem será o próximo SM 
 
 # Backlog Sprint 4:
-1. Bug 1 - Apresentar as skills da proposta na edição da proposta - Gilberto Parente
-2. Bug 2 - Colocar Data Picker em vez de input manual do ano ao adicionar experiência  - Gilberto Parente
-3. Bug 3 - Correção de Salvar experiência  - Gilberto Parente
-4. Bug 4 - Ao adicionar experiência, corrigir o gravar a data atual  - Gilberto Parente
-5. Bug 5 - Falta ordenar as propostas elegíveis por valor total  - Gilberto Parente
-6. 24 - Definir experiência mínima na proposta -  - Gilberto Parente
-7. 25 - Ordenar resultados da pesquisa - Gilberto Parente
-8. 26 - Gestão de categorias de trabalho - Gilberto Parente
-9. 27 - Criar relatório por categoria e país - João Pereira 
-10. Testes unitários - Ruben Lima
-11. Relatorio - Equipa
-12. Vidoe - João Pereira e Ruben Lima
+1. Bug 1 - Apresentar as skills da proposta na edição da proposta -
+2. Bug 2 - Colocar Data Picker em vez de input manual do ano ao adicionar experiência  
+3. Bug 3 - Correção de Salvar experiência  
+4. Bug 4 - Ao adicionar experiência, corrigir o gravar a data atual  
+5. Bug 5 - Falta ordenar as propostas elegíveis por valor total 
+6. 24 - Definir experiência mínima na proposta 
+7. 25 - Ordenar resultados da pesquisa 
+8. 26 - Gestão de categorias de trabalho 
+9. 27 - Criar relatório por categoria e país 
+10. Testes unitários
+11. Relatorio 
+12. Vidoe 
 13. Limpeza de repositório
  
 
