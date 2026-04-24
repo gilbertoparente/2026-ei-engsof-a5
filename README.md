@@ -12,6 +12,7 @@ Professor: Abel Dantas
 # Tema do Grupo : A - Plataforma de gestão de talentos IT 
 
 # Canal de comunicação: Discord
+123
 
 # Comandos para instalaçáo dos pacotes entity framework:
 
