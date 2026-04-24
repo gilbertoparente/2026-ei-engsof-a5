@@ -77,6 +77,7 @@ Neste Sprint vamos ter como principais prioridades:
 10. Testes unitários - Ruben Lima
 11. Relatorio - Equipa
 12. Vidoe - João Pereira e Ruben Lima
+13. Limpeza de repositório
  
 
 # Tarefas a desenvolver no próximo sprint 5
