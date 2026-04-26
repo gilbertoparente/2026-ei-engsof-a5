@@ -1,5 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+#
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProfileMAnager", "ProfileMAnager\ProfileMAnager.csproj", "{FD95BE51-0F96-40D6-9F45-89076E1F7AEB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_Project_Manager", "Test_Project_Manager\Test_Project_Manager.csproj", "{07CFBA62-78D7-4AF7-AC9E-120132404C24}"
