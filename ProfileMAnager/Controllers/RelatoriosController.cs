@@ -10,13 +10,18 @@ namespace ProfileMAnager.Controllers
         private readonly RelatorioService _relatorioService;
         private readonly AppDbContext _context;
 
-        public RelatoriosController(RelatorioService relatorioService, AppDbContext context)
+        public RelatoriosController(
+            RelatorioService relatorioService,
+            AppDbContext context)
         {
             _relatorioService = relatorioService;
             _context = context;
         }
 
-        public async Task<IActionResult> RelatorioCategoriaPais(string categoria, string pais)
+        public async Task<IActionResult> RelatorioCategoriaPais(
+            string categoria,
+            string pais,
+            string skill)
         {
             ViewBag.Categorias = await _context.Categoriatalentos
                 .Select(c => c.Nome)
@@ -24,11 +29,18 @@ namespace ProfileMAnager.Controllers
                 .ToListAsync();
 
             ViewBag.Paises = await _context.Talentos
+                .Where(t => t.Pais != null)
                 .Select(t => t.Pais)
                 .Distinct()
                 .ToListAsync();
 
-            var resultado = await _relatorioService.GetRelatorioCategoriaPais(categoria, pais);
+            ViewBag.Skills = await _context.Skills
+                .Select(s => s.Nome)
+                .Distinct()
+                .ToListAsync();
+
+            var resultado = await _relatorioService
+                .GetRelatorioCategoriaPais(categoria, pais, skill);
 
             return View(resultado);
         }
