@@ -1,100 +1,175 @@
 ﻿@model ProfileMAnager.Models.ViewModels.DashboardViewModel
 
-@{ 
-    ViewData["Title"] = "Dashboard"; 
+@{
+    ViewData["Title"] = User.Identity.IsAuthenticated ? "Dashboard" : "Bem-vindo";
 }
 
-<div class="container mt-4">
-    <div class="row mb-4">
-        <div class="col-12">
-            @* Usamos Model.NomeUtilizador em vez de ViewBag *@
+@if (!User.Identity.IsAuthenticated)
+{
+    @* --- LANDING PAGE PROFISSIONAL COM LOGIN INTEGRADO (DESIGN CENTRADO) --- *@
+    @* Usamos um gradiente suave no fundo para destacar o conteúdo *@
+    <div class="container-fluid" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); min-height: 85vh;">
+        <div class="container py-5">
+            
+            @* CABEÇALHO CENTRADO: LOGO E DESCRIÇÃO *@
+            <div class="row justify-content-center text-center mb-5">
+                <div class="col-md-10 col-lg-8">
+                    @* LOGO AUMENTADO E CENTRADO *@
+                    @* Aumentámos max-height para 150px e usámos mx-auto *@
+                    <img src="~/css/logo.png" alt="ProfileManager Logo" class="img-fluid mb-4 mx-auto d-block shadow-sm" 
+                         style="max-height: 150px; border-radius: 15px;" 
+                         onerror="this.onerror=null; this.src='https://cdn-icons-png.flaticon.com/512/1063/1063376.png';">
+                    
+                    <h1 class="display-3 fw-bold text-dark">ProfileManager</h1>
+                    <p class="fs-4 text-primary fw-light mb-3">A excelência na gestão de talentos e competências.</p>
+                    
+                    <p class="lead text-muted mb-5 px-md-5">
+                        Uma solução centralizada para empresas e profissionais. O <strong>ProfileManager</strong> permite 
+                        mapear skills, organizar categorias e cruzar perfis com propostas de trabalho de forma automatizada e eficiente.
+                    </p>
+                </div>
+            </div>
+
+            @* SECÇÃO DE ACESSO E DESTAQUES *@
+            <div class="row justify-content-center gap-4">
+                
+                @* CARTÃO DE LOGIN (DIREITAMENTE NA PÁGINA) *@
+                <div class="col-md-6 col-lg-5">
+                    <div class="card border-0 shadow-lg h-100" style="border-radius: 20px;">
+                        <div class="card-body p-5">
+                            <div class="text-center mb-4">
+                                <i class="bi bi-box-arrow-in-right text-primary display-4"></i>
+                                <h3 class="fw-bold mt-2">Iniciar Sessão</h3>
+                                <p class="text-muted small">Introduza as suas credenciais para aceder ao painel.</p>
+                            </div>
+
+                            @* Garante que os names correspondem ao teu ContaController *@
+                            <form asp-controller="Conta" asp-action="Login" method="post">
+                                @Html.AntiForgeryToken()
+                                <div class="form-floating mb-3">
+                                    <input type="email" name="Email" class="form-control" id="floatingEmail" placeholder="nome@exemplo.com" required>
+                                    <label for="floatingEmail">Endereço de Email</label>
+                                </div>
+                                <div class="form-floating mb-4">
+                                    <input type="password" name="Password" class="form-control" id="floatingPassword" placeholder="Password" required>
+                                    <label for="floatingPassword">Palavra-passe</label>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary btn-lg w-100 fw-bold shadow-sm py-3 mb-3">
+                                    Aceder ao Dashboard
+                                </button>
+                            </form>
+
+                            <div class="text-center mt-3">
+                                <span class="small text-muted">Ainda não tem conta?</span>
+                                <a asp-controller="Conta" asp-action="Registo" class="small fw-bold text-decoration-none"> Criar uma agora</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @* CARTÃO DE FUNCIONALIDADES (PARA COMPLEMENTAR O DESIGN) *@
+                <div class="col-md-6 col-lg-5">
+                    <div class="card border-0 shadow-sm h-100 bg-white" style="border-radius: 20px;">
+                        <div class="card-body p-5">
+                            <h5 class="fw-bold mb-4 text-center text-md-start"><i class="bi bi-stars text-warning me-2"></i>Funcionalidades Chave</h5>
+                            
+                            <div class="d-flex align-items-start mb-4">
+                                <div class="bg-light p-3 rounded-circle me-3 mt-1">
+                                    <i class="bi bi-search text-primary fs-4"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-1">Pesquisa Inteligente de Skills</h6>
+                                    <small class="text-muted">Filtre talentos por país e competências técnicas instantaneamente.</small>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-start mb-4">
+                                <div class="bg-light p-3 rounded-circle me-3 mt-1">
+                                    <i class="bi bi-calculator text-primary fs-4"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-1">Cálculo de Custos Total</h6>
+                                    <small class="text-muted">Previsão automática baseada em horas estimadas e preço/hora.</small>
+                                </div>
+                            </div>
+
+                            <div class="d-flex align-items-start">
+                                <div class="bg-light p-3 rounded-circle me-3 mt-1">
+                                    <i class="bi bi-file-earmark-pdf text-primary fs-4"></i>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-1">Relatórios Estatísticos PDF</h6>
+                                    <small class="text-muted">Gere documentos para análise de mercado e distribuição de perfis.</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    @* --- DASHBOARD (APENAS PARA LOGADOS) --- *@
+    <div class="container mt-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
             <h2>Bem-vindo, @Model.NomeUtilizador! 👋</h2>
-            <p class="text-muted">Aqui está o resumo do ProfileManager hoje.</p>
+            <span class="badge bg-light text-dark border">Painel de Controlo</span>
+        </div>
+
+        @* ESTATÍSTICAS *@
+        <div class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="card bg-primary text-white border-0 shadow-sm py-3">
+                    <div class="card-body text-center">
+                        <i class="bi bi-people fs-1 opacity-50"></i>
+                        <h6 class="mt-2">Total de Talentos</h6>
+                        <h2 class="fw-bold">@Model.TotalTalentos</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-dark text-white border-0 shadow-sm py-3">
+                    <div class="card-body text-center">
+                        <i class="bi bi-file-earmark-text fs-1 opacity-50"></i>
+                        <h6 class="mt-2">Propostas Ativas</h6>
+                        <h2 class="fw-bold">@Model.TotalPropostas</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card bg-info text-white border-0 shadow-sm py-3">
+                    <div class="card-body text-center">
+                        <i class="bi bi-briefcase fs-1 opacity-50"></i>
+                        <h6 class="mt-2">Clientes Registados</h6>
+                        <h2 class="fw-bold">@Model.TotalClientes</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* LISTAS RÁPIDAS *@
+        <div class="row">
+             <div class="col-md-4 mb-4">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-header bg-white py-3 fw-bold">Recém Registados</div>
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush">
+                            @foreach (var t in Model.NovosTalentos)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    @t.Nome
+                                    <a asp-controller="Talentos" asp-action="Details" asp-route-id="@t.Idtalento" class="btn btn-sm btn-outline-primary">Ver</a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            @* Podes repetir para Propostas e Clientes aqui *@
         </div>
     </div>
-
-    @* ESTATÍSTICAS *@
-    <div class="row mb-5 text-center">
-        <div class="col-md-4 mb-3">
-            <div class="card bg-primary text-white shadow-sm border-0">
-                <div class="card-body">
-                    <h6><i class="bi bi-person-badge"></i> Total de Talentos</h6>
-                    <h2 class="fw-bold">@Model.TotalTalentos</h2>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-3">
-            <div class="card bg-dark text-white shadow-sm border-0">
-                <div class="card-body">
-                    <h6><i class="bi bi-file-earmark-text"></i> Propostas Ativas</h6>
-                    <h2 class="fw-bold">@Model.TotalPropostas</h2>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-3">
-            <div class="card bg-info text-white shadow-sm border-0">
-                <div class="card-body">
-                    <h6><i class="bi bi-building"></i> Clientes</h6>
-                    <h2 class="fw-bold">@Model.TotalClientes</h2>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        @* LISTA TALENTOS *@
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-white py-3"><strong><i class="bi bi-people text-primary"></i> Novos Talentos</strong></div>
-                <div class="card-body p-0">
-                    <ul class="list-group list-group-flush">
-                        @* Já não precisamos de verificar null ou fazer cast, o Model trata disso *@
-                        @foreach (var t in Model.NovosTalentos)
-                        {
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span class="text-truncate" style="max-width: 150px;">@(t.Nome ?? "Sem Nome")</span>
-                                <a asp-controller="Talentos" asp-action="Details" asp-route-id="@t.Idtalento" class="btn btn-sm btn-primary">Ver</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        @* LISTA PROPOSTAS *@
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-white py-3"><strong><i class="bi bi-file-text text-primary"></i> Últimas Propostas</strong></div>
-                <div class="card-body p-0">
-                    <ul class="list-group list-group-flush">
-                        @foreach (var p in Model.NovasPropostas)
-                        {
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span class="text-truncate" style="max-width: 150px;">@(p.Nome ?? "Sem Título")</span>
-                                <a asp-controller="Propostas" asp-action="Edit" asp-route-id="@p.Idproposta" class="btn btn-sm btn-primary">Ver</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        @* LISTA CLIENTES *@
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-white py-3"><strong><i class="bi bi-building text-primary"></i> Novos Clientes</strong></div>
-                <div class="card-body p-0">
-                    <ul class="list-group list-group-flush">
-                        @foreach (var c in Model.NovosClientes)
-                        {
-                            <li class="list-group-item d-flex justify-content-between align-items-center">
-                                <span class="text-truncate" style="max-width: 150px;">@(c.Nome ?? "Sem Nome")</span>
-                                <a asp-controller="Clientes" asp-action="Edit" asp-route-id="@c.Idcliente" class="btn btn-sm btn-primary">Ver</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+}

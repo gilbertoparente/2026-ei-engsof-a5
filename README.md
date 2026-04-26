@@ -5,13 +5,14 @@ Professor: Abel Dantas
 
 # Elementos do Grupo:
 1. Gilberto Parente - gilbertoparente@ipvc.pt
-2. Ruben LIma - limaruben@ipvc.pt
+2. Ruben Lima - limaruben@ipvc.pt
 3. João Pereira - o.pereira@ipvc.pt
 4. João Cruzeiro - jcruzeiro@ipvc.pt (congelou a matrícula)
 
 # Tema do Grupo : A - Plataforma de gestão de talentos IT 
 
 # Canal de comunicação: Discord
+123
 
 # Comandos para instalaçáo dos pacotes entity framework:
 
@@ -52,8 +53,10 @@ dotnet ef database update
    dotnet run
 
 ---------------------------------------------------------------------------
+# Este projeto foi desenvolvido utilizando uma metodologia SCRUM
 
 # Sprint 4 
+De 13 a 26 de Abril
 1. SM - Gilberto Parente
 
 
@@ -65,16 +68,19 @@ Neste Sprint vamos ter como principais prioridades:
 4. Decidir quem será o próximo SM 
 
 # Backlog Sprint 4:
-1. Bug 1 - Apresentar as skills da proposta na edição da proposta - Gilberto Parente
-2. Bug 2 - Colocar Data Picker em vez de input manual do ano ao adicionar experiência  - Gilberto Parente
-3. Bug 3 - Correção de Salvar experiência  - Gilberto Parente
-4. Bug 4 - Ao adicionar experiência, corrigir o gravar a data atual  - Gilberto Parente
-5. Bug 5 - Falta ordenar as propostas elegíveis por valor total  - Gilberto Parente
-6. 24 - Definir experiência mínima na proposta -  - Gilberto Parente
-7. 25 - Ordenar resultados da pesquisa - Gilberto Parente
-8. 26 - Gestão de categorias de trabalho - Gilberto Parente
-9. 27 - Criar relatório por categoria e país - 
-10. Testes unitários - 
+1. Bug 1 - Apresentar as skills da proposta na edição da proposta -
+2. Bug 2 - Colocar Data Picker em vez de input manual do ano ao adicionar experiência  
+3. Bug 3 - Correção de Salvar experiência  
+4. Bug 4 - Ao adicionar experiência, corrigir o gravar a data atual  
+5. Bug 5 - Falta ordenar as propostas elegíveis por valor total 
+6. 24 - Definir experiência mínima na proposta 
+7. 25 - Ordenar resultados da pesquisa 
+8. 26 - Gestão de categorias de trabalho 
+9. 27 - Criar relatório por categoria e país 
+10. Testes unitários
+11. Relatorio 
+12. Vidoe 
+13. Limpeza de repositório
  
 
 # Tarefas a desenvolver no próximo sprint 5
@@ -83,7 +89,10 @@ Neste Sprint vamos ter como principais prioridades:
 3. Fazer testes funcionais à aplicação
 4. Terminar os  testes unitários
 5. No decorrer do sprint 5 cada elemento do grupo tem que implementar um design parttern e fazer um video com a explicação e execução.
-6. Fazer um video completo mostrando todas as funcionalidades
+6. Desenvolver design patterns
+7. Desenvolver mecanismos de segurança de navegação e autenticação
+8. Decisão de estratégia da alocação da base de dados online
+9. Fazer um video completo mostrando todas as funcionalidades
 
 # Proximo SM
 Foi decidido que para o Sprint 5 o SM seria o João Pereira
@@ -93,6 +102,7 @@ Foi decidido que para o Sprint 5 o SM seria o João Pereira
 2. Dificuldade no desenvolviemnto dos testes unitários
 3. dificuldades na atribuição dos design partterns.
 4. Foram feitos os testes funcionais por toda a aplicação de modo a validar os inputs e a detetar erros na aplicação
+5. Para o iniciar os testes unitário, e com a necessidade de ser criado outro projeto, verificou-se que o github estava a apontar para a pasta do projeto MVC e não para a solução, foi feita a alteração do repositório para a pasta da solução, o que criou algumas dificuldades pois não criamos o .gitignore no inicio, o que levou a enviarmos para o git as pastas "obj" e "bin".
 
 
 
