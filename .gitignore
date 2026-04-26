@@ -11,10 +11,3 @@
 ## Publicação e ficheiros temporários
 publish/
 .DS_Store
-
-## Não guardar ficheiros temporários ou locais
-bin/
-obj/
-.idea/
-*.dll
-*.pdb
