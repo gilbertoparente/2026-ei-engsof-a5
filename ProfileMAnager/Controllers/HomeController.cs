@@ -2,8 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using ProfileMAnager.Services;
 using ProfileMAnager.Models.ViewModels;
-using System.Security.Claims;
-using ProfileMAnager.Models; // Certifica-te que tens este using para as Listas
+using ProfileMAnager.Models;
 
 namespace ProfileMAnager.Controllers
 {
@@ -16,24 +15,29 @@ namespace ProfileMAnager.Controllers
             _dashboardService = dashboardService;
         }
 
-        // Método único para a Home
         [AllowAnonymous] 
         public async Task<IActionResult> Index()
         {
-            // 1. Se o utilizador estiver logado, vamos buscar os dados reais
+            //  verifica se está logado
             if (User.Identity != null && User.Identity.IsAuthenticated)
             {
-                var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                int userId = int.TryParse(userIdStr, out int id) ? id : 0;
-        
-                var model = await _dashboardService.GetDashboardDataAsync(userId);
-                model.NomeUtilizador = User.Identity.Name ?? "Utilizador";
-        
-                return View(model); 
+                try 
+                {
+                    // chama o serviço.
+                    var model = await _dashboardService.GetDashboardDataAsync();
+                    model.NomeUtilizador = User.Identity.Name ?? "Utilizador";
+            
+                    return View(model); 
+                }
+                catch (UnauthorizedAccessException ex)
+                {
+                   
+                    TempData["MensagemProxy"] = ex.Message; 
+                    return RedirectToAction("Login", "Conta");
+                }
             }
 
-            // 2. Se NÃO estiver logado, enviamos um Model vazio para evitar erros na View
-            // A View (Index.cshtml) vai detetar que não há login e mostrar a Landing Page
+            // Caso contrário, mostra a Landing Page
             var modelVazio = new DashboardViewModel 
             { 
                 NovosTalentos = new List<Talento>(), 

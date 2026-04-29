@@ -12,7 +12,15 @@ namespace ProfileMAnager.Services
         {
             _context = context;
         }
-
+        
+        
+        public Task<DashboardViewModel> GetDashboardDataAsync()
+        {
+            throw new NotImplementedException("O serviço real requer um ID de utilizador. Utilize o Proxy para acesso automático ou a sobrecarga com parâmetro.");
+        }
+        
+        /// Este é o método que o Proxy irá invocar após validar a segurança e extrair o ID.
+       
         public async Task<DashboardViewModel> GetDashboardDataAsync(int userId)
         {
             return new DashboardViewModel
