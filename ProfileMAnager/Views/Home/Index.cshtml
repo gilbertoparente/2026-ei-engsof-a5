@@ -117,7 +117,10 @@ else
     <div class="container mt-4">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2>Bem-vindo, @Model.NomeUtilizador! 👋</h2>
-            <span class="badge bg-light text-dark border">Painel de Controlo</span>
+            <div class="text-end">
+                <span class="badge bg-light text-dark border">Painel de Controlo</span>
+                <p class="text-muted small mb-0">Resumo da atividade recente</p>
+            </div>
         </div>
 
         @* ESTATÍSTICAS *@
@@ -151,25 +154,76 @@ else
             </div>
         </div>
 
-        @* LISTAS RÁPIDAS *@
+        @* LISTAS RÁPIDAS (As 3 Colunas) *@
         <div class="row">
-             <div class="col-md-4 mb-4">
+            @* COLUNA: TALENTOS *@
+            <div class="col-md-4 mb-4">
                 <div class="card shadow-sm border-0 h-100">
-                    <div class="card-header bg-white py-3 fw-bold">Recém Registados</div>
+                    <div class="card-header bg-white py-3 fw-bold d-flex align-items-center">
+                        <i class="bi bi-person-badge text-primary me-2"></i> Novos Talentos
+                    </div>
                     <div class="card-body p-0">
                         <ul class="list-group list-group-flush">
                             @foreach (var t in Model.NovosTalentos)
                             {
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                                    @t.Nome
+                                    <span class="text-truncate" style="max-width: 150px;">@t.Nome</span>
                                     <a asp-controller="Talentos" asp-action="Details" asp-route-id="@t.Idtalento" class="btn btn-sm btn-outline-primary">Ver</a>
                                 </li>
+                            }
+                            @if (!Model.NovosTalentos.Any()) {
+                                <li class="list-group-item text-muted small">Nenhum talento registado.</li>
                             }
                         </ul>
                     </div>
                 </div>
             </div>
-            @* Podes repetir para Propostas e Clientes aqui *@
+
+            @* COLUNA: PROPOSTAS *@
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-header bg-white py-3 fw-bold d-flex align-items-center">
+                        <i class="bi bi-file-post text-dark me-2"></i> Últimas Propostas
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush">
+                            @foreach (var p in Model.NovasPropostas)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span class="text-truncate" style="max-width: 150px;">@p.Nome</span>
+                                    <a asp-controller="Propostas" asp-action="Edit" asp-route-id="@p.Idproposta" class="btn btn-sm btn-outline-dark">Gerir</a>
+                                </li>
+                            }
+                            @if (!Model.NovasPropostas.Any()) {
+                                <li class="list-group-item text-muted small">Sem propostas ativas.</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            @* COLUNA: CLIENTES *@
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm border-0 h-100">
+                    <div class="card-header bg-white py-3 fw-bold d-flex align-items-center">
+                        <i class="bi bi-building text-info me-2"></i> Novos Clientes
+                    </div>
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush">
+                            @foreach (var c in Model.NovosClientes)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span class="text-truncate" style="max-width: 150px;">@c.Nome</span>
+                                    <span class="badge bg-light text-muted fw-normal">@c.Pais</span>
+                                </li>
+                            }
+                            @if (!Model.NovosClientes.Any()) {
+                                <li class="list-group-item text-muted small">Sem clientes na base de dados.</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 }

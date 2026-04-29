@@ -23,6 +23,19 @@
   <ItemGroup>
     <None Remove="Database\Database.sql" />
     <None Include="wwwroot\css\logo.png" />
+    <None Remove="obj\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="obj\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="obj\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="obj\**" />
   </ItemGroup>
 
 </Project>
