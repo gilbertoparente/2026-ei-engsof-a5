@@ -63,31 +63,32 @@ De 27 de Abril a 10 de Maio
 1. SM - João Pereira
 
 # Sprint Planing
-Neste Sprint vamos ter como principais prioridades:
-1. Resolução dos Bugs encontrados no Sprint 4
-2. Desenvolvimento de funcionalidades do sprint 5
-3. Iniciar testes unitários às classes e UI.
-4. Decidir quem será o próximo SM
+O objetivo deste Sprint foi reforçar a segurança e controlo de acesso da aplicação, garantindo que apenas utilizadores autenticados conseguem aceder às funcionalidades privadas do sistema. Foram também realizadas melhorias relacionadas com navegação segura, autenticação e proteção das páginas da aplicação.
 
 # Backlog Sprint 5:
-1. Criar relatório por Skill
-2. Testes unitários classes e UI
-3. Melhoramento de interface 
-4. Design partterns
-5. Viedo do estado da aplicação
-6. gestão de perfil
-
-
+1. Testes Unitários
+2. Antenticar para aceder funcionalidades protegidas
+3. Terminar sessão de forma segura 
+4. Utilizadores aceder a relatórios e dashboards
+5. Restringir acesso a páginas privadas
+6. Validar sessão por utilizador
+7. Design partterns
 
 
 # Tarefas a desenvolver no próximo sprint 6
 1. Atualizar a documentação - relatório e project
 2. Fazer testes funcionais à aplicação
-3. Fazer um video completo mostrando todas as funcionalidades
+3. Decisão de estratégia da alocação da base de dados online
+4. Fazer um video completo mostrando todas as funcionalidades
 
+# Proximo SM
+Foi decidido que para o Sprint 6 o SM seria o Rúben Lima
 
 # Retrospetiva
-
+Uma das principais dificuldades encontradas foi a implementação dos mecanismos de autenticação e autorização no ASP.NET Core, especialmente na gestão de sessões autenticadas, redirecionamentos automáticos e restrição de acesso às páginas privadas da aplicação.
+Durante o desenvolvimento dos relatórios surgiram ainda alguns problemas relacionados com filtros, carregamento de skills e gestão de dados nulos, obrigando à realização de vários testes funcionais e correções sucessivas até garantir o correto funcionamento da tabela e dos filtros na mesma página.
+Foram realizados testes funcionais em toda a aplicação de forma a validar autenticação, permissões de acesso, funcionamento dos relatórios e comportamento das páginas protegidas. Estes testes permitiram identificar erros relacionados com permissões, sessões inválidas e carregamento de dados.
+No geral, o Sprint permitiu melhorar significativamente a segurança, organização e arquitetura da aplicação, deixando o sistema mais preparado para futuras funcionalidades e manutenção.
 
 
 
