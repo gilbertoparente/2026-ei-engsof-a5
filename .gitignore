@@ -1,6 +1,6 @@
 ﻿## Pastas de compilação (O que está a causar os erros)
 [Bb]in/
-[Ob]j/
+[Oo]bj/
 
 ## Configurações do Rider/Visual Studio
 .idea/
