@@ -1,6 +1,8 @@
 ﻿## Pastas de compilação (O que está a causar os erros)
 [Bb]in/
 [Ob]j/
+Test_Project_Manager/obj/
+Test_Project_Manager/bin/
 
 ## Configurações do Rider/Visual Studio
 .idea/
