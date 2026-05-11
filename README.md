@@ -55,6 +55,40 @@ dotnet ef database update
 ---------------------------------------------------------------------------
 # Este projeto foi desenvolvido utilizando uma metodologia SCRUM
 
+# Sprint 5
+De 27 de Abril a 10 de Maio
+1. SM - João Pereira
+
+# Sprint Planing
+Neste Sprint vamos ter como principais prioridades:
+1. Resolução dos Bugs encontrados no Sprint 4
+2. Desenvolvimento de funcionalidades do sprint 5
+3. Iniciar testes unitários às classes e UI.
+4. Decidir quem será o próximo SM
+
+# Backlog Sprint 5:
+1. Criar relatório por Skill
+2. Testes unitários classes e UI
+3. Melhoramento de interface 
+4. Design partterns
+5. Viedo do estado da aplicação
+6. gestão de perfil
+
+
+
+
+# Tarefas a desenvolver no próximo sprint 6
+1. Atualizar a documentação - relatório e project
+2. Fazer testes funcionais à aplicação
+3. Fazer um video completo mostrando todas as funcionalidades
+
+
+# Retrospetiva
+
+
+
+----------------------------------------------------------------------------
+
 # Sprint 4 
 De 13 a 26 de Abril
 1. SM - Gilberto Parente

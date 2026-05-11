@@ -1,0 +1,68 @@
+﻿@model ProfileMAnager.Models.ViewModels.PerfilViewModel
+@{
+    ViewData["Title"] = "O Meu Perfil";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-dark text-white py-3">
+                    <h5 class="mb-0"><i class="bi bi-person-gear me-2"></i>Definições de Perfil</h5>
+                </div>
+                <div class="card-body p-4">
+                    
+                    @if (TempData["Sucesso"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="bi bi-check-circle-fill me-2"></i> @TempData["Sucesso"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    }
+
+                    <form asp-action="Perfil" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Nome" class="form-label small fw-bold text-uppercase"></label>
+                                <input asp-for="Nome" class="form-control" placeholder="Seu nome" />
+                                <span asp-validation-for="Nome" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Email" class="form-label small fw-bold text-uppercase"></label>
+                                <input asp-for="Email" class="form-control" placeholder="seu@email.com" />
+                                <span asp-validation-for="Email" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <hr class="my-4 opacity-25">
+                        <h6 class="text-muted mb-3 small fw-bold text-uppercase">Alterar Palavra-Passe</h6>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="NovaPassword" class="form-label small fw-bold"></label>
+                                <input asp-for="NovaPassword" class="form-control" placeholder="••••••••" />
+                                <span asp-validation-for="NovaPassword" class="text-danger small"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="ConfirmarPassword" class="form-label small fw-bold"></label>
+                                <input asp-for="ConfirmarPassword" class="form-control" placeholder="••••••••" />
+                                <span asp-validation-for="ConfirmarPassword" class="text-danger small"></span>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                            <a asp-controller="Home" asp-action="Index" class="btn btn-light px-4">Cancelar</a>
+                            <button type="submit" class="btn btn-primary px-4">Guardar Alterações</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

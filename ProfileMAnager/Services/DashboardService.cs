@@ -30,6 +30,7 @@ namespace ProfileMAnager.Services
                 TotalClientes = await _context.Clientes.CountAsync(),
                 
                 NovosTalentos = await _context.Talentos
+                    .Include(t => t.IdcategoriaNavigation)
                     .Where(t => t.Idutilizador == userId)
                     .OrderByDescending(t => t.Idtalento)
                     .Take(5).ToListAsync(),

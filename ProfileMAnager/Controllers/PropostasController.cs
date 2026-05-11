@@ -17,14 +17,13 @@ namespace ProfileMAnager.Controllers
         private readonly IService<Cliente> _clienteRepo; 
         private readonly IService<Categoriatalento> _categoriaRepo; 
 
-        // Injeção de Dependência
+        
         public PropostasController(AppDbContext context, IPropostaService propostaService)
         {
             _context = context;
             _propostaService = propostaService;
         }
-
-        
+          
         private async Task CarregarDadosFormulario()
         {
             var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -145,7 +144,7 @@ namespace ProfileMAnager.Controllers
             return RedirectToAction("Edit", new { id = idProposta });
         }
 
-        // GET: Propostas/Delete/5
+        // GET: Propostas/Delete
         [HttpGet]
         public async Task<IActionResult> Delete(int? id)
         {
