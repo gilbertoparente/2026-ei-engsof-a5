@@ -112,5 +112,28 @@ namespace ProfileMAnager.Services
                 await _context.SaveChangesAsync();
             }
         }
+        
+        public async Task<List<Talento>> PesquisarPorSkillsAsync(int[] skillIds)
+        {
+            // 1. Se não há filtros, lista vazia
+            if (skillIds == null || skillIds.Length == 0) 
+                return new List<Talento>();
+
+            // 2. Construir a query
+            var query = _context.Talentos
+                .Include(t => t.IdcategoriaNavigation)
+                .Include(t => t.Talentoskills)
+                .ThenInclude(ts => ts.IdskillNavigation)
+                .AsQueryable();
+
+            // 3. Lógica AND (Interseção): 
+            // Para cada ID selecionado, o talento TEM de ter pelo menos uma relação com esse ID
+            foreach (var id in skillIds)
+            {
+                query = query.Where(t => t.Talentoskills.Any(ts => ts.Idskill == id));
+            }
+
+            return await query.ToListAsync();
+        }
     }
 }
