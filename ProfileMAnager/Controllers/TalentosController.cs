@@ -25,10 +25,28 @@ namespace ProfileMAnager.Controllers
         }
 
         // LISTAR
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int[] skillIds)
         {
             int userId = GetCurrentUserId();
-            var talentos = await _talentoService.GetTalentosPorUtilizadorAsync(userId);
+            IEnumerable<Talento> talentos; // Usamos IEnumerable para evitar o erro de conversão
+
+            if (skillIds != null && skillIds.Length > 0)
+            {
+                // O serviço já retorna List, que é compatível com IEnumerable
+                var resultados = await _talentoService.PesquisarPorSkillsAsync(skillIds);
+        
+                // Filtramos para o utilizador atual
+                talentos = resultados.Where(t => t.Idutilizador == userId);
+            }
+            else
+            {
+                talentos = await _talentoService.GetTalentosPorUtilizadorAsync(userId);
+            }
+
+            // Carregamos as skills para a View poder desenhar as checkboxes
+            ViewBag.Skills = await _skillRepo.GetAllAsync();
+            ViewBag.SelectedSkills = skillIds;
+
             return View(talentos);
         }
 
@@ -193,6 +211,31 @@ namespace ProfileMAnager.Controllers
         {
             await _talentoService.EliminarTalentoAsync(id);
             return RedirectToAction(nameof(Index));
+        }
+        
+        
+        // PESQUISA (GET)
+        public async Task<IActionResult> Pesquisa(int[] skillIds)
+        {
+            try 
+            {
+                List<Talento> resultados = new List<Talento>();
+        
+                if (skillIds != null && skillIds.Length > 0)
+                {
+                    resultados = await _talentoService.PesquisarPorSkillsAsync(skillIds);
+                }
+
+                ViewBag.Skills = await _skillRepo.GetAllAsync() ?? new List<Skill>();
+                ViewBag.SelectedSkills = skillIds ?? new int[0];
+
+                return View(resultados);
+            }
+            catch (Exception ex)
+            {
+                // Se der erro, isto ajuda-te a ver o que se passa em vez do Erro 500
+                return Content("Erro técnico: " + ex.Message);
+            }
         }
     }
 }

@@ -63,6 +63,11 @@ builder.Services.AddAuthentication(
         options.LoginPath = "/Conta/Login";
         options.LogoutPath = "/Conta/Logout";
         options.ExpireTimeSpan = TimeSpan.FromHours(1);
+        
+        // segurança contra pedidos externos 
+        options.Cookie.HttpOnly = true; 
+        options.Cookie.SameSite = SameSiteMode.Strict; 
+        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
     });
 
 var app = builder.Build();

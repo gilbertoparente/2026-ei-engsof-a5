@@ -3,20 +3,29 @@ using ProfileMAnager.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
+using ProfileMAnager.Data;
+using ProfileMAnager.Models.ViewModels;
 
 namespace ProfileMAnager.Controllers
 {
     public class ContaController : Controller
     {
         private readonly IAutenticacaoService _authService;
+        private readonly AppDbContext _context;
 
-        public ContaController(IAutenticacaoService authService)
+        public ContaController(IAutenticacaoService authService, AppDbContext context)
         {
             _authService = authService;
+            _context = context;
         }
 
+        
+        // GET - Apresenta a página de login 
+        
         public IActionResult Login() => View();
 
+        //autenticaão com cookie
         [HttpPost]
         [ValidateAntiForgeryToken] 
         public async Task<IActionResult> Login(string email, string password)
@@ -44,8 +53,10 @@ namespace ProfileMAnager.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        // GET - apresenta o registo
         public IActionResult Registo() => View();
-
+        
+        // POST realiza o regisot
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Registo(string nome, string email, string password)
@@ -71,6 +82,62 @@ namespace ProfileMAnager.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Index", "Home");
+        }
+        
+        [Authorize]
+        public async Task<IActionResult> Perfil()
+        {
+            var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!int.TryParse(userIdStr, out int userId)) return NotFound();
+
+            var utilizador = await _context.Utilizadors.FindAsync(userId);
+            if (utilizador == null) return NotFound();
+
+            var model = new PerfilViewModel
+            {
+                Nome = utilizador.Nome,
+                Email = utilizador.Email
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Perfil(PerfilViewModel model)
+        {
+            var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (!int.TryParse(userIdStr, out int userId)) return NotFound();
+
+            if (ModelState.IsValid)
+            {
+                var utilizador = await _context.Utilizadors.FindAsync(userId);
+                if (utilizador == null) return NotFound();
+
+                utilizador.Nome = model.Nome;
+                utilizador.Email = model.Email;
+
+                // Só atualiza a password se o utilizador escreveu algo no campo
+                if (!string.IsNullOrEmpty(model.NovaPassword))
+                {
+                    // Nota: Numa app real, usarias BCrypt ou PasswordHasher aqui
+                    utilizador.Passwordhash = model.NovaPassword; 
+                }
+
+                try
+                {
+                    _context.Update(utilizador);
+                    await _context.SaveChangesAsync();
+                    TempData["Sucesso"] = "Perfil atualizado com sucesso!";
+                    return RedirectToAction(nameof(Perfil));
+                }
+                catch (Exception)
+                {
+                    ModelState.AddModelError("", "Erro ao atualizar o perfil. O email pode já estar em uso.");
+                }
+            }
+            return View(model);
         }
     }
 }

@@ -13,5 +13,6 @@ namespace ProfileMAnager.Services
         Task AtualizarTalentoAsync(Talento talento);
         
         Task EliminarTalentoAsync(int id);
+        Task<List<Talento>> PesquisarPorSkillsAsync(int[] skillIds);
     }
 }
