@@ -1,6 +1,12 @@
 ﻿## Pastas de compilação (O que está a causar os erros)
 [Bb]in/
+<<<<<<< HEAD
 [Oo]bj/
+=======
+[Ob]j/
+**/bin/
+**/obj/
+>>>>>>> Testes-unitarios
 
 ## Configurações do Rider/Visual Studio
 .idea/
