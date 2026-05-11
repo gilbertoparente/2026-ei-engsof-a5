@@ -38,4 +38,8 @@
     <Content Remove="obj\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <AdditionalFiles Include="Pesquisa.cshtml" />
+  </ItemGroup>
+
 </Project>
