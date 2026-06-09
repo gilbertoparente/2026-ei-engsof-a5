@@ -9,7 +9,7 @@ using ProfileMAnager.Models;
 using ProfileMAnager.Services;
 using System.Security.Claims;
 
-namespace Test_Project_Manager;
+namespace Test_Project_Manager.Unit.Controllers;
 
 public class PropostasControllerTests
 {

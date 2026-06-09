@@ -7,7 +7,7 @@ using ProfileMAnager.Models.ViewModels;
 using ProfileMAnager.Services;
 using System.Security.Claims;
 
-namespace Test_Project_Manager;
+namespace Test_Project_Manager.Unit.Controllers;
 
 public class HomeControllerTests
 {
@@ -38,7 +38,7 @@ public class HomeControllerTests
         };
 
         var dashboardMock = new Mock<IDashboardService>();
-        dashboardMock.Setup(s => s.GetDashboardDataAsync(1))
+        dashboardMock.Setup(s => s.GetDashboardDataAsync())
             .ReturnsAsync(model);
 
         var controller = new HomeController(dashboardMock.Object);

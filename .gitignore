@@ -1,19 +1,16 @@
-﻿## Pastas de compilação (O que está a causar os erros)
+## Pastas de compilacao
 [Bb]in/
-<<<<<<< HEAD
 [Oo]bj/
-=======
-[Ob]j/
 **/bin/
 **/obj/
->>>>>>> Testes-unitarios
 
-## Configurações do Rider/Visual Studio
+## Configuracoes do Rider/Visual Studio
 .idea/
 *.user
 *.suo
 .sln.iml
 
-## Publicação e ficheiros temporários
+## Publicacao e ficheiros temporarios
 publish/
 .DS_Store
+Thumbs.db

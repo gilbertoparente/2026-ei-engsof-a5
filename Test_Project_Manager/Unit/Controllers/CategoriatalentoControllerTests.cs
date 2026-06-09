@@ -5,7 +5,7 @@ using ProfileMAnager.Controllers;
 using ProfileMAnager.Models;
 using ProfileMAnager.Services;
 
-namespace Test_Project_Manager;
+namespace Test_Project_Manager.Unit.Controllers;
 
 public class CategoriatalentoControllerTests
 {

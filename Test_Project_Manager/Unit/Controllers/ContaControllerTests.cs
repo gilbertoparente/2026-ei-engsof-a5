@@ -2,19 +2,31 @@ using Moq;
 using Xunit;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProfileMAnager.Controllers;
+using ProfileMAnager.Data;
 using ProfileMAnager.Models;
 using ProfileMAnager.Services;
 
-namespace Test_Project_Manager;
+namespace Test_Project_Manager.Unit.Controllers;
 
 public class ContaControllerTests
 {
+    private static AppDbContext CriarContexto()
+    {
+        var options = new DbContextOptionsBuilder<AppDbContext>()
+            .UseInMemoryDatabase(Guid.NewGuid().ToString())
+            .Options;
+
+        return new AppDbContext(options);
+    }
+
     [Fact]
     public void Login_Get_DeveRetornarView()
     {
         var authMock = new Mock<IAutenticacaoService>();
-        var controller = new ContaController(authMock.Object);
+        using var context = CriarContexto();
+        var controller = new ContaController(authMock.Object, context);
 
         var result = controller.Login();
 
@@ -25,7 +37,8 @@ public class ContaControllerTests
     public void Registo_Get_DeveRetornarView()
     {
         var authMock = new Mock<IAutenticacaoService>();
-        var controller = new ContaController(authMock.Object);
+        using var context = CriarContexto();
+        var controller = new ContaController(authMock.Object, context);
 
         var result = controller.Registo();
 
@@ -39,7 +52,8 @@ public class ContaControllerTests
         authMock.Setup(a => a.Autenticar("teste@email.com", "1234"))
                 .Returns((Utilizador?)null);
 
-        var controller = new ContaController(authMock.Object);
+        using var context = CriarContexto();
+        var controller = new ContaController(authMock.Object, context);
         controller.ControllerContext = new ControllerContext
         {
             HttpContext = new DefaultHttpContext()
@@ -55,7 +69,8 @@ public class ContaControllerTests
     public void Registo_CamposVazios_DeveRetornarViewComErro()
     {
         var authMock = new Mock<IAutenticacaoService>();
-        var controller = new ContaController(authMock.Object);
+        using var context = CriarContexto();
+        var controller = new ContaController(authMock.Object, context);
 
         var result = controller.Registo("", "", "");
 
@@ -70,7 +85,8 @@ public class ContaControllerTests
         authMock.Setup(a => a.Registar("Ruben", "teste@email.com", "1234"))
                 .Returns(false);
 
-        var controller = new ContaController(authMock.Object);
+        using var context = CriarContexto();
+        var controller = new ContaController(authMock.Object, context);
 
         var result = controller.Registo("Ruben", "teste@email.com", "1234");
 
@@ -85,7 +101,8 @@ public class ContaControllerTests
         authMock.Setup(a => a.Registar("Ruben", "teste@email.com", "1234"))
                 .Returns(true);
 
-        var controller = new ContaController(authMock.Object);
+        using var context = CriarContexto();
+        var controller = new ContaController(authMock.Object, context);
         controller.TempData = new Microsoft.AspNetCore.Mvc.ViewFeatures.TempDataDictionary(
             new DefaultHttpContext(),
             Mock.Of<Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataProvider>());

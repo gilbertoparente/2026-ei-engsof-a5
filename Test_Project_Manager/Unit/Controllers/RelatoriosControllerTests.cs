@@ -6,7 +6,7 @@ using ProfileMAnager.Models;
 using ProfileMAnager.Services;
 using Xunit;
 
-namespace Test_Project_Manager
+namespace Test_Project_Manager.Unit.Controllers
 {
     public class RelatoriosControllerTests
     {
@@ -41,8 +41,9 @@ namespace Test_Project_Manager
 
             await context.SaveChangesAsync();
 
-            var relatorioService = new RelatorioService(context);
-            var controller = new RelatoriosController(relatorioService, context);
+            var categoriaStrategy = new RelatorioCategoriaPaisStrategy(context);
+            var skillStrategy = new RelatorioSkillStrategy(context);
+            var controller = new RelatoriosController(context, categoriaStrategy, skillStrategy);
 
             var result = await controller.RelatorioCategoriaPais("Backend", "Portugal", "C#");
 

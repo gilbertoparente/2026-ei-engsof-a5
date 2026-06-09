@@ -5,7 +5,7 @@ using ProfileMAnager.Models;
 using ProfileMAnager.Services;
 using Xunit;
 
-namespace Test_Project_Manager
+namespace Test_Project_Manager.Unit.Controllers
 {
     public class SkillsControllerTests
     {
@@ -71,7 +71,7 @@ namespace Test_Project_Manager
             var areaRepoMock = new Mock<IService<Areaprofissional>>();
 
             skillRepoMock.Setup(r => r.GetByIdAsync(1))
-                .ReturnsAsync((Skill)null);
+                .ReturnsAsync((Skill?)null);
 
             var controller = new SkillsController(skillRepoMock.Object, areaRepoMock.Object);
 
