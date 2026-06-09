@@ -46,7 +46,7 @@ namespace ProfileMAnager.Controllers
                 NomeUtilizador = "Visitante"
             };
 
-            return View(modelVazio);
+            return View("Landing", modelVazio);
         }
     }
 }
