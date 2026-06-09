@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using ProfileMAnager.Data;
@@ -18,11 +20,18 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Program>
             RemoveDbContext<AppDbContext>(services);
             RemoveDbContext<GerirProposta>(services);
 
+            var appDbName = $"ProfileManagerIntegration-{Guid.NewGuid()}";
+            var gerirPropostaDbName = $"GerirPropostaIntegration-{Guid.NewGuid()}";
+
             services.AddDbContext<AppDbContext>(options =>
-                options.UseInMemoryDatabase($"ProfileManagerIntegration-{Guid.NewGuid()}"));
+                options.UseInMemoryDatabase(appDbName));
 
             services.AddDbContext<GerirProposta>(options =>
-                options.UseInMemoryDatabase($"GerirPropostaIntegration-{Guid.NewGuid()}"));
+                options.UseInMemoryDatabase(gerirPropostaDbName));
+
+            services.PostConfigure<CookieAuthenticationOptions>(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                options => options.Cookie.SecurePolicy = CookieSecurePolicy.None);
         });
     }
 
