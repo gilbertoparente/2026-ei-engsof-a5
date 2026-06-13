@@ -63,18 +63,17 @@ De 11 de Maio a 14 de Junho
 Neste Sprint vamos ter como principais prioridades:
 1. Atualizar a documentação - relatório e project
 2. Fazer testes funcionais à aplicação
-3.	Decisão de estratégia da alocação da base de dados online
+3. Alocação da base de dados online
 4.	Fazer um vídeo completo mostrando todas as funcionalidades
 
 # Backlog Sprint 6:
-1. Testes Unitários
-2. Antenticar para aceder funcionalidades protegidas
-3. Terminar sessão de forma segura
-4. Restringir acesso a páginas privadas
-5. Design partterns
-  
+1. Atualizar a documentação
+2. Fazer testes funcionais à aplicação
+3. Alocação da base de dados online
+4. Fazer um video completo mostrando todas as funcionalidades
 
-O objetivo deste Sprint foi .
+
+O objetivo deste Sprint foi proceder à consolidação das funcionalidades desenvolvidas, através da atualização da documentação do projeto, da realização de testes funcionais à aplicação, da elaboração de um vídeo demonstrativo com a apresentação das principais funcionalidades e da disponibilização da base de dados online. Estas tarefas permitiram assegurar uma validação mais rigorosa do trabalho realizado, bem como reforçar a organização e a consistência da entrega final do projeto.
 
 
 # Retrospetiva
