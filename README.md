@@ -54,7 +54,32 @@ dotnet ef database update
 
 ---------------------------------------------------------------------------
 # Este projeto foi desenvolvido utilizando uma metodologia SCRUM
+___________________________________________________________
+# Sprint 6
+De 11 de Maio a 14 de Junho
+1. SM - Ruben Lima
 
+# Sprint Planing
+Neste Sprint vamos ter como principais prioridades:
+1. Atualizar a documentação - relatório e project
+2. Fazer testes funcionais à aplicação
+3.	Decisão de estratégia da alocação da base de dados online
+4.	Fazer um vídeo completo mostrando todas as funcionalidades
+
+# Backlog Sprint 6:
+1. Testes Unitários
+2. Antenticar para aceder funcionalidades protegidas
+3. Terminar sessão de forma segura
+4. Restringir acesso a páginas privadas
+5. Design partterns
+  
+
+O objetivo deste Sprint foi .
+
+
+# Retrospetiva
+
+___________________________________________________________
 # Sprint 5
 De 27 de Abril a 10 de Maio
 1. SM - João Pereira
