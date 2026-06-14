@@ -18,26 +18,25 @@ namespace ProfileMAnager.Controllers
         [AllowAnonymous] 
         public async Task<IActionResult> Index()
         {
-            //  verifica se está logado
+            // 1. Verifica se o utilizador está logado
             if (User.Identity != null && User.Identity.IsAuthenticated)
             {
                 try 
                 {
-                    // chama o serviço.
+                    // Se estiver logado, carrega os dados reais do Dashboard
                     var model = await _dashboardService.GetDashboardDataAsync();
                     model.NomeUtilizador = User.Identity.Name ?? "Utilizador";
-            
-                    return View(model); 
+    
+                    return View(model); // Carrega automaticamente o Index.cshtml (Dashboard)
                 }
                 catch (UnauthorizedAccessException ex)
                 {
-                   
                     TempData["MensagemProxy"] = ex.Message; 
                     return RedirectToAction("Login", "Conta");
                 }
             }
 
-            // Caso contrário, mostra a Landing Page
+            // 2. CASO CONTRÁRIO (Se for Visitante/Não Logado)
             var modelVazio = new DashboardViewModel 
             { 
                 NovosTalentos = new List<Talento>(), 
@@ -46,7 +45,8 @@ namespace ProfileMAnager.Controllers
                 NomeUtilizador = "Visitante"
             };
 
-            return View(modelVazio);
+            // CORREÇÃO CRÍTICA AQUI: Forçar a renderização da View "Landing" em vez da "Index"
+            return View("Landing", modelVazio);
         }
     }
 }
