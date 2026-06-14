@@ -61,8 +61,9 @@ No ficheiro appsettings.json, configure a ligação à base de dados:
     "DefaultConnection": "Host=db.ysikmghbfwbfwpusamnl.supabase.co;Port=5432;Database=postgres;Username=postgres;Password=#JoaoPereira27;SSL Mode=Require;Trust Server Certificate=true"
   }
 
-Inicialização do Projeto
-Abra o terminal na pasta raiz e execute:
+   Inicialização do Projeto
+   Abra o terminal na pasta raiz e execute:
+
 ---------------------------------------------------------------------------
 # Este projeto foi desenvolvido utilizando uma metodologia SCRUM
 ___________________________________________________________
