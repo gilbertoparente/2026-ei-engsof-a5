@@ -1,8 +1,10 @@
 ﻿# =========================
 # .NET Build outputs
 # =========================
-bin/
-obj/
+[Bb]in/
+[Oo]bj/
+**/bin/
+**/obj/
 
 # =========================
 # Rider / JetBrains IDE
@@ -17,11 +19,6 @@ obj/
 *.suo
 *.userosscache
 *.sln.docstates
-
-# =========================
-# ASP.NET / Web assets
-# =========================
-wwwroot/lib/
 
 # =========================
 # Logs

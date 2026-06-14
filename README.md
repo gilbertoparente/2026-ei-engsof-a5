@@ -52,9 +52,45 @@ dotnet ef database update
 1. Execução
    dotnet run
 
+# Alocação da Base de dados Online:
+# A aplicação utiliza uma base de dados PostgreSQL alojada no Supabase.
+No ficheiro appsettings.json, configure a ligação à base de dados:
+1. No ficheiro `appsettings.json`, configure a sua ligação:
+   ```json
+   "ConnectionStrings": {
+    "DefaultConnection": "Host=db.ysikmghbfwbfwpusamnl.supabase.co;Port=5432;Database=postgres;Username=postgres;Password=#JoaoPereira27;SSL Mode=Require;Trust Server Certificate=true"
+  }
+
+2.Inicialização do Projeto
+Abra o terminal na pasta raiz e execute:
+
 ---------------------------------------------------------------------------
 # Este projeto foi desenvolvido utilizando uma metodologia SCRUM
+___________________________________________________________
+# Sprint 6
+De 11 de Maio a 14 de Junho
+1. SM - Ruben Lima
 
+# Sprint Planing
+Neste Sprint vamos ter como principais prioridades:
+1. Atualizar a documentação - relatório e project
+2. Fazer testes funcionais à aplicação
+3. Alocação da base de dados online
+4.	Fazer um vídeo completo mostrando todas as funcionalidades
+
+# Backlog Sprint 6:
+1. Atualizar a documentação
+2. Fazer testes funcionais à aplicação
+3. Alocação da base de dados online
+4. Fazer um video completo mostrando todas as funcionalidades
+
+
+O objetivo deste Sprint foi proceder à consolidação das funcionalidades desenvolvidas, através da atualização da documentação do projeto, da realização de testes funcionais à aplicação, da elaboração de um vídeo demonstrativo com a apresentação das principais funcionalidades e da disponibilização da base de dados online. Estas tarefas permitiram assegurar uma validação mais rigorosa do trabalho realizado, bem como reforçar a organização e a consistência da entrega final do projeto.
+
+
+# Retrospetiva
+
+___________________________________________________________
 # Sprint 5
 De 27 de Abril a 10 de Maio
 1. SM - João Pereira

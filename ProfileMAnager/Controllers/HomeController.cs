@@ -45,7 +45,10 @@ namespace ProfileMAnager.Controllers
                 NomeUtilizador = "Visitante"
             };
 
+<<<<<<< HEAD
             // CORREÇÃO CRÍTICA AQUI: Forçar a renderização da View "Landing" em vez da "Index"
+=======
+>>>>>>> origin/main
             return View("Landing", modelVazio);
         }
     }
