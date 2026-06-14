@@ -62,7 +62,7 @@ No ficheiro appsettings.json, configure a ligação à base de dados:
   }
 
 2.Inicialização do Projeto
-   Abra o terminal na pasta raiz e execute:
+Abra o terminal na pasta raiz e execute:
 
 ---------------------------------------------------------------------------
 # Este projeto foi desenvolvido utilizando uma metodologia SCRUM
