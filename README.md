@@ -64,7 +64,6 @@ No ficheiro appsettings.json, configure a ligação à base de dados:
 2.Inicialização do Projeto
 Abra o terminal na pasta raiz e execute:
 
----------------------------------------------------------------------------
 # Este projeto foi desenvolvido utilizando uma metodologia SCRUM
 ___________________________________________________________
 # Sprint 6
@@ -89,6 +88,10 @@ O objetivo deste Sprint foi proceder à consolidação das funcionalidades desen
 
 
 # Retrospetiva
+
+O Sprint 6 marcou a fase final do desenvolvimento do projeto, tendo sido dedicado principalmente à validação, testes e preparação da aplicação para entrega. Durante este período foram concluídos os testes de integração, corrigidos os problemas identificados e efetuadas melhorias na organização do código e da infraestrutura da aplicação.
+A implementação da base de dados online permitiu centralizar a informação e facilitar o trabalho colaborativo entre os elementos do grupo, contribuindo para uma melhor gestão e demonstração do sistema. Foram também realizados testes funcionais às principais funcionalidades da aplicação, garantindo a estabilidade e o correto funcionamento dos módulos desenvolvidos ao longo dos vários sprints.
+De uma forma geral, os objetivos definidos para o Sprint foram alcançados com sucesso. O grupo conseguiu concluir as funcionalidades previstas, validar o sistema através de testes e preparar a aplicação para a apresentação final, consolidando os conhecimentos adquiridos em desenvolvimento de software, design patterns, testes e gestão de projeto.
 
 ___________________________________________________________
 # Sprint 5
