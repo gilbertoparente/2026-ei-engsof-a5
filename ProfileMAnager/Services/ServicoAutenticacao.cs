@@ -42,7 +42,22 @@ namespace ProfileMAnager.Services
                 return null;
 
             // Verifica se a password em texto limpo corresponde ao Hash na BD
-            bool valido = BCrypt.Net.BCrypt.Verify(password, utilizador.Passwordhash);
+            bool valido;
+            try
+            {
+                valido = BCrypt.Net.BCrypt.Verify(password, utilizador.Passwordhash);
+            }
+            catch (SaltParseException)
+            {
+                if (utilizador.Passwordhash != password)
+                    return null;
+
+                utilizador.Passwordhash = BCrypt.Net.BCrypt.HashPassword(password);
+                utilizador.UpdatedAt = DateTime.UtcNow;
+                _context.SaveChanges();
+                valido = true;
+            }
+
             return valido ? utilizador : null;
         }
     }

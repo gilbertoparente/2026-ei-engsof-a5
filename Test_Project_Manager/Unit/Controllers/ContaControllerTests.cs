@@ -6,7 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using ProfileMAnager.Controllers;
 using ProfileMAnager.Data;
 using ProfileMAnager.Models;
+using ProfileMAnager.Models.ViewModels;
 using ProfileMAnager.Services;
+using System.Security.Claims;
 
 namespace Test_Project_Manager.Unit.Controllers;
 
@@ -111,5 +113,75 @@ public class ContaControllerTests
 
         var redirectResult = Assert.IsType<RedirectToActionResult>(result);
         Assert.Equal("Login", redirectResult.ActionName);
+    }
+
+    [Fact]
+    public async Task Perfil_ComNovaPassword_DeveGuardarHashBCrypt()
+    {
+        var authMock = new Mock<IAutenticacaoService>();
+        using var context = CriarContexto();
+        var utilizador = new Utilizador
+        {
+            Idutilizador = 1,
+            Nome = "Ruben",
+            Email = "teste@email.com",
+            Passwordhash = BCrypt.Net.BCrypt.HashPassword("password-antiga")
+        };
+        context.Utilizadors.Add(utilizador);
+        await context.SaveChangesAsync();
+
+        var controller = new ContaController(authMock.Object, context);
+        controller.ControllerContext = new ControllerContext
+        {
+            HttpContext = new DefaultHttpContext
+            {
+                User = new ClaimsPrincipal(new ClaimsIdentity(new[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, utilizador.Idutilizador.ToString())
+                }))
+            }
+        };
+        controller.TempData = new Microsoft.AspNetCore.Mvc.ViewFeatures.TempDataDictionary(
+            new DefaultHttpContext(),
+            Mock.Of<Microsoft.AspNetCore.Mvc.ViewFeatures.ITempDataProvider>());
+
+        var model = new PerfilViewModel
+        {
+            Nome = "Ruben Atualizado",
+            Email = "teste@email.com",
+            NovaPassword = "password-nova",
+            ConfirmarPassword = "password-nova"
+        };
+
+        var result = await controller.Perfil(model);
+
+        var redirectResult = Assert.IsType<RedirectToActionResult>(result);
+        Assert.Equal("Perfil", redirectResult.ActionName);
+        Assert.NotEqual("password-nova", utilizador.Passwordhash);
+        Assert.True(BCrypt.Net.BCrypt.Verify("password-nova", utilizador.Passwordhash));
+    }
+
+    [Fact]
+    public void Autenticar_ComPasswordGuardadaEmTexto_DeveRepararHashEManterUtilizador()
+    {
+        using var context = CriarContexto();
+        var utilizador = new Utilizador
+        {
+            Idutilizador = 1,
+            Nome = "Ruben",
+            Email = "teste@email.com",
+            Passwordhash = "password-nova"
+        };
+        context.Utilizadors.Add(utilizador);
+        context.SaveChanges();
+
+        var service = new ServicoAutenticacao(context);
+
+        var autenticado = service.Autenticar("teste@email.com", "password-nova");
+
+        Assert.NotNull(autenticado);
+        Assert.Equal(utilizador.Idutilizador, autenticado.Idutilizador);
+        Assert.NotEqual("password-nova", utilizador.Passwordhash);
+        Assert.True(BCrypt.Net.BCrypt.Verify("password-nova", utilizador.Passwordhash));
     }
 }

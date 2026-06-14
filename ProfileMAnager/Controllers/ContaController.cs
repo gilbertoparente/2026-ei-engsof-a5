@@ -121,8 +121,7 @@ namespace ProfileMAnager.Controllers
                 // Só atualiza a password se o utilizador escreveu algo no campo
                 if (!string.IsNullOrEmpty(model.NovaPassword))
                 {
-                    // Nota: Numa app real, usarias BCrypt ou PasswordHasher aqui
-                    utilizador.Passwordhash = model.NovaPassword; 
+                    utilizador.Passwordhash = BCrypt.Net.BCrypt.HashPassword(model.NovaPassword); 
                 }
 
                 try
