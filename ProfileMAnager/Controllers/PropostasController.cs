@@ -137,11 +137,33 @@ namespace ProfileMAnager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AtribuirTalento(int idProposta, int idTalento)
         {
-            bool sucesso = await _propostaService.AtribuirTalentoAsync(idProposta, idTalento);
-            
-            if (!sucesso) return RedirectToAction("Matching", new { id = idProposta });
-            
-            return RedirectToAction("Edit", new { id = idProposta });
+            try
+            {
+                // 1. Tenta fazer a atribuição através do serviço
+                bool sucesso = await _propostaService.AtribuirTalentoAsync(idProposta, idTalento);
+        
+                if (!sucesso)
+                {
+                    // Detetado pela validação lógica normal (pedido limpo já existente)
+                    TempData["Erro"] = "Este talento já se encontra associado a esta proposta.";
+                    return RedirectToAction("Matching", new { id = idProposta });
+                }
+        
+                TempData["Sucesso"] = "Talento atribuído com sucesso!";
+                return RedirectToAction("Edit", new { id = idProposta });
+            }
+            catch (DbUpdateException)
+            {
+                // 2. CAPTURA DE CONCORRÊNCIA: Captura o erro 23505 do Postgres se houver duplo clique
+                TempData["Erro"] = "Aviso de concorrência: Este talento já foi associado à proposta.";
+                return RedirectToAction("Matching", new { id = idProposta });
+            }
+            catch (Exception ex)
+            {
+                // 3. CAPTURA GERAL: Impede qualquer outro crash inesperado (HTTP 500)
+                TempData["Erro"] = "Ocorreu um erro inesperado ao processar a atribuição.";
+                return RedirectToAction("Matching", new { id = idProposta });
+            }
         }
 
         // GET: Propostas/Delete

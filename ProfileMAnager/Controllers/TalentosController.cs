@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Authorization;
 using ProfileMAnager.Models;
 using ProfileMAnager.Services;
+
 using System.Security.Claims;
 
 namespace ProfileMAnager.Controllers
@@ -13,15 +14,17 @@ namespace ProfileMAnager.Controllers
         private readonly ITalentoService _talentoService;
         private readonly IService<Categoriatalento> _categoriaRepo;
         private readonly IService<Skill> _skillRepo;
-
+        private readonly IPesquisaService _pesquisaService;
         public TalentosController(
             ITalentoService talentoService, 
             IService<Categoriatalento> categoriaRepo,
-            IService<Skill> skillRepo)
+            IService<Skill> skillRepo,
+            IPesquisaService pesquisaService) 
         {
             _talentoService = talentoService;
             _categoriaRepo = categoriaRepo;
             _skillRepo = skillRepo;
+            _pesquisaService = pesquisaService;
         }
 
         // LISTAR
@@ -214,16 +217,18 @@ namespace ProfileMAnager.Controllers
         }
         
         
-        // PESQUISA (GET)
+        // PESQUISA (GET) no teu TalentosController.cs
         public async Task<IActionResult> Pesquisa(int[] skillIds)
         {
             try 
             {
                 List<Talento> resultados = new List<Talento>();
-        
+
                 if (skillIds != null && skillIds.Length > 0)
                 {
-                    resultados = await _talentoService.PesquisarPorSkillsAsync(skillIds);
+                    // CORREÇÃO: Chamamos o serviço correto que criaste, garantindo a ordenação
+                    var dados = await _pesquisaService.PesquisarTalentosPorSkillsAsync(skillIds);
+                    resultados = dados.ToList();
                 }
 
                 ViewBag.Skills = await _skillRepo.GetAllAsync() ?? new List<Skill>();
@@ -233,7 +238,6 @@ namespace ProfileMAnager.Controllers
             }
             catch (Exception ex)
             {
-                // Se der erro, isto ajuda-te a ver o que se passa em vez do Erro 500
                 return Content("Erro técnico: " + ex.Message);
             }
         }
