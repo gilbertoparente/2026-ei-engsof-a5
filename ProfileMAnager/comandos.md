@@ -7,6 +7,7 @@
 
 
 # depois no Rider
+
 1. git checkout main
 2. git pull
 1. git checkout -b feature-desktop
